@@ -1,6 +1,6 @@
 {
     "name": "madmatt/id3global-service",
-    "description": "Allows a PHP-powered website to communicate with the GBG ID3global API to verify identities",
+    "description": "Allows a PHP-powered website to communicate with the GBG ID3global API to verify identities. This library is not affiliated with GBG PLC in any way.",
     "type": "library",
     "keywords": [ "id3global", "GBG", "GBG PLC", "ID3Global", "identity verification", "identity" ],
     "homepage": "https://github.com/madmatt/id3global-service/",
@@ -11,7 +11,7 @@
     },
 
     "require-dev": {
-        "phpunit/phpunit": "~4"
+        "phpunit/phpunit": "~5"
     },
 
     "authors": [
@@ -28,9 +28,10 @@
     },
 
     "autoload": {
+        "exclude-from-classmap": [ "/tests/" ],
         "psr-4": {
             "ID3Global\\": "src/"
-        },
-        "exclude-from-classmap": [ "/tests/" ]
+        }
+
     }
 }

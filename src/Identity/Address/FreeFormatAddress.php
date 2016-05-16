@@ -1,7 +1,9 @@
 <?php
 namespace ID3Global\Identity\Address;
 
-class FreeFormatAddress {
+use \ID3Global\Identity\ID3IdentityObject;
+
+class FreeFormatAddress extends ID3IdentityObject implements Address {
     /**
      * @var string
      */

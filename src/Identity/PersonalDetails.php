@@ -3,31 +3,31 @@ namespace ID3Global\Identity;
 
 use \DateTime;
 
-class PersonalDetails {
+class PersonalDetails extends ID3IdentityObject {
     /**
      * @var string
      */
-    private $title;
+    private $Title;
 
     /**
      * @var string
      */
-    private $foreName;
+    private $Forename;
 
     /**
      * @var string
      */
-    private $middleName;
+    private $MiddleName;
 
     /**
      * @var string
      */
-    private $surname;
+    private $Surname;
 
     /**
      * @var string
      */
-    private $gender;
+    private $Gender;
 
     /**
      * @var DateTime
@@ -35,20 +35,35 @@ class PersonalDetails {
     private $dateOfBirth;
 
     /**
+     * @var int
+     */
+    private $DOBDay;
+
+    /**
+     * @var int
+     */
+    private $DOBMonth;
+
+    /**
+     * @var int
+     */
+    private $DOBYear;
+
+    /**
      * @param string $title
      * @return PersonalDetails
      */
     public function setTitle($title) {
-        $this->title = $title;
+        $this->Title = $title;
         return $this;
     }
 
     /**
-     * @param string $foreName
+     * @param string $forename
      * @return PersonalDetails
      */
-    public function setForeName($foreName) {
-        $this->foreName = $foreName;
+    public function setForename($forename) {
+        $this->Forename = $forename;
         return $this;
     }
 
@@ -57,7 +72,7 @@ class PersonalDetails {
      * @return PersonalDetails
      */
     public function setMiddleName($middleName) {
-        $this->middleName = $middleName;
+        $this->MiddleName = $middleName;
         return $this;
     }
 
@@ -66,7 +81,7 @@ class PersonalDetails {
      * @return PersonalDetails
      */
     public function setSurname($surname) {
-        $this->surname = $surname;
+        $this->Surname = $surname;
         return $this;
     }
 
@@ -75,7 +90,7 @@ class PersonalDetails {
      * @return PersonalDetails
      */
     public function setGender($gender) {
-        $this->gender = $gender;
+        $this->Gender = $gender;
         return $this;
     }
 
@@ -90,6 +105,10 @@ class PersonalDetails {
         $this->dateOfBirth = $date
             ->setDate($year, $month, $day)
             ->setTime(0, 0, 0);
+
+        $this->DOBDay = $day;
+        $this->DOBMonth = $month;
+        $this->DOBYear = $year;
 
         return $this;
     }

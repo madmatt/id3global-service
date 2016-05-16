@@ -99,7 +99,7 @@ $contactDetails
  * It is up to the implemenetation how these are handled.
  * An exception is thrown if the web service fails or cannot be contacted.
  */
-$identity = new \ID3Global\Identity\IdentityContainer();
+$identity = new \ID3Global\Identity\Identity();
 $identity
     ->setPersonalDetails($$personalDetails)
     ->setAddresses($addressContainer)

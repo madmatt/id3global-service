@@ -2,7 +2,25 @@
 
 namespace ID3Global\Identity;
 
-class IdentityContainer {
+class Identity {
+    /**
+     * @var string The const returned by the ID3Global API when this identity passed verification, according to the
+     * ruleset used.
+     */
+    const IDENTITY_BAND_PASS = 'Pass';
+
+    /**
+     * @var string The const returned by the ID3Global API when this identity needs additional referral, according to
+     * the ruleset used.
+     */
+    const IDENTITY_BAND_REFER = 'Refer';
+
+    /**
+     * The const returned by the ID3Global API when this identity needs additional referral, according to
+     * the ruleset used.
+     */
+    const IDENTITY_BAND_ALERT = 'Alert';
+
     /**
      * @var \ID3Global\Identity\PersonalDetails
      */
@@ -20,7 +38,7 @@ class IdentityContainer {
 
     /**
      * @param PersonalDetails $personalDetails
-     * @return IdentityContainer
+     * @return Identity
      */
     public function setPersonalDetails($personalDetails)
     {
@@ -28,9 +46,13 @@ class IdentityContainer {
         return $this;
     }
 
+    public function getPersonalDetails() {
+        return $this->personalDetails;
+    }
+
     /**
      * @param ContactDetails $contactDetails
-     * @return IdentityContainer
+     * @return Identity
      */
     public function setContactDetails($contactDetails)
     {
@@ -40,11 +62,15 @@ class IdentityContainer {
 
     /**
      * @param Address\AddressContainer $addresses
-     * @return IdentityContainer
+     * @return Identity
      */
     public function setAddresses($addresses)
     {
         $this->addresses = $addresses;
         return $this;
+    }
+
+    public function getAddresses() {
+        return $this->addresses;
     }
 }

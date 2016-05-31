@@ -17,52 +17,52 @@ The WSDL file gives an overview of the values that can be provided, these will v
  * \ID3Global\Constants\Identity
  * \ID3Global\Gateways\GlobalAuthenticationGateway
  * \ID3Global\Services\GlobalAuthenticationService
- * \ID3Global\Model\Identity\Address\FreeFormatAddress
- * \ID3Global\Model\Identity\Address\FixedFormatAddress
- * \ID3Global\Model\Identity\ContactDetails
- * \ID3Global\Model\Identity\ContactDetails\LandTelephone
- * \ID3Global\Model\Identity\ContactDetails\MobileTelephone
- * \ID3Global\Model\Identity\ContactDetails\WorkTelephone
- * \ID3Global\Model\Identity\Documents\NZ\DrivingLicence
- * \ID3Global\Model\Identity\PersonalDetails
+ * \ID3Global\Identity\Address\FreeFormatAddress
+ * \ID3Global\Identity\Address\FixedFormatAddress
+ * \ID3Global\Identity\ContactDetails
+ * \ID3Global\Identity\ContactDetails\LandTelephone
+ * \ID3Global\Identity\ContactDetails\MobileTelephone
+ * \ID3Global\Identity\ContactDetails\WorkTelephone
+ * \ID3Global\Identity\Documents\NZ\DrivingLicence
+ * \ID3Global\Identity\PersonalDetails
  *
- * \ID3Global\Containers\Model\Identity\Addresses<\ID3Global\Model\Identity\Address\FreeFormatAddress, \ID3Global\Model\Identity\Address\FixedFormatAddress>
+ * \ID3Global\Identity\Addresses<\ID3Global\Identity\Address\FreeFormatAddress, \ID3Global\Identity\Address\FixedFormatAddress>
  *     - CurrentAddress
  *     - PreviousAddress[1-3]
- *     - HistoricAddresses<\ID3Global\Model\Identity\Address\FreeFormatAddress, \ID3Global\Model\Identity\Address\FixedFormatAddress>
+ *     - HistoricAddresses<\ID3Global\Identity\Address\FreeFormatAddress, \ID3Global\Identity\Address\FixedFormatAddress>
  *
- * \ID3Global\Containers\Model\Identity\Documents
+ * \ID3Global\Identity\Documents
  *
  * Not core for implementation
- * \ID3Global\Containers\Model\Identity\Aliases
- * \ID3Global\Model\Identity\AlternateName
- * \ID3Global\Model\Identity\BankingDetails\BankAccount
- * \ID3Global\Model\Identity\BankingDetails\CreditDebitCard
- * \ID3Global\Model\Identity\Documents\Address\UK\ElectricitySupplier
- * \ID3Global\Model\Identity\Documents\Identity\Global\InternationalPassport
- * \ID3Global\Model\Identity\Documents\Identity\Europe\EuropeanIdentityCard
- * \ID3Global\Model\Identity\Documents\Identity\AU\ShortPassport
- * \ID3Global\Model\Identity\Documents\Identity\AU\Medicare
- * \ID3Global\Model\Identity\Documents\Identity\BR\CPFNumber
- * \ID3Global\Model\Identity\Documents\Identity\CA\SocialInsuranceNumber
- * \ID3Global\Model\Identity\Documents\Identity\CN\ResidentIdentityCard
- * \ID3Global\Model\Identity\Documents\Identity\ES\TaxIDNumber
- * \ID3Global\Model\Identity\Documents\Identity\MX\TaxIdentificationNumber
- * \ID3Global\Model\Identity\Documents\Identity\UK\Passport
- * \ID3Global\Model\Identity\Documents\Identity\UK\DrivingLicence
- * \ID3Global\Model\Identity\Documents\Identity\UK\NationalInsuranceNumber
- * \ID3Global\Model\Identity\Documents\Identity\UK\DrivingLicence
- * \ID3Global\Model\Identity\Documents\Identity\US\DrivingLicence
- * \ID3Global\Model\Identity\Documents\Identity\US\SocialSecurity
- * \ID3Global\Model\Identity\Documents\Identity\US\IdentityCard
- * \ID3Global\Model\Identity\Employment
- * \ID3Global\Model\Identity\GlobalGeneric
- * \ID3Global\Model\Identity\Images
- * \ID3Global\Model\Identity\Location
- * \ID3Global\Model\Identity\PersonalDetails\BirthInfo
+ * \ID3Global\Identity\Aliases
+ * \ID3Global\Identity\AlternateName
+ * \ID3Global\Identity\BankingDetails\BankAccount
+ * \ID3Global\Identity\BankingDetails\CreditDebitCard
+ * \ID3Global\Identity\Documents\Address\UK\ElectricitySupplier
+ * \ID3Global\Identity\Documents\Identity\Global\InternationalPassport
+ * \ID3Global\Identity\Documents\Identity\Europe\EuropeanIdentityCard
+ * \ID3Global\Identity\Documents\Identity\AU\ShortPassport
+ * \ID3Global\Identity\Documents\Identity\AU\Medicare
+ * \ID3Global\Identity\Documents\Identity\BR\CPFNumber
+ * \ID3Global\Identity\Documents\Identity\CA\SocialInsuranceNumber
+ * \ID3Global\Identity\Documents\Identity\CN\ResidentIdentityCard
+ * \ID3Global\Identity\Documents\Identity\ES\TaxIDNumber
+ * \ID3Global\Identity\Documents\Identity\MX\TaxIdentificationNumber
+ * \ID3Global\Identity\Documents\Identity\UK\Passport
+ * \ID3Global\Identity\Documents\Identity\UK\DrivingLicence
+ * \ID3Global\Identity\Documents\Identity\UK\NationalInsuranceNumber
+ * \ID3Global\Identity\Documents\Identity\UK\DrivingLicence
+ * \ID3Global\Identity\Documents\Identity\US\DrivingLicence
+ * \ID3Global\Identity\Documents\Identity\US\SocialSecurity
+ * \ID3Global\Identity\Documents\Identity\US\IdentityCard
+ * \ID3Global\Identity\Employment
+ * \ID3Global\Identity\GlobalGeneric
+ * \ID3Global\Identity\Images
+ * \ID3Global\Identity\Location
+ * \ID3Global\Identity\PersonalDetails\BirthInfo
  */
 
-$personalDetails = new \ID3Global\Model\Identity\PersonalDetails();
+$personalDetails = new \ID3Global\Identity\PersonalDetails();
 $personalDetails
     ->setTitle('Mr')
     ->setForeName('Dworkin')
@@ -71,7 +71,7 @@ $personalDetails
     ->setGender(ID3GlobalService::GENDER_MALE)
     ->setDateOfBirth(1922, 08, 20);
 
-$currentAddress = new \ID3Global\Model\Identity\Address\FreeFormatAddress();
+$currentAddress = new \ID3Global\Identity\Address\FreeFormatAddress();
 $currentAddress
     ->setCountry(ID3GlobalService::COUNTRY_NZ)
     ->setZipPostcode(90210)
@@ -79,15 +79,15 @@ $currentAddress
     ->setAddressLine1('Dungeon 1')
     ->setAddressLine2('Courts of Amber');
 
-$addressContainer = new \ID3Global\Containers\Model\Identity\Addresses();
+$addressContainer = new \ID3Global\Identity\Addresses();
 $addressContainer
     ->setCurrentAddress($currentAddress);
 
-$contactDetails = new \ID3Global\Model\Identity\ContactDetails();
+$contactDetails = new \ID3Global\Identity\ContactDetails();
 $contactDetails
-    ->setLandPhone(new \ID3Global\Model\Identity\ContactDetails\LandTelephone(1234567890, false))
-    ->setMobilePhone(new \ID3Global\Model\Identity\ContactDetails\MobileTelephone(1234567890))
-    ->setWorkPhone(new \ID3Global\Model\Identity\ContactDetails\WorkTelephone(1234567890))
+    ->setLandPhone(new \ID3Global\Identity\ContactDetails\LandTelephone(1234567890, false))
+    ->setMobilePhone(new \ID3Global\Identity\ContactDetails\MobileTelephone(1234567890))
+    ->setWorkPhone(new \ID3Global\Identity\ContactDetails\WorkTelephone(1234567890))
     ->setEmail('dworkin@thepattern.net');
 
 /**
@@ -99,11 +99,15 @@ $contactDetails
  * It is up to the implemenetation how these are handled.
  * An exception is thrown if the web service fails or cannot be contacted.
  */
+$identity = new \ID3Global\Identity\Identity();
+$identity
+    ->setPersonalDetails($$personalDetails)
+    ->setAddresses($addressContainer)
+    ->setContactDetails($contactDetails);
+
 $id3Service = new \ID3Global\Services\GlobalAuthenticationService();
 $result = $id3Service
-    ->setPersonalDetails($personalDetails)
-    ->setAddresses($addressContainer)
-    ->setContactDetails($contactDetails)
+    ->setIdentity($identity)
     ->verifyIdentity();
 
 if($result === \ID3Global\Constants\Identity::IDENTITY_BAND_PASS) {

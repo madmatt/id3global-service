@@ -112,4 +112,76 @@ class PersonalDetails extends ID3IdentityObject {
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->Title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getForename()
+    {
+        return $this->Forename;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMiddleName()
+    {
+        return $this->MiddleName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname()
+    {
+        return $this->Surname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->Gender;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDateOfBirth()
+    {
+        return $this->dateOfBirth;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDOBDay()
+    {
+        return $this->DOBDay;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDOBMonth()
+    {
+        return $this->DOBMonth;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDOBYear()
+    {
+        return $this->DOBYear;
+    }
 }

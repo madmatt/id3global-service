@@ -23,11 +23,12 @@ class GlobalAuthenticationGateway extends ID3GlobalBaseGateway {
         }
 
         $request = new AuthenticateSPRequest();
-        $request->CustomerReference = $customerReference;
+        $request->setCustomerReference($customerReference);
 
-        $request->ProfileIDVersion = new \stdClass();
-        $request->ProfileIDVersion->Version = $profileVersion;
-        $request->ProfileIDVersion->ID = $profileID;
+        $profile = new \stdClass();
+        $profile->Version = $profileVersion;
+        $profile->ID = $profileID;
+        $request->setProfileIDVersion($profile);
 
         $request->addFieldsFromIdentity($identity);
 

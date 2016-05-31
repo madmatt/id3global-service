@@ -1,146 +1,239 @@
 <?php
 namespace ID3Global\Identity\Address;
 
-use \ID3Global\Identity\ID3IdentityObject;
+use ID3Global\Identity\ID3IdentityObject;
 
-class FreeFormatAddress extends ID3IdentityObject implements Address {
+class FreeFormatAddress extends ID3IdentityObject implements Address
+{
     /**
      * @var string
      */
-    private $country;
-
-    /**
-     * @var string
-     */
-    private $postCode;
+    private $Country;
 
     /**
      * @var string
      */
-    private $addressLine1;
+    private $PostCode;
 
     /**
      * @var string
      */
-    private $addressLine2;
+    private $AddressLine1;
 
     /**
      * @var string
      */
-    private $addressLine3;
+    private $AddressLine2;
 
     /**
      * @var string
      */
-    private $addressLine4;
+    private $AddressLine3;
 
     /**
      * @var string
      */
-    private $addressLine5;
+    private $AddressLine4;
 
     /**
      * @var string
      */
-    private $addressLine6;
+    private $AddressLine5;
 
     /**
      * @var string
      */
-    private $addressLine7;
+    private $AddressLine6;
 
     /**
      * @var string
      */
-    private $addressLine8;
+    private $AddressLine7;
 
     /**
-     * @param string $country
+     * @var string
+     */
+    private $AddressLine8;
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->Country;
+    }
+
+    /**
+     * @param string $Country
      * @return FreeFormatAddress
      */
-    public function setCountry($country) {
-        $this->country = $country;
+    public function setCountry($Country)
+    {
+        $this->Country = $Country;
         return $this;
     }
 
     /**
-     * @param string $postCode
+     * @return string
+     */
+    public function getPostCode()
+    {
+        return $this->PostCode;
+    }
+
+    /**
+     * @param string $PostCode
      * @return FreeFormatAddress
      */
-    public function setPostCode($postCode) {
-        $this->postCode = $postCode;
+    public function setPostCode($PostCode)
+    {
+        $this->PostCode = $PostCode;
         return $this;
     }
 
     /**
-     * @param string $addressLine1
+     * @return string
+     */
+    public function getAddressLine1()
+    {
+        return $this->AddressLine1;
+    }
+
+    /**
+     * @param string $AddressLine1
      * @return FreeFormatAddress
      */
-    public function setAddressLine1($addressLine1) {
-        $this->addressLine1 = $addressLine1;
+    public function setAddressLine1($AddressLine1)
+    {
+        $this->AddressLine1 = $AddressLine1;
         return $this;
     }
 
     /**
-     * @param string $addressLine2
+     * @return string
+     */
+    public function getAddressLine2()
+    {
+        return $this->AddressLine2;
+    }
+
+    /**
+     * @param string $AddressLine2
      * @return FreeFormatAddress
      */
-    public function setAddressLine2($addressLine2) {
-        $this->addressLine2 = $addressLine2;
+    public function setAddressLine2($AddressLine2)
+    {
+        $this->AddressLine2 = $AddressLine2;
         return $this;
     }
 
     /**
-     * @param string $addressLine3
+     * @return string
+     */
+    public function getAddressLine3()
+    {
+        return $this->AddressLine3;
+    }
+
+    /**
+     * @param string $AddressLine3
      * @return FreeFormatAddress
      */
-    public function setAddressLine3($addressLine3) {
-        $this->addressLine3 = $addressLine3;
+    public function setAddressLine3($AddressLine3)
+    {
+        $this->AddressLine3 = $AddressLine3;
         return $this;
     }
 
     /**
-     * @param string $addressLine4
+     * @return string
+     */
+    public function getAddressLine4()
+    {
+        return $this->AddressLine4;
+    }
+
+    /**
+     * @param string $AddressLine4
      * @return FreeFormatAddress
      */
-    public function setAddressLine4($addressLine4) {
-        $this->addressLine4 = $addressLine4;
+    public function setAddressLine4($AddressLine4)
+    {
+        $this->AddressLine4 = $AddressLine4;
         return $this;
     }
 
     /**
-     * @param string $addressLine5
+     * @return string
+     */
+    public function getAddressLine5()
+    {
+        return $this->AddressLine5;
+    }
+
+    /**
+     * @param string $AddressLine5
      * @return FreeFormatAddress
      */
-    public function setAddressLine5($addressLine5) {
-        $this->addressLine5 = $addressLine5;
+    public function setAddressLine5($AddressLine5)
+    {
+        $this->AddressLine5 = $AddressLine5;
         return $this;
     }
 
     /**
-     * @param string $addressLine6
+     * @return string
+     */
+    public function getAddressLine6()
+    {
+        return $this->AddressLine6;
+    }
+
+    /**
+     * @param string $AddressLine6
      * @return FreeFormatAddress
      */
-    public function setAddressLine6($addressLine6) {
-        $this->addressLine6 = $addressLine6;
+    public function setAddressLine6($AddressLine6)
+    {
+        $this->AddressLine6 = $AddressLine6;
         return $this;
     }
 
     /**
-     * @param string $addressLine7
+     * @return string
+     */
+    public function getAddressLine7()
+    {
+        return $this->AddressLine7;
+    }
+
+    /**
+     * @param string $AddressLine7
      * @return FreeFormatAddress
      */
-    public function setAddressLine7($addressLine7) {
-        $this->addressLine7 = $addressLine7;
+    public function setAddressLine7($AddressLine7)
+    {
+        $this->AddressLine7 = $AddressLine7;
         return $this;
     }
 
     /**
-     * @param string $addressLine8
+     * @return string
+     */
+    public function getAddressLine8()
+    {
+        return $this->AddressLine8;
+    }
+
+    /**
+     * @param string $AddressLine8
      * @return FreeFormatAddress
      */
-    public function setAddressLine8($addressLine8) {
-        $this->addressLine8 = $addressLine8;
+    public function setAddressLine8($AddressLine8)
+    {
+        $this->AddressLine8 = $AddressLine8;
         return $this;
     }
+
+
 }

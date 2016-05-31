@@ -37,6 +37,11 @@ class Identity {
     private $addresses;
 
     /**
+     * @var \ID3Global\Identity\Documents\DocumentContainer
+     */
+    private $identityDocuments;
+
+    /**
      * @param PersonalDetails $personalDetails
      * @return Identity
      */
@@ -72,5 +77,23 @@ class Identity {
 
     public function getAddresses() {
         return $this->addresses;
+    }
+
+    /**
+     * @return Documents\DocumentContainer
+     */
+    public function getIdentityDocuments()
+    {
+        return $this->identityDocuments;
+    }
+
+    /**
+     * @param Documents\DocumentContainer $identityDocuments
+     * @return Identity
+     */
+    public function setIdentityDocuments($identityDocuments)
+    {
+        $this->identityDocuments = $identityDocuments;
+        return $this;
     }
 }

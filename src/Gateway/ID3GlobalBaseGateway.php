@@ -23,7 +23,8 @@ abstract class ID3GlobalBaseGateway {
         $defaultOptions = array(
             'soap_version' => SOAP_1_1,
             'exceptions' => true,
-            'trace' => false
+            // We always enable trace so that requests and responses can be logged if required by calling applications
+            'trace' => true
         );
 
         $soapClientOptions = array_merge($defaultOptions, $soapClientOptions);

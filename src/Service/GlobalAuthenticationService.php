@@ -41,6 +41,10 @@ class GlobalAuthenticationService extends ID3BaseService
      */
     private $lastVerifyIdentityResponse = null;
 
+    /**
+     * @return string One of Identity::IDENTITY_BAND_PASS, Identity::IDENTITY_BAND_REFER, or Identity::IDENTITY_BAND_ALERT
+     * @throws \Exception
+     */
     public function verifyIdentity()
     {
         if (!$this->identity || !$this->identity instanceof Identity) {

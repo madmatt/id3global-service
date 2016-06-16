@@ -141,6 +141,20 @@ class InternationalPassport extends ID3IdentityObject
     }
 
     /**
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @return InternationalPassport
+     */
+    public function setExpiryDate($year, $month, $day)
+    {
+        $this->setExpiryDay($day);
+        $this->setExpiryMonth($month);
+        $this->setExpiryYear($year);
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getIssueDay()
@@ -191,6 +205,20 @@ class InternationalPassport extends ID3IdentityObject
     public function setIssueYear($IssueYear)
     {
         $this->IssueYear = $IssueYear;
+        return $this;
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @return InternationalPassport
+     */
+    public function setIssueDate($year, $month, $day)
+    {
+        $this->setIssueDay($day);
+        $this->setIssueMonth($month);
+        $this->setIssueYear($year);
         return $this;
     }
 

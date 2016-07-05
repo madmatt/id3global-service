@@ -21,6 +21,11 @@ class Identity {
      */
     const IDENTITY_BAND_ALERT = 'Alert';
 
+    /** 
+     * Minimum score to pass verification
+     */
+    const IDENTITY_SCORE_PASS = 2022;
+
     /**
      * @var \ID3Global\Identity\PersonalDetails
      */

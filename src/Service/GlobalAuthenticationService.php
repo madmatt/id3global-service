@@ -59,21 +59,17 @@ class GlobalAuthenticationService extends ID3BaseService
 
             $validResult = false;
 
-            if(isset($response) && isset($response->AuthenticateSPResult) && isset($response->AuthenticateSPResult->BandText)) {
-                $validStatuses = array(
-                    Identity::IDENTITY_BAND_PASS,
-                    Identity::IDENTITY_BAND_REFER,
-                    Identity::IDENTITY_BAND_ALERT
-                );
-
-                if(in_array($response->AuthenticateSPResult->BandText, $validStatuses)) {
-                    $validResult = true;
-                }
+            if(
+                isset($response) && 
+                isset($response->AuthenticateSPResult) && 
+                isset($response->AuthenticateSPResult->BandText) && isset($response->AuthenticateSPResult->Score)
+            ) {
+                $validResult = true;
             }
 
             if($validResult) {
                 $this->lastVerifyIdentityResponse = $response;
-                return $response->AuthenticateSPResult->BandText;
+                return $response->AuthenticateSPResult->Score;
             } else {
                 throw new IdentityVerificationFailureException($response);
             }

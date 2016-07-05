@@ -13,7 +13,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @var string
      */
-    private $PostCode;
+    private $ZipPostcode;
 
     /**
      * @var string
@@ -78,7 +78,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      */
     public function getPostCode()
     {
-        return $this->PostCode;
+        return $this->ZipPostcode;
     }
 
     /**
@@ -87,7 +87,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      */
     public function setPostCode($PostCode)
     {
-        $this->PostCode = $PostCode;
+        $this->ZipPostcode = $PostCode;
         return $this;
     }
 

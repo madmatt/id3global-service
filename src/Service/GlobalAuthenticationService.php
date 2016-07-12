@@ -69,7 +69,7 @@ class GlobalAuthenticationService extends ID3BaseService
 
             if($validResult) {
                 $this->lastVerifyIdentityResponse = $response;
-                return $response->AuthenticateSPResult->Score;
+                return $response->AuthenticateSPResult->BandText;
             } else {
                 throw new IdentityVerificationFailureException($response);
             }

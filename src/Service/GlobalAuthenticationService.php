@@ -62,7 +62,9 @@ class GlobalAuthenticationService extends ID3BaseService
             $response = $gateway->AuthenticateSP($this->profileID, $this->profileVersion, $this->customerReference,
                 $this->identity);
 
-            $this->lastRawRequest = $gateway->getClient()->__getLastRequest();
+            if ($gateway->getClient() instanceof \SoapClient) {
+                $this->lastRawRequest = $gateway->getClient()->__getLastRequest();
+            }
 
             $validResult = false;
 

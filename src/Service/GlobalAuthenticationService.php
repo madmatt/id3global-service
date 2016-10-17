@@ -42,6 +42,11 @@ class GlobalAuthenticationService extends ID3BaseService
     private $lastVerifyIdentityResponse = null;
 
     /**
+     * @var array Optional extras for the SOAP client
+     */
+    private $soapOptions = array();
+
+    /**
      * @return string One of Identity::IDENTITY_BAND_PASS, Identity::IDENTITY_BAND_REFER, or Identity::IDENTITY_BAND_ALERT
      * @throws \Exception
      */
@@ -96,7 +101,7 @@ class GlobalAuthenticationService extends ID3BaseService
             $this->gateway = new GlobalAuthenticationGateway(
                 $this->getApiUsername(),
                 $this->getApiPassword(),
-                array(),
+                $this->getSoapOptions(),
                 $this->getPilotSiteEnabled()
             );
         }
@@ -121,6 +126,22 @@ class GlobalAuthenticationService extends ID3BaseService
 
     public function getCustomerReference() {
         return $this->customerReference;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSoapOptions()
+    {
+        return $this->soapOptions;
+    }
+
+    /**
+     * @param array $soapOptions
+     */
+    public function setSoapOptions($soapOptions)
+    {
+        $this->soapOptions = $soapOptions;
     }
 
     /**
@@ -152,4 +173,6 @@ class GlobalAuthenticationService extends ID3BaseService
         $this->profileVersion = $profileVersion;
         return $this;
     }
+
+
 }

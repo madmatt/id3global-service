@@ -40,6 +40,11 @@ class GlobalAuthenticationService extends ID3BaseService
      * {@link getLastVerifyIdentityResponse()}.
      */
     private $lastVerifyIdentityResponse = null;
+    
+    /**
+     * @var string The last request passed into SoapClient
+     */
+    private $lastRawRequest = null;
 
     /**
      * @var array Optional extras for the SOAP client
@@ -61,6 +66,10 @@ class GlobalAuthenticationService extends ID3BaseService
         try {
             $response = $gateway->AuthenticateSP($this->profileID, $this->profileVersion, $this->customerReference,
                 $this->identity);
+
+            if ($gateway->getClient() instanceof \SoapClient) {
+                $this->lastRawRequest = $gateway->getClient()->__getLastRequest();
+            }
 
             $validResult = false;
 
@@ -90,6 +99,14 @@ class GlobalAuthenticationService extends ID3BaseService
      */
     public function getLastVerifyIdentityResponse() {
         return $this->lastVerifyIdentityResponse;
+    }
+    
+    /**
+     * @return string The XML string being sent into the SoapClient
+     */
+    public function getLastRawRequest()
+    {
+        return $this->lastRawRequest;
     }
 
     /**

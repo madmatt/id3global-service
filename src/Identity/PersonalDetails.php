@@ -50,6 +50,11 @@ class PersonalDetails extends ID3IdentityObject {
     private $DOBYear;
 
     /**
+     * @var string
+     */
+    private $CountryOfBirth;
+
+    /**
      * @param string $title
      * @return PersonalDetails
      */
@@ -184,4 +189,24 @@ class PersonalDetails extends ID3IdentityObject {
     {
         return $this->DOBYear;
     }
+
+    /**
+     * @return string
+     */
+    public function getCountryOfBirth()
+    {
+        return $this->CountryOfBirth;
+    }
+
+    /**
+     * @param string $CountryOfBirth
+     */
+    public function setCountryOfBirth($CountryOfBirth)
+    {
+        $this->CountryOfBirth = $CountryOfBirth;
+
+        return $this;
+    }
+
+
 }

@@ -155,10 +155,13 @@ class GlobalAuthenticationService extends ID3BaseService
 
     /**
      * @param array $soapOptions
+     * @return $this
      */
     public function setSoapOptions($soapOptions)
     {
         $this->soapOptions = $soapOptions;
+
+        return $this;
     }
 
     /**

@@ -7,16 +7,16 @@ class AddressContainer extends ID3IdentityObject {
     /**
      * @var Address|null Either a FixedFormatAddress or FreeFormatAddress object (default null)
      */
-    private ?Address $currentAddress = null;
+    private ?Address $CurrentAddress = null;
 
     public function setCurrentAddress(Address $address): AddressContainer
     {
-        $this->currentAddress = $address;
+        $this->CurrentAddress = $address;
         return $this;
     }
 
     public function getCurrentAddress(): ?Address
     {
-        return $this->currentAddress;
+        return $this->CurrentAddress;
     }
 }

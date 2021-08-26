@@ -5,13 +5,13 @@ use ID3Global\Gateway\SoapClient\ID3GlobalSoapClient;
 
 abstract class ID3GlobalBaseGateway {
     /**
-     * @var \ID3Global\Gateway\SoapClient\ID3GlobalSoapClient
+     * @var ID3GlobalSoapClient
      */
-    private $client;
+    private ID3GlobalSoapClient $client;
 
-    private $pilotSiteWsdl = 'https://pilot.id3global.com/ID3gWS/ID3global.svc?wsdl';
+    private string $pilotSiteWsdl = 'https://pilot.id3global.com/ID3gWS/ID3global.svc?wsdl';
 
-    private $liveSiteWsdl = 'https://id3global.com/ID3gWS/ID3global.svc?wsdl';
+    private string $liveSiteWsdl = 'https://id3global.com/ID3gWS/ID3global.svc?wsdl';
 
     public function __construct($username, $password, $soapClientOptions = array(), $usePilotSite = false) {
         if((bool)$usePilotSite) {
@@ -32,12 +32,14 @@ abstract class ID3GlobalBaseGateway {
         $this->setClient(new ID3GlobalSoapClient($wsdl, $username, $password, $soapClientOptions));
     }
 
-    public function setClient(ID3GlobalSoapClient $client) {
+    public function setClient(ID3GlobalSoapClient $client): ID3GlobalBaseGateway
+    {
         $this->client = $client;
         return $this;
     }
 
-    public function getClient() {
+    public function getClient(): ID3GlobalSoapClient
+    {
         return $this->client;
     }
 }

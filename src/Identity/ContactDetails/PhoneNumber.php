@@ -5,13 +5,20 @@ class PhoneNumber {
     /**
      * @var string
      */
-    private $number;
+    private string $number;
+
+    public function __construct(string $number)
+    {
+        $this->number = $number;
+    }
+
 
     /**
      * @param string $number
      * @return PhoneNumber
      */
-    public function setNumber($number) {
+    public function setNumber(string $number): PhoneNumber
+    {
         $this->number = $number;
         return $this;
     }

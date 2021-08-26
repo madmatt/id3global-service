@@ -8,22 +8,22 @@ class DrivingLicence extends ID3IdentityObject
     /**
      * @var string The driver licence identifier
      */
-    private $Number;
+    private string $Number;
 
     /**
      * @var int
      */
-    private $Version;
+    private int $Version;
 
     /**
      * @var string Vehicle registration/licence plate linked to this drivers licence
      */
-    private $VehicleRegistration;
+    private string $VehicleRegistration;
 
     /**
      * @return string
      */
-    public function getNumber()
+    public function getNumber(): string
     {
         return $this->Number;
     }
@@ -32,7 +32,7 @@ class DrivingLicence extends ID3IdentityObject
      * @param string $Number
      * @return DrivingLicence
      */
-    public function setNumber($Number)
+    public function setNumber(string $Number): DrivingLicence
     {
         $this->Number = $Number;
         return $this;
@@ -41,7 +41,7 @@ class DrivingLicence extends ID3IdentityObject
     /**
      * @return int
      */
-    public function getVersion()
+    public function getVersion(): int
     {
         return $this->Version;
     }
@@ -50,7 +50,7 @@ class DrivingLicence extends ID3IdentityObject
      * @param int $Version
      * @return DrivingLicence
      */
-    public function setVersion($Version)
+    public function setVersion(int $Version): DrivingLicence
     {
         $this->Version = $Version;
         return $this;
@@ -59,7 +59,7 @@ class DrivingLicence extends ID3IdentityObject
     /**
      * @return string
      */
-    public function getVehicleRegistration()
+    public function getVehicleRegistration(): string
     {
         return $this->VehicleRegistration;
     }
@@ -68,7 +68,7 @@ class DrivingLicence extends ID3IdentityObject
      * @param string $VehicleRegistration
      * @return DrivingLicence
      */
-    public function setVehicleRegistration($VehicleRegistration)
+    public function setVehicleRegistration(string $VehicleRegistration): DrivingLicence
     {
         $this->VehicleRegistration = $VehicleRegistration;
         return $this;

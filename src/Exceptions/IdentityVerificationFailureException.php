@@ -1,8 +1,11 @@
 <?php
 namespace ID3Global\Exceptions;
 
-class IdentityVerificationFailureException extends \Exception {
-    private $response;
+use Exception;
+use stdClass;
+
+class IdentityVerificationFailureException extends Exception {
+    private stdClass $response;
 
     public function __construct($response) {
         $this->response = $response;
@@ -10,7 +13,8 @@ class IdentityVerificationFailureException extends \Exception {
         parent::__construct($message);
     }
 
-    public function getResponse() {
+    public function getResponse(): stdClass
+    {
         return $this->response;
     }
 }

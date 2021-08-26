@@ -5,8 +5,8 @@ use ID3Global\Identity\Address\Address;
 use ID3Global\Identity\Address\AddressContainer;
 use ID3Global\Identity\Documents\DocumentContainer;
 use ID3Global\Identity\Documents\InternationalPassport;
-use ID3Global\Identity\Identity;
 use ID3Global\Identity\PersonalDetails;
+use ID3Global\Identity\Identity;
 use stdClass;
 
 class AuthenticateSPRequest
@@ -14,17 +14,17 @@ class AuthenticateSPRequest
     /**
      * @var string
      */
-    private $CustomerReference;
+    private string $CustomerReference;
 
     /**
      * @var stdClass
      */
-    private $ProfileIDVersion;
+    private stdClass $ProfileIDVersion;
 
     /**
      * @var stdClass
      */
-    private $InputData;
+    private stdClass $InputData;
 
     public function addFieldsFromIdentity(Identity $identity)
     {
@@ -86,7 +86,7 @@ class AuthenticateSPRequest
     /**
      * @return string
      */
-    public function getCustomerReference()
+    public function getCustomerReference(): string
     {
         return $this->CustomerReference;
     }
@@ -95,7 +95,7 @@ class AuthenticateSPRequest
      * @param string $CustomerReference
      * @return AuthenticateSPRequest
      */
-    public function setCustomerReference($CustomerReference)
+    public function setCustomerReference($CustomerReference): AuthenticateSPRequest
     {
         $this->CustomerReference = $CustomerReference;
         return $this;
@@ -104,7 +104,7 @@ class AuthenticateSPRequest
     /**
      * @return stdClass
      */
-    public function getProfileIDVersion()
+    public function getProfileIDVersion(): stdClass
     {
         return $this->ProfileIDVersion;
     }
@@ -113,13 +113,13 @@ class AuthenticateSPRequest
      * @param stdClass $ProfileIDVersion
      * @return AuthenticateSPRequest
      */
-    public function setProfileIDVersion($ProfileIDVersion)
+    public function setProfileIDVersion($ProfileIDVersion): AuthenticateSPRequest
     {
         $this->ProfileIDVersion = $ProfileIDVersion;
         return $this;
     }
 
-    public function getInputData()
+    public function getInputData(): stdClass
     {
         return $this->InputData;
     }

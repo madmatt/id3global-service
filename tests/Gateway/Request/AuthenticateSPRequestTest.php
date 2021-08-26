@@ -1,17 +1,37 @@
 <?php
 namespace Tests\Gateway\Request;
 
-use ID3Global\Gateway\Request\AuthenticateSPRequest,
-    ID3Global\Identity\Address\FixedFormatAddress,
-    ID3Global\Identity\Address\FreeFormatAddress,
-    ID3Global\Identity\Address\AddressContainer,
-    ID3Global\Identity\Identity,
-    ID3Global\Identity\Documents\DocumentContainer,
-    ID3Global\Identity\Documents\NZ\DrivingLicence;
+use ID3Global\Gateway\Request\AuthenticateSPRequest;
+use ID3Global\Identity\Address\FixedFormatAddress;
+use ID3Global\Identity\Address\FreeFormatAddress;
+use ID3Global\Identity\Address\AddressContainer;
+use ID3Global\Identity\Identity;
+use ID3Global\Identity\Documents\DocumentContainer;
+use ID3Global\Identity\Documents\NZ\DrivingLicence;
+use ID3Global\Identity\ContactDetails;
+use ID3Global\Identity\Documents\InternationalPassport;
+use ID3Global\Identity\PersonalDetails;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 class AuthenticateSPRequestTest extends TestCase {
+    /**
+     * @var Identity
+     */
+    private Identity $identity;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $personalDetails = new PersonalDetails();
+        $contactDetails = new ContactDetails();
+        $addresses = new AddressContainer(new FixedFormatAddress());
+        $passport = new InternationalPassport();
+        $identityDocuments = new DocumentContainer($passport);
+        $this->identity = new Identity($personalDetails, $contactDetails, $addresses, $identityDocuments);
+    }
+
     public function testStandardParams() {
         $version = new stdClass();
         $version->Version = 1;
@@ -26,8 +46,6 @@ class AuthenticateSPRequestTest extends TestCase {
     }
 
     public function testFixedLengthAddress() {
-        $identity = new Identity();
-        $container = new AddressContainer();
         $address = new FixedFormatAddress();
         $address
             ->setPrincipality('US')
@@ -43,11 +61,10 @@ class AuthenticateSPRequestTest extends TestCase {
             ->setPremise('Empire State Building')
             ->setZipPostcode('10118');
 
-        $container->setCurrentAddress($address);
-        $identity->setAddresses($container);
+        $this->identity->getAddresses()->setCurrentAddress($address);
 
         $r = new AuthenticateSPRequest();
-        $r->addFieldsFromIdentity($identity);
+        $r->addFieldsFromIdentity($this->identity);
         $test = $r->getInputData()->Addresses->CurrentAddress;
 
         $this->assertSame('US', $test->Principality);
@@ -65,8 +82,6 @@ class AuthenticateSPRequestTest extends TestCase {
     }
 
     public function testFreeFormatAddress() {
-        $identity = new Identity();
-        $container = new AddressContainer();
         $address = new FreeFormatAddress();
 
         $address
@@ -81,11 +96,10 @@ class AuthenticateSPRequestTest extends TestCase {
             ->setAddressLine7('6004')
             ->setAddressLine8('NZ');
 
-        $container->setCurrentAddress($address);
-        $identity->setAddresses($container);
+        $this->identity->getAddresses()->setCurrentAddress($address);
 
         $r = new AuthenticateSPRequest();
-        $r->addFieldsFromIdentity($identity);
+        $r->addFieldsFromIdentity($this->identity);
         $test = $r->getInputData()->Addresses->CurrentAddress;
 
         $this->assertSame('New Zealand', $test->Country);
@@ -101,8 +115,6 @@ class AuthenticateSPRequestTest extends TestCase {
     }
 
     public function testNZDrivingLicence() {
-        $identity = new Identity();
-        $container = new DocumentContainer();
         $licence = new DrivingLicence();
 
         $licence
@@ -110,12 +122,10 @@ class AuthenticateSPRequestTest extends TestCase {
             ->setVersion(123)
             ->setVehicleRegistration('ABC123');
 
-        $container->addIdentityDocument($licence, 'New Zealand');
-
-        $identity->setIdentityDocuments($container);
+        $this->identity->getIdentityDocuments()->addIdentityDocument($licence, 'New Zealand');
 
         $r = new AuthenticateSPRequest();
-        $r->addFieldsFromIdentity($identity);
+        $r->addFieldsFromIdentity($this->identity);
         $test = $r->getInputData()->IdentityDocuments;
 
         $this->assertSame('DI123456', $test->NewZealand->DrivingLicence->Number);

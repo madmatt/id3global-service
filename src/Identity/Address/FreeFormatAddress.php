@@ -8,57 +8,57 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @var string
      */
-    private $Country;
+    private string $Country;
 
     /**
      * @var string
      */
-    private $ZipPostcode;
+    private string $ZipPostcode;
 
     /**
      * @var string
      */
-    private $AddressLine1;
+    private string $AddressLine1;
 
     /**
      * @var string
      */
-    private $AddressLine2;
+    private string $AddressLine2;
 
     /**
      * @var string
      */
-    private $AddressLine3;
+    private string $AddressLine3;
 
     /**
      * @var string
      */
-    private $AddressLine4;
+    private string $AddressLine4;
 
     /**
      * @var string
      */
-    private $AddressLine5;
+    private string $AddressLine5;
 
     /**
      * @var string
      */
-    private $AddressLine6;
+    private string $AddressLine6;
 
     /**
      * @var string
      */
-    private $AddressLine7;
+    private string $AddressLine7;
 
     /**
      * @var string
      */
-    private $AddressLine8;
+    private string $AddressLine8;
 
     /**
      * @return string
      */
-    public function getCountry()
+    public function getCountry(): string
     {
         return $this->Country;
     }
@@ -67,7 +67,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      * @param string $Country
      * @return FreeFormatAddress
      */
-    public function setCountry($Country)
+    public function setCountry(string $Country): FreeFormatAddress
     {
         $this->Country = $Country;
         return $this;
@@ -76,7 +76,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @return string
      */
-    public function getPostCode()
+    public function getPostCode(): string
     {
         return $this->ZipPostcode;
     }
@@ -85,7 +85,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      * @param string $PostCode
      * @return FreeFormatAddress
      */
-    public function setPostCode($PostCode)
+    public function setPostCode(string $PostCode): FreeFormatAddress
     {
         $this->ZipPostcode = $PostCode;
         return $this;
@@ -94,7 +94,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @return string
      */
-    public function getAddressLine1()
+    public function getAddressLine1(): string
     {
         return $this->AddressLine1;
     }
@@ -103,7 +103,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      * @param string $AddressLine1
      * @return FreeFormatAddress
      */
-    public function setAddressLine1($AddressLine1)
+    public function setAddressLine1(string $AddressLine1): FreeFormatAddress
     {
         $this->AddressLine1 = $AddressLine1;
         return $this;
@@ -112,7 +112,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @return string
      */
-    public function getAddressLine2()
+    public function getAddressLine2(): string
     {
         return $this->AddressLine2;
     }
@@ -121,7 +121,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      * @param string $AddressLine2
      * @return FreeFormatAddress
      */
-    public function setAddressLine2($AddressLine2)
+    public function setAddressLine2(string $AddressLine2): FreeFormatAddress
     {
         $this->AddressLine2 = $AddressLine2;
         return $this;
@@ -130,7 +130,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @return string
      */
-    public function getAddressLine3()
+    public function getAddressLine3(): string
     {
         return $this->AddressLine3;
     }
@@ -139,7 +139,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      * @param string $AddressLine3
      * @return FreeFormatAddress
      */
-    public function setAddressLine3($AddressLine3)
+    public function setAddressLine3(string $AddressLine3): FreeFormatAddress
     {
         $this->AddressLine3 = $AddressLine3;
         return $this;
@@ -148,7 +148,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @return string
      */
-    public function getAddressLine4()
+    public function getAddressLine4(): string
     {
         return $this->AddressLine4;
     }
@@ -157,7 +157,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      * @param string $AddressLine4
      * @return FreeFormatAddress
      */
-    public function setAddressLine4($AddressLine4)
+    public function setAddressLine4(string $AddressLine4): FreeFormatAddress
     {
         $this->AddressLine4 = $AddressLine4;
         return $this;
@@ -166,7 +166,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @return string
      */
-    public function getAddressLine5()
+    public function getAddressLine5(): string
     {
         return $this->AddressLine5;
     }
@@ -175,7 +175,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      * @param string $AddressLine5
      * @return FreeFormatAddress
      */
-    public function setAddressLine5($AddressLine5)
+    public function setAddressLine5(string $AddressLine5): FreeFormatAddress
     {
         $this->AddressLine5 = $AddressLine5;
         return $this;
@@ -184,7 +184,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @return string
      */
-    public function getAddressLine6()
+    public function getAddressLine6(): string
     {
         return $this->AddressLine6;
     }
@@ -193,7 +193,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      * @param string $AddressLine6
      * @return FreeFormatAddress
      */
-    public function setAddressLine6($AddressLine6)
+    public function setAddressLine6(string $AddressLine6): FreeFormatAddress
     {
         $this->AddressLine6 = $AddressLine6;
         return $this;
@@ -202,7 +202,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @return string
      */
-    public function getAddressLine7()
+    public function getAddressLine7(): string
     {
         return $this->AddressLine7;
     }
@@ -211,7 +211,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      * @param string $AddressLine7
      * @return FreeFormatAddress
      */
-    public function setAddressLine7($AddressLine7)
+    public function setAddressLine7(string $AddressLine7): FreeFormatAddress
     {
         $this->AddressLine7 = $AddressLine7;
         return $this;
@@ -220,7 +220,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @return string
      */
-    public function getAddressLine8()
+    public function getAddressLine8(): string
     {
         return $this->AddressLine8;
     }
@@ -229,7 +229,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
      * @param string $AddressLine8
      * @return FreeFormatAddress
      */
-    public function setAddressLine8($AddressLine8)
+    public function setAddressLine8(string $AddressLine8): FreeFormatAddress
     {
         $this->AddressLine8 = $AddressLine8;
         return $this;

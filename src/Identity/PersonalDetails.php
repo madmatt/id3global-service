@@ -7,58 +7,59 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @var string
      */
-    private $Title;
+    private string $Title;
 
     /**
      * @var string
      */
-    private $Forename;
+    private string $Forename;
 
     /**
      * @var string
      */
-    private $MiddleName;
+    private string $MiddleName;
 
     /**
      * @var string
      */
-    private $Surname;
+    private string $Surname;
 
     /**
      * @var string
      */
-    private $Gender;
+    private string $Gender;
 
     /**
      * @var DateTime
      */
-    private $dateOfBirth;
+    private DateTime $dateOfBirth;
 
     /**
      * @var int
      */
-    private $DOBDay;
+    private int $DOBDay;
 
     /**
      * @var int
      */
-    private $DOBMonth;
+    private int $DOBMonth;
 
     /**
      * @var int
      */
-    private $DOBYear;
+    private int $DOBYear;
 
     /**
      * @var string
      */
-    private $CountryOfBirth;
+    private string $CountryOfBirth;
 
     /**
      * @param string $title
      * @return PersonalDetails
      */
-    public function setTitle($title) {
+    public function setTitle(string $title): PersonalDetails
+    {
         $this->Title = $title;
         return $this;
     }
@@ -67,7 +68,8 @@ class PersonalDetails extends ID3IdentityObject {
      * @param string $forename
      * @return PersonalDetails
      */
-    public function setForename($forename) {
+    public function setForename(string $forename): PersonalDetails
+    {
         $this->Forename = $forename;
         return $this;
     }
@@ -76,7 +78,8 @@ class PersonalDetails extends ID3IdentityObject {
      * @param string $middleName
      * @return PersonalDetails
      */
-    public function setMiddleName($middleName) {
+    public function setMiddleName(string $middleName): PersonalDetails
+    {
         $this->MiddleName = $middleName;
         return $this;
     }
@@ -85,7 +88,8 @@ class PersonalDetails extends ID3IdentityObject {
      * @param string $surname
      * @return PersonalDetails
      */
-    public function setSurname($surname) {
+    public function setSurname(string $surname): PersonalDetails
+    {
         $this->Surname = $surname;
         return $this;
     }
@@ -94,7 +98,8 @@ class PersonalDetails extends ID3IdentityObject {
      * @param string $gender
      * @return PersonalDetails
      */
-    public function setGender($gender) {
+    public function setGender(string $gender): PersonalDetails
+    {
         $this->Gender = $gender;
         return $this;
     }
@@ -105,7 +110,8 @@ class PersonalDetails extends ID3IdentityObject {
      * @param int $day
      * @return PersonalDetails
      */
-    public function setDateOfBirth($year, $month, $day) {
+    public function setDateOfBirth(int $year, int $month, int $day): PersonalDetails
+    {
         $date = new DateTime();
         $this->dateOfBirth = $date
             ->setDate($year, $month, $day)
@@ -121,7 +127,7 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->Title;
     }
@@ -129,7 +135,7 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @return string
      */
-    public function getForename()
+    public function getForename(): string
     {
         return $this->Forename;
     }
@@ -137,7 +143,7 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @return string
      */
-    public function getMiddleName()
+    public function getMiddleName(): string
     {
         return $this->MiddleName;
     }
@@ -145,7 +151,7 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @return string
      */
-    public function getSurname()
+    public function getSurname(): string
     {
         return $this->Surname;
     }
@@ -153,7 +159,7 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @return string
      */
-    public function getGender()
+    public function getGender(): string
     {
         return $this->Gender;
     }
@@ -161,7 +167,7 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @return DateTime
      */
-    public function getDateOfBirth()
+    public function getDateOfBirth(): DateTime
     {
         return $this->dateOfBirth;
     }
@@ -169,7 +175,7 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @return int
      */
-    public function getDOBDay()
+    public function getDOBDay(): int
     {
         return $this->DOBDay;
     }
@@ -177,7 +183,7 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @return int
      */
-    public function getDOBMonth()
+    public function getDOBMonth(): int
     {
         return $this->DOBMonth;
     }
@@ -185,7 +191,7 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @return int
      */
-    public function getDOBYear()
+    public function getDOBYear(): int
     {
         return $this->DOBYear;
     }
@@ -193,15 +199,16 @@ class PersonalDetails extends ID3IdentityObject {
     /**
      * @return string
      */
-    public function getCountryOfBirth()
+    public function getCountryOfBirth(): string
     {
         return $this->CountryOfBirth;
     }
 
     /**
      * @param string $CountryOfBirth
+     * @return PersonalDetails
      */
-    public function setCountryOfBirth($CountryOfBirth)
+    public function setCountryOfBirth(string $CountryOfBirth): PersonalDetails
     {
         $this->CountryOfBirth = $CountryOfBirth;
 

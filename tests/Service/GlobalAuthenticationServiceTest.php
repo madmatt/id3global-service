@@ -1,6 +1,7 @@
 <?php
 namespace Tests\Service;
 
+use Exception;
 use ID3Global\Identity\Address\AddressContainer;
 use ID3Global\Identity\Address\FixedFormatAddress;
 use ID3Global\Identity\ContactDetails;
@@ -38,6 +39,9 @@ class GlobalAuthenticationServiceTest extends TestCase
         $this->service = new GlobalAuthenticationService($identity, $profileId, $fakeGateway);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testSuccessfulResponse() {
         $this->service->setCustomerReference('x');
 

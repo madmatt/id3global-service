@@ -11,7 +11,7 @@ abstract class ID3GlobalBaseGateway {
 
     private $pilotSiteWsdl = 'https://pilot.id3global.com/ID3gWS/ID3global.svc?wsdl';
 
-    private $liveSiteWsdl = 'https://www.id3global.com/ID3gWS/ID3global.svc?wsdl';
+    private $liveSiteWsdl = 'https://id3global.com/ID3gWS/ID3global.svc?wsdl';
 
     public function __construct($username, $password, $soapClientOptions = array(), $usePilotSite = false) {
         if((bool)$usePilotSite) {

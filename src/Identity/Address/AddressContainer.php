@@ -7,14 +7,21 @@ class AddressContainer extends ID3IdentityObject {
     /**
      * @var Address Either a FixedFormatAddress or FreeFormatAddress object (default null)
      */
-    private $currentAddress;
+    private Address $currentAddress;
 
-    public function setCurrentAddress(Address $address) {
+    public function __construct(Address $currentAddress)
+    {
+        $this->currentAddress = $currentAddress;
+    }
+
+
+    public function setCurrentAddress(Address $address): AddressContainer
+    {
         $this->currentAddress = $address;
         return $this;
     }
 
-    public function getCurrentAddress()
+    public function getCurrentAddress(): Address
     {
         return $this->currentAddress;
     }

@@ -68,27 +68,28 @@ $personalDetails
     ->setForeName('Dworkin')
     ->setMiddleName('John')
     ->setSurname('Barimen')
-    ->setGender(ID3GlobalService::GENDER_MALE)
-    ->setDateOfBirth(1922, 08, 20);
+    ->setGender('male')
+    ->setDateOfBirth(1922, 8, 20);
 
 $currentAddress = new \ID3Global\Identity\Address\FreeFormatAddress();
 $currentAddress
-    ->setCountry(ID3GlobalService::COUNTRY_NZ)
-    ->setZipPostcode(90210)
+    ->setCountry('New Zealand')
+    ->setPostCode('90210')
     // You can set up to 8 address lines if required using ->setAddressLine3(), ->setAddressLine8() etc.
     ->setAddressLine1('Dungeon 1')
     ->setAddressLine2('Courts of Amber');
 
-$addressContainer = new \ID3Global\Identity\Addresses();
-$addressContainer
-    ->setCurrentAddress($currentAddress);
+$addressContainer = new \ID3Global\Identity\Address\AddressContainer($currentAddress);
 
 $contactDetails = new \ID3Global\Identity\ContactDetails();
 $contactDetails
-    ->setLandPhone(new \ID3Global\Identity\ContactDetails\LandTelephone(1234567890, false))
-    ->setMobilePhone(new \ID3Global\Identity\ContactDetails\MobileTelephone(1234567890))
-    ->setWorkPhone(new \ID3Global\Identity\ContactDetails\WorkTelephone(1234567890))
+    ->setLandPhone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
+    ->setMobilePhone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
+    ->setWorkPhone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
     ->setEmail('dworkin@thepattern.net');
+
+$internationalPassport = new \ID3Global\Identity\Documents\InternationalPassport();
+$documentContainer = new \ID3Global\Identity\Documents\DocumentContainer($internationalPassport);
 
 /**
  * $result will be one of the following:
@@ -96,21 +97,17 @@ $contactDetails
  * - \ID3Global\Constants\Identity::IDENTITY_BAND_REFER
  * - \ID3Global\Constants\Identity::IDENTITY_BAND_ALERT
  *
- * It is up to the implemenetation how these are handled.
+ * It is up to the implementation how these are handled.
  * An exception is thrown if the web service fails or cannot be contacted.
  */
-$identity = new \ID3Global\Identity\Identity();
-$identity
-    ->setPersonalDetails($$personalDetails)
-    ->setAddresses($addressContainer)
-    ->setContactDetails($contactDetails);
+$identity = new \ID3Global\Identity\Identity($personalDetails, $contactDetails, $addressContainer, $documentContainer);
 
-$id3Service = new \ID3Global\Services\GlobalAuthenticationService();
+$id3Service = new \ID3Global\Service\GlobalAuthenticationService();
 $result = $id3Service
     ->setIdentity($identity)
     ->verifyIdentity();
 
-if($result === \ID3Global\Constants\Identity::IDENTITY_BAND_PASS) {
+if($result === \ID3Global\Identity\Identity::IDENTITY_BAND_PASS) {
     // Identity is verified, continue processing
 }
 ```

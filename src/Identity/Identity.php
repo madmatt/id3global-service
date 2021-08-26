@@ -10,19 +10,19 @@ class Identity {
      * @var string The const returned by the ID3Global API when this identity passed verification, according to the
      * ruleset used.
      */
-    const IDENTITY_BAND_PASS = 'Pass';
+    const IDENTITY_BAND_PASS = 'PASS';
 
     /**
      * @var string The const returned by the ID3Global API when this identity needs additional referral, according to
      * the ruleset used.
      */
-    const IDENTITY_BAND_REFER = 'Refer';
+    const IDENTITY_BAND_REFER = 'REFER';
 
     /**
      * The const returned by the ID3Global API when this identity needs additional referral, according to
      * the ruleset used.
      */
-    const IDENTITY_BAND_ALERT = 'Alert';
+    const IDENTITY_BAND_ALERT = 'ALERT';
 
     /**
      * Minimum score to pass verification

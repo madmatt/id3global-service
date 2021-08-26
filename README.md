@@ -102,7 +102,8 @@ $documentContainer = new \ID3Global\Identity\Documents\DocumentContainer($intern
  */
 $identity = new \ID3Global\Identity\Identity($personalDetails, $contactDetails, $addressContainer, $documentContainer);
 
-$id3Service = new \ID3Global\Service\GlobalAuthenticationService();
+$gateway = new \ID3Global\Gateway\GlobalAuthenticationGateway('username', 'password');
+$id3Service = new \ID3Global\Service\GlobalAuthenticationService($identity, 'profile-id', $gateway);
 $result = $id3Service
     ->setIdentity($identity)
     ->verifyIdentity();

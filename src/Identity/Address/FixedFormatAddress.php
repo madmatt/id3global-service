@@ -148,7 +148,7 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
      * @param string $subCity
      * @return FixedFormatAddress
      */
-    public function setSubCity(string $subCity)
+    public function setSubCity(string $subCity): FixedFormatAddress
     {
         $this->SubCity = $subCity;
         return $this;

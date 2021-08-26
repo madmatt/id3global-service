@@ -95,7 +95,7 @@ class AuthenticateSPRequest
      * @param string $CustomerReference
      * @return AuthenticateSPRequest
      */
-    public function setCustomerReference($CustomerReference): AuthenticateSPRequest
+    public function setCustomerReference(string $CustomerReference): AuthenticateSPRequest
     {
         $this->CustomerReference = $CustomerReference;
         return $this;
@@ -113,7 +113,7 @@ class AuthenticateSPRequest
      * @param stdClass $ProfileIDVersion
      * @return AuthenticateSPRequest
      */
-    public function setProfileIDVersion($ProfileIDVersion): AuthenticateSPRequest
+    public function setProfileIDVersion(stdClass $ProfileIDVersion): AuthenticateSPRequest
     {
         $this->ProfileIDVersion = $ProfileIDVersion;
         return $this;

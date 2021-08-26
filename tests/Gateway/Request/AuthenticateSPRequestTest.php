@@ -1,5 +1,5 @@
 <?php
-namespace ID3Global\Tests\Gateway\Request;
+namespace Tests\Gateway\Request;
 
 use ID3Global\Gateway\Request\AuthenticateSPRequest,
     ID3Global\Identity\Address\FixedFormatAddress,
@@ -8,10 +8,12 @@ use ID3Global\Gateway\Request\AuthenticateSPRequest,
     ID3Global\Identity\Identity,
     ID3Global\Identity\Documents\DocumentContainer,
     ID3Global\Identity\Documents\NZ\DrivingLicence;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class AuthenticateSPRequestTest extends \PHPUnit_Framework_TestCase {
+class AuthenticateSPRequestTest extends TestCase {
     public function testStandardParams() {
-        $version = new \stdClass();
+        $version = new stdClass();
         $version->Version = 1;
         $version->ID = 'abc123-x';
         $r = new AuthenticateSPRequest();

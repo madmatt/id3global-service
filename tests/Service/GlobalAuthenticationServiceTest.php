@@ -1,12 +1,16 @@
 <?php
-namespace ID3Global\Tests;
+namespace Tests\Service;
 
 use ID3Global\Stubs\Gateway\GlobalAuthenticationGatewayFake;
 use ID3Global\Identity\Identity;
 use ID3Global\Identity\PersonalDetails;
 use \ID3Global\Service\GlobalAuthenticationService;
+use LogicException;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use stdClass;
 
-class GlobalAuthenticationServiceTest extends \PHPUnit_Framework_TestCase
+class GlobalAuthenticationServiceTest extends TestCase
 {
     /**
      * @var GlobalAuthenticationService
@@ -18,7 +22,8 @@ class GlobalAuthenticationServiceTest extends \PHPUnit_Framework_TestCase
      */
     private $fakeGateway;
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->service = new GlobalAuthenticationService();
         $this->fakeGateway = new GlobalAuthenticationGatewayFake('username', 'password');
 
@@ -39,23 +44,19 @@ class GlobalAuthenticationServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('Default Profile', $response->AuthenticateSPResult->ProfileName);
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage An Identity must be provided by setIdentity() before calling verifyIdentity()
-     */
     public function testIdentityIsRequired() {
+        $this->expectExceptionMessage("An Identity must be provided by setIdentity() before calling verifyIdentity()");
+        $this->expectException(LogicException::class);
         $this->service->verifyIdentity();
     }
 
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage An Identity must be provided by setIdentity() before calling verifyIdentity()
-     */
     public function testIdentityIsProperlyValidated() {
-        $class = new \ReflectionClass('\ID3Global\Service\GlobalAuthenticationService');
+        $this->expectExceptionMessage("An Identity must be provided by setIdentity() before calling verifyIdentity()");
+        $this->expectException(LogicException::class);
+        $class = new ReflectionClass('\ID3Global\Service\GlobalAuthenticationService');
         $property = $class->getProperty('identity');
         $property->setAccessible(true);
-        $property->setValue($this->service, new \stdClass());
+        $property->setValue($this->service, new stdClass());
 
         $this->service->verifyIdentity();
     }

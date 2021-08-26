@@ -7,7 +7,7 @@ class Identity {
      * @var string The const returned by the ID3Global API when this identity passed verification, according to the
      * ruleset used.
      */
-    const IDENTITY_BAND_PASS = 'Name, Address & DOB Match';
+    const IDENTITY_BAND_PASS = 'Pass';
 
     /**
      * @var string The const returned by the ID3Global API when this identity needs additional referral, according to
@@ -21,7 +21,7 @@ class Identity {
      */
     const IDENTITY_BAND_ALERT = 'Alert';
 
-    /** 
+    /**
      * Minimum score to pass verification
      */
     const IDENTITY_SCORE_PASS = 2022;

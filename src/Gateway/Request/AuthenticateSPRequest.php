@@ -2,7 +2,12 @@
 namespace ID3Global\Gateway\Request;
 
 use ID3Global\Identity\Address\Address;
+use ID3Global\Identity\Address\AddressContainer;
+use ID3Global\Identity\Documents\DocumentContainer;
+use ID3Global\Identity\Documents\InternationalPassport;
 use ID3Global\Identity\Identity;
+use ID3Global\Identity\PersonalDetails;
+use stdClass;
 
 class AuthenticateSPRequest
 {
@@ -12,18 +17,18 @@ class AuthenticateSPRequest
     private $CustomerReference;
 
     /**
-     * @var \stdClass
+     * @var stdClass
      */
     private $ProfileIDVersion;
 
     /**
-     * @var \stdClass
+     * @var stdClass
      */
     private $InputData;
 
     public function addFieldsFromIdentity(Identity $identity)
     {
-        $this->InputData = new \stdClass();
+        $this->InputData = new stdClass();
 
         $this->addPersonalDetails($identity);
         $this->addAddresses($identity);
@@ -33,20 +38,20 @@ class AuthenticateSPRequest
 
     private function addPersonalDetails(Identity $identity)
     {
-        $this->InputData->Personal = new \stdClass();
+        $this->InputData->Personal = new stdClass();
         $personalDetails = $identity->getPersonalDetails();
 
-        if (is_a($personalDetails, '\ID3Global\Identity\PersonalDetails')) {
+        if ($personalDetails instanceof PersonalDetails) {
             $this->InputData->Personal->PersonalDetails = $personalDetails;
         }
     }
 
     private function addAddresses(Identity $identity)
     {
-        $this->InputData->Addresses = new \stdClass();
+        $this->InputData->Addresses = new stdClass();
         $addresses = $identity->getAddresses();
 
-        if (is_a($addresses, '\ID3Global\Identity\Address\AddressContainer')) {
+        if ($addresses instanceof AddressContainer) {
             $currentAddress = $addresses->getCurrentAddress();
 
             if ($currentAddress instanceof Address) {
@@ -57,13 +62,13 @@ class AuthenticateSPRequest
 
     private function addIdentityDocuments(Identity $identity)
     {
-        $this->InputData->IdentityDocuments = new \stdClass();
+        $this->InputData->IdentityDocuments = new stdClass();
         $documents = $identity->getIdentityDocuments();
 
-        if(is_a($documents, '\ID3Global\Identity\Documents\DocumentContainer')) {
+        if($documents instanceof DocumentContainer) {
             $passport = $documents->getInternationalPassport();
 
-            if(is_a($passport, '\ID3Global\Identity\Documents\InternationalPassport')) {
+            if($passport instanceof InternationalPassport) {
                 $this->InputData->IdentityDocuments->InternationalPassport = $passport;
             }
 
@@ -97,7 +102,7 @@ class AuthenticateSPRequest
     }
 
     /**
-     * @return \stdClass
+     * @return stdClass
      */
     public function getProfileIDVersion()
     {
@@ -105,7 +110,7 @@ class AuthenticateSPRequest
     }
 
     /**
-     * @param \stdClass $ProfileIDVersion
+     * @param stdClass $ProfileIDVersion
      * @return AuthenticateSPRequest
      */
     public function setProfileIDVersion($ProfileIDVersion)

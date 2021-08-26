@@ -25,11 +25,6 @@ class Identity {
     const IDENTITY_BAND_ALERT = 'ALERT';
 
     /**
-     * Minimum score to pass verification
-     */
-    const IDENTITY_SCORE_PASS = 2022;
-
-    /**
      * @var PersonalDetails
      */
     private PersonalDetails $personalDetails;

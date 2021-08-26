@@ -44,9 +44,9 @@ class DocumentContainer extends ID3IdentityObject
     }
 
     /**
-     * @return array|stdClass|null
+     * @return stdClass|null
      */
-    public function getNewZealandDocuments(): array|stdClass|null
+    public function getNewZealandDocuments(): ?stdClass
     {
         return $this->NewZealand;
     }

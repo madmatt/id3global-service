@@ -9,9 +9,9 @@ use stdClass;
 class DocumentContainer extends ID3IdentityObject
 {
     /**
-     * @var InternationalPassport
+     * @var InternationalPassport|null
      */
-    private InternationalPassport $InternationalPassport;
+    private ?InternationalPassport $InternationalPassport = null;
 
     /**
      * @var stdClass|null Identity documents relevant to New Zealand
@@ -25,16 +25,10 @@ class DocumentContainer extends ID3IdentityObject
         'NewZealand'
     );
 
-    public function __construct(InternationalPassport $InternationalPassport)
-    {
-        $this->InternationalPassport = $InternationalPassport;
-    }
-
-
     /**
-     * @return InternationalPassport
+     * @return InternationalPassport|null
      */
-    public function getInternationalPassport(): InternationalPassport
+    public function getInternationalPassport(): ?InternationalPassport
     {
         return $this->InternationalPassport;
     }

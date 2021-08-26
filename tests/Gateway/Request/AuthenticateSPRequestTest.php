@@ -8,9 +8,6 @@ use ID3Global\Identity\Address\AddressContainer;
 use ID3Global\Identity\Identity;
 use ID3Global\Identity\Documents\DocumentContainer;
 use ID3Global\Identity\Documents\NZ\DrivingLicence;
-use ID3Global\Identity\ContactDetails;
-use ID3Global\Identity\Documents\InternationalPassport;
-use ID3Global\Identity\PersonalDetails;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -24,12 +21,7 @@ class AuthenticateSPRequestTest extends TestCase {
     {
         parent::setUp();
 
-        $personalDetails = new PersonalDetails();
-        $contactDetails = new ContactDetails();
-        $addresses = new AddressContainer(new FixedFormatAddress());
-        $passport = new InternationalPassport();
-        $identityDocuments = new DocumentContainer($passport);
-        $this->identity = new Identity($personalDetails, $contactDetails, $addresses, $identityDocuments);
+        $this->identity = new Identity();
     }
 
     public function testStandardParams() {
@@ -61,7 +53,9 @@ class AuthenticateSPRequestTest extends TestCase {
             ->setPremise('Empire State Building')
             ->setZipPostcode('10118');
 
-        $this->identity->getAddresses()->setCurrentAddress($address);
+        $container = new AddressContainer();
+        $container->setCurrentAddress($address);
+        $this->identity->setAddresses($container);
 
         $r = new AuthenticateSPRequest();
         $r->addFieldsFromIdentity($this->identity);
@@ -96,7 +90,9 @@ class AuthenticateSPRequestTest extends TestCase {
             ->setAddressLine7('6004')
             ->setAddressLine8('NZ');
 
-        $this->identity->getAddresses()->setCurrentAddress($address);
+        $container = new AddressContainer();
+        $container->setCurrentAddress($address);
+        $this->identity->setAddresses($container);
 
         $r = new AuthenticateSPRequest();
         $r->addFieldsFromIdentity($this->identity);
@@ -122,7 +118,9 @@ class AuthenticateSPRequestTest extends TestCase {
             ->setVersion(123)
             ->setVehicleRegistration('ABC123');
 
-        $this->identity->getIdentityDocuments()->addIdentityDocument($licence, 'New Zealand');
+        $container = new DocumentContainer();
+        $container->addIdentityDocument($licence, 'New Zealand');
+        $this->identity->setIdentityDocuments($container);
 
         $r = new AuthenticateSPRequest();
         $r->addFieldsFromIdentity($this->identity);

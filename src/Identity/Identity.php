@@ -25,35 +25,24 @@ class Identity {
     const IDENTITY_BAND_ALERT = 'ALERT';
 
     /**
-     * @var PersonalDetails
+     * @var PersonalDetails|null
      */
-    private PersonalDetails $personalDetails;
+    private ?PersonalDetails $personalDetails = null;
 
     /**
-     * @var ContactDetails
+     * @var ContactDetails|null
      */
-    private ContactDetails $contactDetails;
+    private ?ContactDetails $contactDetails = null;
 
     /**
-     * @var AddressContainer
+     * @var AddressContainer|null
      */
-    private AddressContainer $addresses;
+    private ?AddressContainer $addresses = null;
 
     /**
-     * @var DocumentContainer
+     * @var DocumentContainer|null
      */
-    private DocumentContainer $identityDocuments;
-
-    public function __construct(PersonalDetails $personalDetails,
-                                ContactDetails $contactDetails,
-                                AddressContainer $addresses,
-                                DocumentContainer $identityDocuments)
-    {
-        $this->personalDetails = $personalDetails;
-        $this->contactDetails = $contactDetails;
-        $this->addresses = $addresses;
-        $this->identityDocuments = $identityDocuments;
-    }
+    private ?DocumentContainer $identityDocuments = null;
 
 
     /**
@@ -66,7 +55,7 @@ class Identity {
         return $this;
     }
 
-    public function getPersonalDetails(): PersonalDetails
+    public function getPersonalDetails(): ?PersonalDetails
     {
         return $this->personalDetails;
     }
@@ -91,15 +80,15 @@ class Identity {
         return $this;
     }
 
-    public function getAddresses(): AddressContainer
+    public function getAddresses(): ?AddressContainer
     {
         return $this->addresses;
     }
 
     /**
-     * @return Documents\DocumentContainer
+     * @return DocumentContainer|null
      */
-    public function getIdentityDocuments(): DocumentContainer
+    public function getIdentityDocuments(): ?DocumentContainer
     {
         return $this->identityDocuments;
     }

@@ -79,7 +79,8 @@ $currentAddress
     ->setAddressLine1('Dungeon 1')
     ->setAddressLine2('Courts of Amber');
 
-$addressContainer = new \ID3Global\Identity\Address\AddressContainer($currentAddress);
+$addressContainer = new \ID3Global\Identity\Address\AddressContainer();
+$addressContainer->setCurrentAddress($currentAddress);
 
 $contactDetails = new \ID3Global\Identity\ContactDetails();
 $contactDetails
@@ -89,7 +90,8 @@ $contactDetails
     ->setEmail('dworkin@thepattern.net');
 
 $internationalPassport = new \ID3Global\Identity\Documents\InternationalPassport();
-$documentContainer = new \ID3Global\Identity\Documents\DocumentContainer($internationalPassport);
+$documentContainer = new \ID3Global\Identity\Documents\DocumentContainer();
+$documentContainer->addIdentityDocument(new \ID3Global\Identity\Documents\NZ\DrivingLicence(), 'New Zealand');
 
 /**
  * $result will be one of the following:
@@ -100,7 +102,12 @@ $documentContainer = new \ID3Global\Identity\Documents\DocumentContainer($intern
  * It is up to the implementation how these are handled.
  * An exception is thrown if the web service fails or cannot be contacted.
  */
-$identity = new \ID3Global\Identity\Identity($personalDetails, $contactDetails, $addressContainer, $documentContainer);
+$identity = new \ID3Global\Identity\Identity();
+$identity
+    ->setPersonalDetails($personalDetails)
+    ->setAddresses($addressContainer)
+    ->setContactDetails($contactDetails)
+    ->setIdentityDocuments($documentContainer);
 
 $gateway = new \ID3Global\Gateway\GlobalAuthenticationGateway('username', 'password');
 $id3Service = new \ID3Global\Service\GlobalAuthenticationService($identity, 'profile-id', $gateway);

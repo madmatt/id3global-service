@@ -5,15 +5,9 @@ use ID3Global\Identity\ID3IdentityObject;
 
 class AddressContainer extends ID3IdentityObject {
     /**
-     * @var Address Either a FixedFormatAddress or FreeFormatAddress object (default null)
+     * @var Address|null Either a FixedFormatAddress or FreeFormatAddress object (default null)
      */
-    private Address $currentAddress;
-
-    public function __construct(Address $currentAddress)
-    {
-        $this->currentAddress = $currentAddress;
-    }
-
+    private ?Address $currentAddress = null;
 
     public function setCurrentAddress(Address $address): AddressContainer
     {
@@ -21,7 +15,7 @@ class AddressContainer extends ID3IdentityObject {
         return $this;
     }
 
-    public function getCurrentAddress(): Address
+    public function getCurrentAddress(): ?Address
     {
         return $this->currentAddress;
     }

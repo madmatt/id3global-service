@@ -1,9 +1,11 @@
 <?php
+
 namespace ID3Global\Identity;
 
-use \DateTime;
+use DateTime;
 
-class PersonalDetails extends ID3IdentityObject {
+class PersonalDetails extends ID3IdentityObject
+{
     /**
      * @var string
      */
@@ -56,51 +58,61 @@ class PersonalDetails extends ID3IdentityObject {
 
     /**
      * @param string $title
+     *
      * @return PersonalDetails
      */
     public function setTitle(string $title): PersonalDetails
     {
         $this->Title = $title;
+
         return $this;
     }
 
     /**
      * @param string $forename
+     *
      * @return PersonalDetails
      */
     public function setForename(string $forename): PersonalDetails
     {
         $this->Forename = $forename;
+
         return $this;
     }
 
     /**
      * @param string $middleName
+     *
      * @return PersonalDetails
      */
     public function setMiddleName(string $middleName): PersonalDetails
     {
         $this->MiddleName = $middleName;
+
         return $this;
     }
 
     /**
      * @param string $surname
+     *
      * @return PersonalDetails
      */
     public function setSurname(string $surname): PersonalDetails
     {
         $this->Surname = $surname;
+
         return $this;
     }
 
     /**
      * @param string $gender
+     *
      * @return PersonalDetails
      */
     public function setGender(string $gender): PersonalDetails
     {
         $this->Gender = $gender;
+
         return $this;
     }
 
@@ -108,6 +120,7 @@ class PersonalDetails extends ID3IdentityObject {
      * @param int $year
      * @param int $month
      * @param int $day
+     *
      * @return PersonalDetails
      */
     public function setDateOfBirth(int $year, int $month, int $day): PersonalDetails
@@ -206,6 +219,7 @@ class PersonalDetails extends ID3IdentityObject {
 
     /**
      * @param string $CountryOfBirth
+     *
      * @return PersonalDetails
      */
     public function setCountryOfBirth(string $CountryOfBirth): PersonalDetails
@@ -214,6 +228,4 @@ class PersonalDetails extends ID3IdentityObject {
 
         return $this;
     }
-
-
 }

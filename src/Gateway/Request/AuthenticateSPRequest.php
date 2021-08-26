@@ -1,12 +1,13 @@
 <?php
+
 namespace ID3Global\Gateway\Request;
 
 use ID3Global\Identity\Address\Address;
 use ID3Global\Identity\Address\AddressContainer;
 use ID3Global\Identity\Documents\DocumentContainer;
 use ID3Global\Identity\Documents\InternationalPassport;
-use ID3Global\Identity\PersonalDetails;
 use ID3Global\Identity\Identity;
+use ID3Global\Identity\PersonalDetails;
 use stdClass;
 
 class AuthenticateSPRequest
@@ -33,7 +34,6 @@ class AuthenticateSPRequest
         $this->addPersonalDetails($identity);
         $this->addAddresses($identity);
         $this->addIdentityDocuments($identity);
-
     }
 
     private function addPersonalDetails(Identity $identity)
@@ -65,18 +65,18 @@ class AuthenticateSPRequest
         $this->InputData->IdentityDocuments = new stdClass();
         $documents = $identity->getIdentityDocuments();
 
-        if($documents instanceof DocumentContainer) {
+        if ($documents instanceof DocumentContainer) {
             $passport = $documents->getInternationalPassport();
 
-            if($passport instanceof InternationalPassport) {
+            if ($passport instanceof InternationalPassport) {
                 $this->InputData->IdentityDocuments->InternationalPassport = $passport;
             }
 
-            foreach($documents->getValidCountries() as $country) {
+            foreach ($documents->getValidCountries() as $country) {
                 $varName = sprintf('get%sDocuments', $country);
                 $countryDocuments = $documents->$varName();
 
-                if(is_object($countryDocuments)) {
+                if (is_object($countryDocuments)) {
                     $this->InputData->IdentityDocuments->$country = $countryDocuments;
                 }
             }
@@ -93,11 +93,13 @@ class AuthenticateSPRequest
 
     /**
      * @param string $CustomerReference
+     *
      * @return AuthenticateSPRequest
      */
     public function setCustomerReference(string $CustomerReference): AuthenticateSPRequest
     {
         $this->CustomerReference = $CustomerReference;
+
         return $this;
     }
 
@@ -111,11 +113,13 @@ class AuthenticateSPRequest
 
     /**
      * @param stdClass $ProfileIDVersion
+     *
      * @return AuthenticateSPRequest
      */
     public function setProfileIDVersion(stdClass $ProfileIDVersion): AuthenticateSPRequest
     {
         $this->ProfileIDVersion = $ProfileIDVersion;
+
         return $this;
     }
 

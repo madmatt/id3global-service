@@ -1,17 +1,19 @@
 <?php
+
 namespace Tests\Gateway\Request;
 
 use ID3Global\Gateway\Request\AuthenticateSPRequest;
+use ID3Global\Identity\Address\AddressContainer;
 use ID3Global\Identity\Address\FixedFormatAddress;
 use ID3Global\Identity\Address\FreeFormatAddress;
-use ID3Global\Identity\Address\AddressContainer;
-use ID3Global\Identity\Identity;
 use ID3Global\Identity\Documents\DocumentContainer;
 use ID3Global\Identity\Documents\NZ\DrivingLicence;
+use ID3Global\Identity\Identity;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class AuthenticateSPRequestTest extends TestCase {
+class AuthenticateSPRequestTest extends TestCase
+{
     /**
      * @var Identity
      */
@@ -24,7 +26,8 @@ class AuthenticateSPRequestTest extends TestCase {
         $this->identity = new Identity();
     }
 
-    public function testStandardParams() {
+    public function testStandardParams()
+    {
         $version = new stdClass();
         $version->Version = 1;
         $version->ID = 'abc123-x';
@@ -37,7 +40,8 @@ class AuthenticateSPRequestTest extends TestCase {
         $this->assertEquals('X', $r->getCustomerReference());
     }
 
-    public function testFixedLengthAddress() {
+    public function testFixedLengthAddress()
+    {
         $address = new FixedFormatAddress();
         $address
             ->setPrincipality('US')
@@ -75,7 +79,8 @@ class AuthenticateSPRequestTest extends TestCase {
         $this->assertSame('10118', $test->ZipPostcode);
     }
 
-    public function testFreeFormatAddress() {
+    public function testFreeFormatAddress()
+    {
         $address = new FreeFormatAddress();
 
         $address
@@ -110,7 +115,8 @@ class AuthenticateSPRequestTest extends TestCase {
         $this->assertSame('NZ', $test->AddressLine8);
     }
 
-    public function testNZDrivingLicence() {
+    public function testNZDrivingLicence()
+    {
         $licence = new DrivingLicence();
 
         $licence

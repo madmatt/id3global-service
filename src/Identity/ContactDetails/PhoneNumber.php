@@ -1,7 +1,9 @@
 <?php
+
 namespace ID3Global\Identity\ContactDetails;
 
-class PhoneNumber {
+class PhoneNumber
+{
     /**
      * @var string
      */
@@ -12,14 +14,15 @@ class PhoneNumber {
         $this->number = $number;
     }
 
-
     /**
      * @param string $number
+     *
      * @return PhoneNumber
      */
     public function setNumber(string $number): PhoneNumber
     {
         $this->number = $number;
+
         return $this;
     }
 }

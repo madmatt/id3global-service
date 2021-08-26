@@ -1,4 +1,5 @@
 <?php
+
 namespace ID3Global\Identity\Documents;
 
 use ID3Global\Identity\ID3IdentityObject;
@@ -21,9 +22,9 @@ class DocumentContainer extends ID3IdentityObject
     /**
      * @var array Used by self::addIdentityDocument() to ensure the country name is valid
      */
-    private array $validCountries = array(
-        'NewZealand'
-    );
+    private array $validCountries = [
+        'NewZealand',
+    ];
 
     /**
      * @return InternationalPassport|null
@@ -35,11 +36,13 @@ class DocumentContainer extends ID3IdentityObject
 
     /**
      * @param InternationalPassport $InternationalPassport
+     *
      * @return DocumentContainer
      */
     public function setInternationalPassport(InternationalPassport $InternationalPassport): DocumentContainer
     {
         $this->InternationalPassport = $InternationalPassport;
+
         return $this;
     }
 
@@ -53,7 +56,8 @@ class DocumentContainer extends ID3IdentityObject
 
     /**
      * @param ID3IdentityObject $document
-     * @param string $country The country to assign this document to (e.g. 'New Zealand')
+     * @param string            $country  The country to assign this document to (e.g. 'New Zealand')
+     *
      * @return DocumentContainer
      */
     public function addIdentityDocument(ID3IdentityObject $document, string $country): DocumentContainer
@@ -63,8 +67,8 @@ class DocumentContainer extends ID3IdentityObject
         $r = new ReflectionClass($document);
         $docType = $r->getShortName();
 
-        if(in_array($varName, $this->validCountries)) {
-            if(is_null($this->$varName)) {
+        if (in_array($varName, $this->validCountries)) {
+            if (is_null($this->$varName)) {
                 $this->$varName = new stdClass();
             }
 

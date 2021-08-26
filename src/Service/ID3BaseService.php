@@ -1,11 +1,12 @@
 <?php
+
 namespace ID3Global\Service;
 
 abstract class ID3BaseService
 {
     /**
      * @var bool Set to true to use the ID3 'pilot' (aka. staging or test) site for all API calls. By default, with this
-     * value set to false all API calls are made against the live API.
+     *           value set to false all API calls are made against the live API.
      */
     private bool $pilotSiteEnabled = false;
 
@@ -21,7 +22,7 @@ abstract class ID3BaseService
 
     public function getPilotSiteEnabled(): bool
     {
-        return (bool)$this->pilotSiteEnabled;
+        return (bool) $this->pilotSiteEnabled;
     }
 
     public function setPilotSiteEnabled($bool = true): ID3BaseService
@@ -31,6 +32,7 @@ abstract class ID3BaseService
         }
 
         $this->pilotSiteEnabled = $bool;
+
         return $this;
     }
 
@@ -42,6 +44,7 @@ abstract class ID3BaseService
     public function setApiUsername($username): ID3BaseService
     {
         $this->apiUsername = $username;
+
         return $this;
     }
 
@@ -53,6 +56,7 @@ abstract class ID3BaseService
     public function setApiPassword($password): ID3BaseService
     {
         $this->apiPassword = $password;
+
         return $this;
     }
 }

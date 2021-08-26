@@ -1,4 +1,5 @@
 <?php
+
 namespace ID3Global\Identity\Documents\NZ;
 
 use ID3Global\Identity\ID3IdentityObject;
@@ -30,11 +31,13 @@ class DrivingLicence extends ID3IdentityObject
 
     /**
      * @param string $Number
+     *
      * @return DrivingLicence
      */
     public function setNumber(string $Number): DrivingLicence
     {
         $this->Number = $Number;
+
         return $this;
     }
 
@@ -48,11 +51,13 @@ class DrivingLicence extends ID3IdentityObject
 
     /**
      * @param int $Version
+     *
      * @return DrivingLicence
      */
     public function setVersion(int $Version): DrivingLicence
     {
         $this->Version = $Version;
+
         return $this;
     }
 
@@ -66,11 +71,13 @@ class DrivingLicence extends ID3IdentityObject
 
     /**
      * @param string $VehicleRegistration
+     *
      * @return DrivingLicence
      */
     public function setVehicleRegistration(string $VehicleRegistration): DrivingLicence
     {
         $this->VehicleRegistration = $VehicleRegistration;
+
         return $this;
     }
 }

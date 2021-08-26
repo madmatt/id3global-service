@@ -1,12 +1,15 @@
 <?php
+
 namespace ID3Global\Gateway;
 
-use ID3Global\Identity\Identity;
 use ID3Global\Gateway\Request\AuthenticateSPRequest;
+use ID3Global\Identity\Identity;
 use stdClass;
 
-class GlobalAuthenticationGateway extends ID3GlobalBaseGateway {
-    public function AuthenticateSP(string $profileID, string $profileVersion, string $customerReference, Identity $identity) {
+class GlobalAuthenticationGateway extends ID3GlobalBaseGateway
+{
+    public function AuthenticateSP(string $profileID, string $profileVersion, string $customerReference, Identity $identity)
+    {
         $request = new AuthenticateSPRequest();
         $request->setCustomerReference($customerReference);
 

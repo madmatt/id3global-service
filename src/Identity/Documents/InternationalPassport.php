@@ -1,4 +1,5 @@
 <?php
+
 namespace ID3Global\Identity\Documents;
 
 use ID3Global\Identity\ID3IdentityObject;
@@ -60,11 +61,13 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param string $Number
+     *
      * @return InternationalPassport
      */
     public function setNumber(string $Number): InternationalPassport
     {
         $this->Number = $Number;
+
         return $this;
     }
 
@@ -78,11 +81,13 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param string $ShortPassportNumber
+     *
      * @return InternationalPassport
      */
     public function setShortPassportNumber(string $ShortPassportNumber): InternationalPassport
     {
         $this->ShortPassportNumber = $ShortPassportNumber;
+
         return $this;
     }
 
@@ -96,11 +101,13 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param int $ExpiryDay
+     *
      * @return InternationalPassport
      */
     public function setExpiryDay(int $ExpiryDay): InternationalPassport
     {
         $this->ExpiryDay = $ExpiryDay;
+
         return $this;
     }
 
@@ -114,11 +121,13 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param int $ExpiryMonth
+     *
      * @return InternationalPassport
      */
     public function setExpiryMonth(int $ExpiryMonth): InternationalPassport
     {
         $this->ExpiryMonth = $ExpiryMonth;
+
         return $this;
     }
 
@@ -132,11 +141,13 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param int $ExpiryYear
+     *
      * @return InternationalPassport
      */
     public function setExpiryYear(int $ExpiryYear): InternationalPassport
     {
         $this->ExpiryYear = $ExpiryYear;
+
         return $this;
     }
 
@@ -144,6 +155,7 @@ class InternationalPassport extends ID3IdentityObject
      * @param int $year
      * @param int $month
      * @param int $day
+     *
      * @return InternationalPassport
      */
     public function setExpiryDate(int $year, int $month, int $day): InternationalPassport
@@ -151,6 +163,7 @@ class InternationalPassport extends ID3IdentityObject
         $this->setExpiryDay($day);
         $this->setExpiryMonth($month);
         $this->setExpiryYear($year);
+
         return $this;
     }
 
@@ -164,11 +177,13 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param int $IssueDay
+     *
      * @return InternationalPassport
      */
     public function setIssueDay(int $IssueDay): InternationalPassport
     {
         $this->IssueDay = $IssueDay;
+
         return $this;
     }
 
@@ -182,11 +197,13 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param int $IssueMonth
+     *
      * @return InternationalPassport
      */
     public function setIssueMonth(int $IssueMonth): InternationalPassport
     {
         $this->IssueMonth = $IssueMonth;
+
         return $this;
     }
 
@@ -200,11 +217,13 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param int $IssueYear
+     *
      * @return InternationalPassport
      */
     public function setIssueYear(int $IssueYear): InternationalPassport
     {
         $this->IssueYear = $IssueYear;
+
         return $this;
     }
 
@@ -212,6 +231,7 @@ class InternationalPassport extends ID3IdentityObject
      * @param int $year
      * @param int $month
      * @param int $day
+     *
      * @return InternationalPassport
      */
     public function setIssueDate(int $year, int $month, int $day): InternationalPassport
@@ -219,6 +239,7 @@ class InternationalPassport extends ID3IdentityObject
         $this->setIssueDay($day);
         $this->setIssueMonth($month);
         $this->setIssueYear($year);
+
         return $this;
     }
 
@@ -232,11 +253,13 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param string $CountryOfOrigin
+     *
      * @return InternationalPassport
      */
     public function setCountryOfOrigin(string $CountryOfOrigin): InternationalPassport
     {
         $this->CountryOfOrigin = $CountryOfOrigin;
+
         return $this;
     }
 }

@@ -1,9 +1,11 @@
 <?php
+
 namespace ID3Global\Identity\Address;
 
 use ID3Global\Identity\ID3IdentityObject;
 
-class AddressContainer extends ID3IdentityObject {
+class AddressContainer extends ID3IdentityObject
+{
     /**
      * @var Address|null Either a FixedFormatAddress or FreeFormatAddress object (default null)
      */
@@ -12,6 +14,7 @@ class AddressContainer extends ID3IdentityObject {
     public function setCurrentAddress(Address $address): AddressContainer
     {
         $this->CurrentAddress = $address;
+
         return $this;
     }
 

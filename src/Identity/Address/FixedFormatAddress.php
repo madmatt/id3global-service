@@ -1,9 +1,11 @@
 <?php
+
 namespace ID3Global\Identity\Address;
 
-use \ID3Global\Identity\ID3IdentityObject;
+use ID3Global\Identity\ID3IdentityObject;
 
-class FixedFormatAddress extends ID3IdentityObject implements Address {
+class FixedFormatAddress extends ID3IdentityObject implements Address
+{
     /**
      * @var string
      */
@@ -74,11 +76,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $country
+     *
      * @return FixedFormatAddress
      */
     public function setCountry(string $country): FixedFormatAddress
     {
         $this->Country = $country;
+
         return $this;
     }
 
@@ -92,11 +96,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $street
+     *
      * @return FixedFormatAddress
      */
     public function setStreet(string $street): FixedFormatAddress
     {
         $this->Street = $street;
+
         return $this;
     }
 
@@ -110,11 +116,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $subStreet
+     *
      * @return FixedFormatAddress
      */
     public function setSubStreet(string $subStreet): FixedFormatAddress
     {
         $this->SubStreet = $subStreet;
+
         return $this;
     }
 
@@ -128,11 +136,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $city
+     *
      * @return FixedFormatAddress
      */
     public function setCity(string $city): FixedFormatAddress
     {
         $this->City = $city;
+
         return $this;
     }
 
@@ -146,11 +156,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $subCity
+     *
      * @return FixedFormatAddress
      */
     public function setSubCity(string $subCity): FixedFormatAddress
     {
         $this->SubCity = $subCity;
+
         return $this;
     }
 
@@ -164,11 +176,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $stateDistrict
+     *
      * @return FixedFormatAddress
      */
     public function setStateDistrict(string $stateDistrict): FixedFormatAddress
     {
         $this->StateDistrict = $stateDistrict;
+
         return $this;
     }
 
@@ -182,11 +196,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $region
+     *
      * @return FixedFormatAddress
      */
     public function setRegion(string $region): FixedFormatAddress
     {
         $this->Region = $region;
+
         return $this;
     }
 
@@ -200,11 +216,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $principality
+     *
      * @return FixedFormatAddress
      */
     public function setPrincipality(string $principality): FixedFormatAddress
     {
         $this->Principality = $principality;
+
         return $this;
     }
 
@@ -218,11 +236,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $zipPostcode
+     *
      * @return FixedFormatAddress
      */
     public function setZipPostcode(string $zipPostcode): FixedFormatAddress
     {
         $this->ZipPostcode = $zipPostcode;
+
         return $this;
     }
 
@@ -236,11 +256,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $building
+     *
      * @return FixedFormatAddress
      */
     public function setBuilding(string $building): FixedFormatAddress
     {
         $this->Building = $building;
+
         return $this;
     }
 
@@ -254,11 +276,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $subBuilding
+     *
      * @return FixedFormatAddress
      */
     public function setSubBuilding(string $subBuilding): FixedFormatAddress
     {
         $this->SubBuilding = $subBuilding;
+
         return $this;
     }
 
@@ -272,11 +296,13 @@ class FixedFormatAddress extends ID3IdentityObject implements Address {
 
     /**
      * @param string $premise
+     *
      * @return FixedFormatAddress
      */
     public function setPremise(string $premise): FixedFormatAddress
     {
         $this->Premise = $premise;
+
         return $this;
     }
 }

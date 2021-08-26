@@ -1,4 +1,5 @@
 <?php
+
 namespace ID3Global\Service;
 
 use Exception;
@@ -22,14 +23,14 @@ class GlobalAuthenticationService extends ID3BaseService
 
     /**
      * @var int The Profile Version to be used when verifying a @link \ID3Global\Identity\Identity object. The version
-     * 0 represents the 'most recent version of the profile', which is generally what is required.
+     *          0 represents the 'most recent version of the profile', which is generally what is required.
      */
     private int $profileVersion = 0;
 
     /**
      * @var string|null A reference stored against this identity request. This is optional, but is recommended to set a
-     * customer reference and store it against the returned identity verification so it can be later tracked if
-     * necessary for compliance purposes.
+     *                  customer reference and store it against the returned identity verification so it can be later tracked if
+     *                  necessary for compliance purposes.
      */
     private ?string $customerReference = null;
 
@@ -40,7 +41,7 @@ class GlobalAuthenticationService extends ID3BaseService
 
     /**
      * @var stdClass|null The last response, directly from the API gateway. Can be retrieved using
-     * {@link getLastVerifyIdentityResponse()}.
+     *                    {@link getLastVerifyIdentityResponse()}.
      */
     private ?stdClass $lastVerifyIdentityResponse = null;
 
@@ -52,29 +53,35 @@ class GlobalAuthenticationService extends ID3BaseService
     /**
      * @var array Optional extras for the SOAP client
      */
-    private array $soapOptions = array();
+    private array $soapOptions = [];
 
-    public function __construct(Identity $identity,
-                                string $profileID,
-                                GlobalAuthenticationGateway $gateway)
+    public function __construct(
+        Identity $identity,
+        string $profileID,
+        GlobalAuthenticationGateway $gateway
+    )
     {
         $this->identity = $identity;
         $this->profileID = $profileID;
         $this->gateway = $gateway;
     }
 
-
     /**
-     * @return string One of Identity::IDENTITY_BAND_PASS, Identity::IDENTITY_BAND_REFER, or Identity::IDENTITY_BAND_ALERT
      * @throws Exception
+     *
+     * @return string One of Identity::IDENTITY_BAND_PASS, Identity::IDENTITY_BAND_REFER, or Identity::IDENTITY_BAND_ALERT
      */
     public function verifyIdentity(): string
     {
         $gateway = $this->getGateway();
 
         try {
-            $response = $gateway->AuthenticateSP($this->profileID, $this->profileVersion, $this->customerReference,
-                $this->identity);
+            $response = $gateway->AuthenticateSP(
+                $this->profileID,
+                $this->profileVersion,
+                $this->customerReference,
+                $this->identity
+            );
 
             if ($gateway->getClient() instanceof SoapClient) {
                 $this->lastRawRequest = $gateway->getClient()->__getLastRequest();
@@ -82,7 +89,7 @@ class GlobalAuthenticationService extends ID3BaseService
 
             $validResult = false;
 
-            if(
+            if (
                 isset($response) &&
                 isset($response->AuthenticateSPResult) &&
                 isset($response->AuthenticateSPResult->BandText) && isset($response->AuthenticateSPResult->Score)
@@ -90,8 +97,9 @@ class GlobalAuthenticationService extends ID3BaseService
                 $validResult = true;
             }
 
-            if($validResult) {
+            if ($validResult) {
                 $this->lastVerifyIdentityResponse = $response;
+
                 return $response->AuthenticateSPResult->BandText;
             } else {
                 throw new IdentityVerificationFailureException($response);
@@ -99,12 +107,11 @@ class GlobalAuthenticationService extends ID3BaseService
         } catch (Exception $e) {
             throw $e;
         }
-
     }
 
     /**
      * @return stdClass|null Either the full response as returned by ID3Global, or null if no call has been made (or
-     * if the previous call failed for any reason)
+     *                       if the previous call failed for any reason)
      */
     public function getLastVerifyIdentityResponse(): ?stdClass
     {
@@ -124,7 +131,7 @@ class GlobalAuthenticationService extends ID3BaseService
      */
     public function getGateway(): GlobalAuthenticationGateway
     {
-        if(!$this->gateway) {
+        if (!$this->gateway) {
             $this->gateway = new GlobalAuthenticationGateway(
                 $this->getApiUsername(),
                 $this->getApiPassword(),
@@ -139,16 +146,19 @@ class GlobalAuthenticationService extends ID3BaseService
     public function setGateway(GlobalAuthenticationGateway $gateway): GlobalAuthenticationService
     {
         $this->gateway = $gateway;
+
         return $this;
     }
 
     /**
      * @param string $reference
+     *
      * @return GlobalAuthenticationService
      */
     public function setCustomerReference(string $reference): GlobalAuthenticationService
     {
         $this->customerReference = $reference;
+
         return $this;
     }
 
@@ -167,6 +177,7 @@ class GlobalAuthenticationService extends ID3BaseService
 
     /**
      * @param array $soapOptions
+     *
      * @return $this
      */
     public function setSoapOptions(array $soapOptions): GlobalAuthenticationService
@@ -178,33 +189,37 @@ class GlobalAuthenticationService extends ID3BaseService
 
     /**
      * @param Identity $identity
+     *
      * @return GlobalAuthenticationService
      */
     public function setIdentity(Identity $identity): GlobalAuthenticationService
     {
         $this->identity = $identity;
+
         return $this;
     }
 
     /**
      * @param string $profileID
+     *
      * @return GlobalAuthenticationService
      */
     public function setProfileID(string $profileID): GlobalAuthenticationService
     {
         $this->profileID = $profileID;
+
         return $this;
     }
 
     /**
      * @param int $profileVersion
+     *
      * @return GlobalAuthenticationService
      */
     public function setProfileVersion(int $profileVersion): GlobalAuthenticationService
     {
         $this->profileVersion = $profileVersion;
+
         return $this;
     }
-
-
 }

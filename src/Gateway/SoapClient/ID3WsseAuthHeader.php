@@ -1,15 +1,18 @@
 <?php
+
 namespace ID3Global\Gateway\SoapClient;
 
 use SoapHeader;
 use SoapVar;
 use stdClass;
 
-class ID3WsseAuthHeader extends SoapHeader {
+class ID3WsseAuthHeader extends SoapHeader
+{
     private $wsseNamespace = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
 
-    public function __construct($username, $password, $ns = null) {
-        if($ns) {
+    public function __construct($username, $password, $ns = null)
+    {
+        if ($ns) {
             $this->wsseNamespace = $ns;
         }
 

@@ -1,11 +1,12 @@
 <?php
+
 namespace Tests\Service;
 
 use Exception;
-use ID3Global\Stubs\Gateway\GlobalAuthenticationGatewayFake;
 use ID3Global\Identity\Identity;
 use ID3Global\Identity\PersonalDetails;
-use \ID3Global\Service\GlobalAuthenticationService;
+use ID3Global\Service\GlobalAuthenticationService;
+use ID3Global\Stubs\Gateway\GlobalAuthenticationGatewayFake;
 use PHPUnit\Framework\TestCase;
 
 class GlobalAuthenticationServiceTest extends TestCase
@@ -35,7 +36,8 @@ class GlobalAuthenticationServiceTest extends TestCase
     /**
      * @throws Exception
      */
-    public function testSuccessfulResponse() {
+    public function testSuccessfulResponse()
+    {
         $this->service->setCustomerReference('x');
 
         $this->assertSame(Identity::IDENTITY_BAND_PASS, $this->service->verifyIdentity());

@@ -1,9 +1,11 @@
 <?php
+
 namespace ID3Global\Gateway;
 
 use ID3Global\Gateway\SoapClient\ID3GlobalSoapClient;
 
-abstract class ID3GlobalBaseGateway {
+abstract class ID3GlobalBaseGateway
+{
     /**
      * @var ID3GlobalSoapClient
      */
@@ -13,19 +15,20 @@ abstract class ID3GlobalBaseGateway {
 
     private string $liveSiteWsdl = 'https://id3global.com/ID3gWS/ID3global.svc?wsdl';
 
-    public function __construct($username, $password, $soapClientOptions = array(), $usePilotSite = false) {
-        if((bool)$usePilotSite) {
+    public function __construct($username, $password, $soapClientOptions = [], $usePilotSite = false)
+    {
+        if ((bool) $usePilotSite) {
             $wsdl = $this->pilotSiteWsdl;
         } else {
             $wsdl = $this->liveSiteWsdl;
         }
 
-        $defaultOptions = array(
+        $defaultOptions = [
             'soap_version' => SOAP_1_1,
-            'exceptions' => true,
+            'exceptions'   => true,
             // We always enable trace so that requests and responses can be logged if required by calling applications
-            'trace' => true
-        );
+            'trace' => true,
+        ];
 
         $soapClientOptions = array_merge($defaultOptions, $soapClientOptions);
 
@@ -35,6 +38,7 @@ abstract class ID3GlobalBaseGateway {
     public function setClient(ID3GlobalSoapClient $client): ID3GlobalBaseGateway
     {
         $this->client = $client;
+
         return $this;
     }
 

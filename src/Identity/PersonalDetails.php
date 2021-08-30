@@ -117,22 +117,16 @@ class PersonalDetails extends ID3IdentityObject
     }
 
     /**
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     *
+     * @param DateTime|null $birthday
      * @return PersonalDetails
      */
-    public function setDateOfBirth(int $year, int $month, int $day): PersonalDetails
+    public function setDateOfBirth(?DateTime $birthday): PersonalDetails
     {
-        $date = new DateTime();
-        $this->dateOfBirth = $date
-            ->setDate($year, $month, $day)
-            ->setTime(0, 0);
+        $this->dateOfBirth = $birthday;
 
-        $this->DOBDay = $day;
-        $this->DOBMonth = $month;
-        $this->DOBYear = $year;
+        $this->DOBDay = $birthday->format('d') ?? null;
+        $this->DOBMonth = $birthday->format('m') ?? null;
+        $this->DOBYear = $birthday->format('Y') ?? null;
 
         return $this;
     }

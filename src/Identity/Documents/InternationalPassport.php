@@ -2,6 +2,7 @@
 
 namespace ID3Global\Identity\Documents;
 
+use DateTime;
 use ID3Global\Identity\ID3IdentityObject;
 
 class InternationalPassport extends ID3IdentityObject
@@ -152,17 +153,14 @@ class InternationalPassport extends ID3IdentityObject
     }
 
     /**
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     *
+     * @param DateTime|null $expiryDate
      * @return InternationalPassport
      */
-    public function setExpiryDate(int $year, int $month, int $day): InternationalPassport
+    public function setExpiryDate(?DateTime $expiryDate): InternationalPassport
     {
-        $this->setExpiryDay($day);
-        $this->setExpiryMonth($month);
-        $this->setExpiryYear($year);
+        $this->setExpiryDay($expiryDate->format('d'));
+        $this->setExpiryMonth($expiryDate->format('m'));
+        $this->setExpiryYear($expiryDate->format('Y'));
 
         return $this;
     }
@@ -228,17 +226,14 @@ class InternationalPassport extends ID3IdentityObject
     }
 
     /**
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     *
+     * @param DateTime|null $issueDate
      * @return InternationalPassport
      */
-    public function setIssueDate(int $year, int $month, int $day): InternationalPassport
+    public function setIssueDate(?DateTime $issueDate): InternationalPassport
     {
-        $this->setIssueDay($day);
-        $this->setIssueMonth($month);
-        $this->setIssueYear($year);
+        $this->setIssueDay($issueDate->format('d'));
+        $this->setIssueMonth($issueDate->format('m'));
+        $this->setIssueYear($issueDate->format('Y'));
 
         return $this;
     }

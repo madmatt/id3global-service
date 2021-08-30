@@ -2,6 +2,7 @@
 
 namespace Tests\Service;
 
+use DateTime;
 use Exception;
 use ID3Global\Identity\Identity;
 use ID3Global\Identity\PersonalDetails;
@@ -24,7 +25,7 @@ class GlobalAuthenticationServiceTest extends TestCase
             ->setMiddleName('White')
             ->setSurname('Huntsman')
             ->setGender('Female')
-            ->setDateOfBirth(1976, 3, 6);
+            ->setDateOfBirth(DateTime::createFromFormat('Y-m-d', '1976-03-06'));
         $identity = new Identity();
         $identity->setPersonalDetails($personalDetails);
 

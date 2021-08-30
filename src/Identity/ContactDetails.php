@@ -7,31 +7,31 @@ use ID3Global\Identity\ContactDetails\PhoneNumber;
 class ContactDetails
 {
     /**
-     * @var PhoneNumber
+     * @var PhoneNumber|null
      */
-    private PhoneNumber $landPhone;
+    private ?PhoneNumber $landPhone = null;
 
     /**
-     * @var PhoneNumber
+     * @var PhoneNumber|null
      */
-    private PhoneNumber $mobilePhone;
+    private ?PhoneNumber $mobilePhone = null;
 
     /**
-     * @var PhoneNumber
+     * @var PhoneNumber|null
      */
-    private PhoneNumber $workPhone;
+    private ?PhoneNumber $workPhone = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $email;
+    private ?string $email = null;
 
     /**
-     * @param PhoneNumber $landPhone
+     * @param PhoneNumber|null $landPhone
      *
      * @return ContactDetails
      */
-    public function setLandPhone(PhoneNumber $landPhone): ContactDetails
+    public function setLandPhone(?PhoneNumber $landPhone): ContactDetails
     {
         $this->landPhone = $landPhone;
 
@@ -39,11 +39,11 @@ class ContactDetails
     }
 
     /**
-     * @param PhoneNumber $mobilePhone
+     * @param PhoneNumber|null $mobilePhone
      *
      * @return ContactDetails
      */
-    public function setMobilePhone(PhoneNumber $mobilePhone): ContactDetails
+    public function setMobilePhone(?PhoneNumber $mobilePhone): ContactDetails
     {
         $this->mobilePhone = $mobilePhone;
 
@@ -51,11 +51,11 @@ class ContactDetails
     }
 
     /**
-     * @param PhoneNumber $workPhone
+     * @param PhoneNumber|null $workPhone
      *
      * @return ContactDetails
      */
-    public function setWorkPhone(PhoneNumber $workPhone): ContactDetails
+    public function setWorkPhone(?PhoneNumber $workPhone): ContactDetails
     {
         $this->workPhone = $workPhone;
 
@@ -63,11 +63,11 @@ class ContactDetails
     }
 
     /**
-     * @param string $email
+     * @param string|null $email
      *
      * @return ContactDetails
      */
-    public function setEmail(string $email): ContactDetails
+    public function setEmail(?string $email): ContactDetails
     {
         $this->email = $email;
 

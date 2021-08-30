@@ -7,79 +7,79 @@ use ID3Global\Identity\ID3IdentityObject;
 class FixedFormatAddress extends ID3IdentityObject implements Address
 {
     /**
-     * @var string
+     * @var string|null
      */
-    private string $Country;
+    private ?string $Country = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $Street;
+    private ?string $Street = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $SubStreet;
+    private ?string $SubStreet = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $City;
+    private ?string $City = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $SubCity;
+    private ?string $SubCity = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $StateDistrict;
+    private ?string $StateDistrict = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $Region;
+    private ?string $Region = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $Principality;
+    private ?string $Principality = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $ZipPostcode;
+    private ?string $ZipPostcode = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $Building;
+    private ?string $Building = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $SubBuilding;
+    private ?string $SubBuilding = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $Premise;
+    private ?string $Premise = null;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->Country;
     }
 
     /**
-     * @param string $country
+     * @param string|null $country
      *
      * @return FixedFormatAddress
      */
-    public function setCountry(string $country): FixedFormatAddress
+    public function setCountry(?string $country): FixedFormatAddress
     {
         $this->Country = $country;
 
@@ -87,19 +87,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStreet(): string
+    public function getStreet(): ?string
     {
         return $this->Street;
     }
 
     /**
-     * @param string $street
+     * @param string|null $street
      *
      * @return FixedFormatAddress
      */
-    public function setStreet(string $street): FixedFormatAddress
+    public function setStreet(?string $street): FixedFormatAddress
     {
         $this->Street = $street;
 
@@ -107,19 +107,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSubStreet(): string
+    public function getSubStreet(): ?string
     {
         return $this->SubStreet;
     }
 
     /**
-     * @param string $subStreet
+     * @param string|null $subStreet
      *
      * @return FixedFormatAddress
      */
-    public function setSubStreet(string $subStreet): FixedFormatAddress
+    public function setSubStreet(?string $subStreet): FixedFormatAddress
     {
         $this->SubStreet = $subStreet;
 
@@ -127,19 +127,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->City;
     }
 
     /**
-     * @param string $city
+     * @param string|null $city
      *
      * @return FixedFormatAddress
      */
-    public function setCity(string $city): FixedFormatAddress
+    public function setCity(?string $city): FixedFormatAddress
     {
         $this->City = $city;
 
@@ -147,19 +147,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSubCity(): string
+    public function getSubCity(): ?string
     {
         return $this->SubCity;
     }
 
     /**
-     * @param string $subCity
+     * @param string|null $subCity
      *
      * @return FixedFormatAddress
      */
-    public function setSubCity(string $subCity): FixedFormatAddress
+    public function setSubCity(?string $subCity): FixedFormatAddress
     {
         $this->SubCity = $subCity;
 
@@ -167,19 +167,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStateDistrict(): string
+    public function getStateDistrict(): ?string
     {
         return $this->StateDistrict;
     }
 
     /**
-     * @param string $stateDistrict
+     * @param string|null $stateDistrict
      *
      * @return FixedFormatAddress
      */
-    public function setStateDistrict(string $stateDistrict): FixedFormatAddress
+    public function setStateDistrict(?string $stateDistrict): FixedFormatAddress
     {
         $this->StateDistrict = $stateDistrict;
 
@@ -187,19 +187,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRegion(): string
+    public function getRegion(): ?string
     {
         return $this->Region;
     }
 
     /**
-     * @param string $region
+     * @param string|null $region
      *
      * @return FixedFormatAddress
      */
-    public function setRegion(string $region): FixedFormatAddress
+    public function setRegion(?string $region): FixedFormatAddress
     {
         $this->Region = $region;
 
@@ -207,19 +207,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPrincipality(): string
+    public function getPrincipality(): ?string
     {
         return $this->Principality;
     }
 
     /**
-     * @param string $principality
+     * @param string|null $principality
      *
      * @return FixedFormatAddress
      */
-    public function setPrincipality(string $principality): FixedFormatAddress
+    public function setPrincipality(?string $principality): FixedFormatAddress
     {
         $this->Principality = $principality;
 
@@ -227,19 +227,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getZipPostcode(): string
+    public function getZipPostcode(): ?string
     {
         return $this->ZipPostcode;
     }
 
     /**
-     * @param string $zipPostcode
+     * @param string|null $zipPostcode
      *
      * @return FixedFormatAddress
      */
-    public function setZipPostcode(string $zipPostcode): FixedFormatAddress
+    public function setZipPostcode(?string $zipPostcode): FixedFormatAddress
     {
         $this->ZipPostcode = $zipPostcode;
 
@@ -247,19 +247,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBuilding(): string
+    public function getBuilding(): ?string
     {
         return $this->Building;
     }
 
     /**
-     * @param string $building
+     * @param string|null $building
      *
      * @return FixedFormatAddress
      */
-    public function setBuilding(string $building): FixedFormatAddress
+    public function setBuilding(?string $building): FixedFormatAddress
     {
         $this->Building = $building;
 
@@ -267,19 +267,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSubBuilding(): string
+    public function getSubBuilding(): ?string
     {
         return $this->SubBuilding;
     }
 
     /**
-     * @param string $subBuilding
+     * @param string|null $subBuilding
      *
      * @return FixedFormatAddress
      */
-    public function setSubBuilding(string $subBuilding): FixedFormatAddress
+    public function setSubBuilding(?string $subBuilding): FixedFormatAddress
     {
         $this->SubBuilding = $subBuilding;
 
@@ -287,19 +287,19 @@ class FixedFormatAddress extends ID3IdentityObject implements Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPremise(): string
+    public function getPremise(): ?string
     {
         return $this->Premise;
     }
 
     /**
-     * @param string $premise
+     * @param string|null $premise
      *
      * @return FixedFormatAddress
      */
-    public function setPremise(string $premise): FixedFormatAddress
+    public function setPremise(?string $premise): FixedFormatAddress
     {
         $this->Premise = $premise;
 

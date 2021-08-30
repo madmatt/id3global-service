@@ -7,61 +7,61 @@ use DateTime;
 class PersonalDetails extends ID3IdentityObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    private string $Title;
+    private ?string $Title = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $Forename;
+    private ?string $Forename = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $MiddleName;
+    private ?string $MiddleName = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $Surname;
+    private ?string $Surname = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $Gender;
+    private ?string $Gender = null;
 
     /**
-     * @var DateTime
+     * @var DateTime|null
      */
-    private DateTime $dateOfBirth;
+    private ?DateTime $dateOfBirth = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private int $DOBDay;
+    private ?int $DOBDay = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private int $DOBMonth;
+    private ?int $DOBMonth = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private int $DOBYear;
+    private ?int $DOBYear = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private string $CountryOfBirth;
+    private ?string $CountryOfBirth = null;
 
     /**
-     * @param string $title
+     * @param string|null $title
      *
      * @return PersonalDetails
      */
-    public function setTitle(string $title): PersonalDetails
+    public function setTitle(?string $title): PersonalDetails
     {
         $this->Title = $title;
 
@@ -69,11 +69,11 @@ class PersonalDetails extends ID3IdentityObject
     }
 
     /**
-     * @param string $forename
+     * @param string|null $forename
      *
      * @return PersonalDetails
      */
-    public function setForename(string $forename): PersonalDetails
+    public function setForename(?string $forename): PersonalDetails
     {
         $this->Forename = $forename;
 
@@ -81,11 +81,11 @@ class PersonalDetails extends ID3IdentityObject
     }
 
     /**
-     * @param string $middleName
+     * @param string|null $middleName
      *
      * @return PersonalDetails
      */
-    public function setMiddleName(string $middleName): PersonalDetails
+    public function setMiddleName(?string $middleName): PersonalDetails
     {
         $this->MiddleName = $middleName;
 
@@ -93,11 +93,11 @@ class PersonalDetails extends ID3IdentityObject
     }
 
     /**
-     * @param string $surname
+     * @param string|null $surname
      *
      * @return PersonalDetails
      */
-    public function setSurname(string $surname): PersonalDetails
+    public function setSurname(?string $surname): PersonalDetails
     {
         $this->Surname = $surname;
 
@@ -105,11 +105,11 @@ class PersonalDetails extends ID3IdentityObject
     }
 
     /**
-     * @param string $gender
+     * @param string|null $gender
      *
      * @return PersonalDetails
      */
-    public function setGender(string $gender): PersonalDetails
+    public function setGender(?string $gender): PersonalDetails
     {
         $this->Gender = $gender;
 
@@ -138,94 +138,94 @@ class PersonalDetails extends ID3IdentityObject
     }
 
     /**
-     * @return string
+     * @param string|null $CountryOfBirth
+     *
+     * @return PersonalDetails
      */
-    public function getTitle(): string
+    public function setCountryOfBirth(?string $CountryOfBirth): PersonalDetails
+    {
+        $this->CountryOfBirth = $CountryOfBirth;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTitle(): ?string
     {
         return $this->Title;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getForename(): string
+    public function getForename(): ?string
     {
         return $this->Forename;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMiddleName(): string
+    public function getMiddleName(): ?string
     {
         return $this->MiddleName;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSurname(): string
+    public function getSurname(): ?string
     {
         return $this->Surname;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGender(): string
+    public function getGender(): ?string
     {
         return $this->Gender;
     }
 
     /**
-     * @return DateTime
+     * @return DateTime|null
      */
-    public function getDateOfBirth(): DateTime
+    public function getDateOfBirth(): ?DateTime
     {
         return $this->dateOfBirth;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getDOBDay(): int
+    public function getDOBDay(): ?int
     {
         return $this->DOBDay;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getDOBMonth(): int
+    public function getDOBMonth(): ?int
     {
         return $this->DOBMonth;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getDOBYear(): int
+    public function getDOBYear(): ?int
     {
         return $this->DOBYear;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountryOfBirth(): string
+    public function getCountryOfBirth(): ?string
     {
         return $this->CountryOfBirth;
-    }
-
-    /**
-     * @param string $CountryOfBirth
-     *
-     * @return PersonalDetails
-     */
-    public function setCountryOfBirth(string $CountryOfBirth): PersonalDetails
-    {
-        $this->CountryOfBirth = $CountryOfBirth;
-
-        return $this;
     }
 }

@@ -154,6 +154,7 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param DateTime|null $expiryDate
+     *
      * @return InternationalPassport
      */
     public function setExpiryDate(?DateTime $expiryDate): InternationalPassport
@@ -227,6 +228,7 @@ class InternationalPassport extends ID3IdentityObject
 
     /**
      * @param DateTime|null $issueDate
+     *
      * @return InternationalPassport
      */
     public function setIssueDate(?DateTime $issueDate): InternationalPassport

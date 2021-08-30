@@ -118,6 +118,7 @@ class PersonalDetails extends ID3IdentityObject
 
     /**
      * @param DateTime|null $birthday
+     *
      * @return PersonalDetails
      */
     public function setDateOfBirth(?DateTime $birthday): PersonalDetails

@@ -107,6 +107,7 @@ class FreeFormatAddress extends ID3IdentityObject implements Address
     /**
      * @param string|null $AddressLine1
      *?
+     *
      * @return FreeFormatAddress
      */
     public function setAddressLine1(?string $AddressLine1): FreeFormatAddress

@@ -74,10 +74,13 @@ class AuthenticateSPRequestTest extends TestCase
 
     public function testContactDetails()
     {
+        $landTelephone = new ContactDetails\PhoneNumber();
+        $landTelephone->setNumber('1(800) 786-1410');
+
         $contactDetails = new ContactDetails();
         $contactDetails
             ->setEmail('freeman@blackmesa.com')
-            ->setLandTelephone(new ContactDetails\PhoneNumber('1(800) 786-1410'));
+            ->setLandTelephone($landTelephone);
         $this->identity->setContactDetails($contactDetails);
 
         $r = new AuthenticateSPRequest();

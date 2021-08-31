@@ -5,21 +5,16 @@ namespace ID3Global\Identity\ContactDetails;
 class PhoneNumber
 {
     /**
-     * @var string
+     * @var ?string
      */
-    private string $Number;
-
-    public function __construct(string $number)
-    {
-        $this->Number = $number;
-    }
+    private ?string $Number;
 
     /**
-     * @param string $Number
+     * @param ?string $Number
      *
      * @return PhoneNumber
      */
-    public function setNumber(string $Number): PhoneNumber
+    public function setNumber(?string $Number): PhoneNumber
     {
         $this->Number = $Number;
 

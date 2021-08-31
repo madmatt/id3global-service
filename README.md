@@ -83,11 +83,14 @@ $currentAddress
 $addressContainer = new \ID3Global\Identity\Address\AddressContainer();
 $addressContainer->setCurrentAddress($currentAddress);
 
+$phone = new \ID3Global\Identity\ContactDetails\PhoneNumber();
+$phone->setNumber(1234567890);
+
 $contactDetails = new \ID3Global\Identity\ContactDetails();
 $contactDetails
-    ->setLandTelephone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
-    ->setMobileTelephone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
-    ->setWorkTelephone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
+    ->setLandTelephone($phone)
+    ->setMobileTelephone($phone)
+    ->setWorkTelephone($phone)
     ->setEmail('dworkin@thepattern.net');
 
 $internationalPassport = new \ID3Global\Identity\Documents\InternationalPassport();

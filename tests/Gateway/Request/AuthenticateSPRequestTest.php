@@ -7,6 +7,7 @@ use ID3Global\Gateway\Request\AuthenticateSPRequest;
 use ID3Global\Identity\Address\AddressContainer;
 use ID3Global\Identity\Address\FixedFormatAddress;
 use ID3Global\Identity\Address\FreeFormatAddress;
+use ID3Global\Identity\ContactDetails;
 use ID3Global\Identity\Documents\DocumentContainer;
 use ID3Global\Identity\Documents\InternationalPassport;
 use ID3Global\Identity\Documents\NZ\DrivingLicence;
@@ -69,6 +70,22 @@ class AuthenticateSPRequestTest extends TestCase
         $this->assertSame(4, $test->DOBMonth);
         $this->assertSame(5, $test->DOBDay);
         $this->assertSame('US', $test->CountryOfBirth);
+    }
+
+    public function testContactDetails()
+    {
+        $contactDetails = new ContactDetails();
+        $contactDetails
+            ->setEmail('freeman@blackmesa.com')
+            ->setLandTelephone(new ContactDetails\PhoneNumber('1(800) 786-1410'));
+        $this->identity->setContactDetails($contactDetails);
+
+        $r = new AuthenticateSPRequest();
+        $r->addFieldsFromIdentity($this->identity);
+        $test = $r->getInputData()->ContactDetails;
+
+        $this->assertSame('freeman@blackmesa.com', $test->Email);
+        $this->assertSame('1(800) 786-1410', $test->LandTelephone->Number);
     }
 
     public function testInternationalPassport()

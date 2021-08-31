@@ -9,72 +9,96 @@ class ContactDetails
     /**
      * @var PhoneNumber|null
      */
-    private ?PhoneNumber $landPhone = null;
+    private ?PhoneNumber $LandTelephone = null;
 
     /**
      * @var PhoneNumber|null
      */
-    private ?PhoneNumber $mobilePhone = null;
+    private ?PhoneNumber $MobileTelephone = null;
 
     /**
      * @var PhoneNumber|null
      */
-    private ?PhoneNumber $workPhone = null;
+    private ?PhoneNumber $WorkTelephone = null;
 
     /**
      * @var string|null
      */
-    private ?string $email = null;
+    private ?string $Email = null;
 
     /**
-     * @param PhoneNumber|null $landPhone
+     * @return PhoneNumber|null
+     */
+    public function getLandTelephone(): ?PhoneNumber
+    {
+        return $this->LandTelephone;
+    }
+
+    /**
+     * @param PhoneNumber|null $LandTelephone
      *
      * @return ContactDetails
      */
-    public function setLandPhone(?PhoneNumber $landPhone): ContactDetails
+    public function setLandTelephone(?PhoneNumber $LandTelephone): ContactDetails
     {
-        $this->landPhone = $landPhone;
+        $this->LandTelephone = $LandTelephone;
 
         return $this;
     }
 
     /**
-     * @param PhoneNumber|null $mobilePhone
+     * @return PhoneNumber|null
+     */
+    public function getMobileTelephone(): ?PhoneNumber
+    {
+        return $this->MobileTelephone;
+    }
+
+    /**
+     * @param PhoneNumber|null $MobileTelephone
      *
      * @return ContactDetails
      */
-    public function setMobilePhone(?PhoneNumber $mobilePhone): ContactDetails
+    public function setMobileTelephone(?PhoneNumber $MobileTelephone): ContactDetails
     {
-        $this->mobilePhone = $mobilePhone;
+        $this->MobileTelephone = $MobileTelephone;
 
         return $this;
     }
 
     /**
-     * @param PhoneNumber|null $workPhone
+     * @return PhoneNumber|null
+     */
+    public function getWorkTelephone(): ?PhoneNumber
+    {
+        return $this->WorkTelephone;
+    }
+
+    /**
+     * @param PhoneNumber|null $WorkTelephone
      *
      * @return ContactDetails
      */
-    public function setWorkPhone(?PhoneNumber $workPhone): ContactDetails
+    public function setWorkTelephone(?PhoneNumber $WorkTelephone): ContactDetails
     {
-        $this->workPhone = $workPhone;
+        $this->WorkTelephone = $WorkTelephone;
 
         return $this;
     }
 
     public function getEmail(): ?string
     {
-        return $this->email;
+        return $this->Email;
     }
 
     /**
-     * @param string|null $email
+     * @param string|null $Email
      *
      * @return ContactDetails
      */
-    public function setEmail(?string $email): ContactDetails
+    public function setEmail(?string $Email): ContactDetails
     {
-        $this->email = $email;
+        $this->Email = $Email;
 
         return $this;
     }

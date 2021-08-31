@@ -4,6 +4,7 @@ namespace ID3Global\Gateway\Request;
 
 use ID3Global\Identity\Address\Address;
 use ID3Global\Identity\Address\AddressContainer;
+use ID3Global\Identity\ContactDetails;
 use ID3Global\Identity\Documents\DocumentContainer;
 use ID3Global\Identity\Documents\InternationalPassport;
 use ID3Global\Identity\Identity;
@@ -34,6 +35,7 @@ class AuthenticateSPRequest
         $this->addPersonalDetails($identity);
         $this->addAddresses($identity);
         $this->addIdentityDocuments($identity);
+        $this->addContactDetails($identity);
     }
 
     private function addPersonalDetails(Identity $identity)
@@ -79,6 +81,31 @@ class AuthenticateSPRequest
                 if (is_object($countryDocuments)) {
                     $this->InputData->IdentityDocuments->$country = $countryDocuments;
                 }
+            }
+        }
+    }
+
+    private function addContactDetails(Identity $identity)
+    {
+        $this->InputData->ContactDetails = new stdClass();
+        $contactDetails = $identity->getContactDetails();
+
+        if ($contactDetails instanceof ContactDetails) {
+            $this->InputData->ContactDetails->Email = $contactDetails->getEmail();
+
+            if ($contactDetails->getLandTelephone() instanceof ContactDetails\PhoneNumber) {
+                $this->InputData->ContactDetails->LandTelephone = new stdClass();
+                $this->InputData->ContactDetails->LandTelephone->Number = $contactDetails->getLandTelephone()->getNumber();
+            }
+
+            if ($contactDetails->getMobileTelephone() instanceof ContactDetails\PhoneNumber) {
+                $this->InputData->ContactDetails->MobileTelephone = new stdClass();
+                $this->InputData->ContactDetails->MobileTelephone->Number = $contactDetails->getMobileTelephone()->getNumber();
+            }
+
+            if ($contactDetails->getWorkTelephone() instanceof ContactDetails\PhoneNumber) {
+                $this->InputData->ContactDetails->WorkTelephone = new stdClass();
+                $this->InputData->ContactDetails->WorkTelephone->Number = $contactDetails->getWorkTelephone()->getNumber();
             }
         }
     }

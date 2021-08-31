@@ -62,6 +62,7 @@ The WSDL file gives an overview of the values that can be provided, these will v
  * \ID3Global\Identity\PersonalDetails\BirthInfo
  */
 
+$birthday = DateTime::createFromFormat('Y-m-d', '1922-08-20');
 $personalDetails = new \ID3Global\Identity\PersonalDetails();
 $personalDetails
     ->setTitle('Mr')
@@ -69,7 +70,7 @@ $personalDetails
     ->setMiddleName('John')
     ->setSurname('Barimen')
     ->setGender('male')
-    ->setDateOfBirth(1922, 8, 20);
+    ->setDateOfBirth($birthday);
 
 $currentAddress = new \ID3Global\Identity\Address\FreeFormatAddress();
 $currentAddress
@@ -84,9 +85,9 @@ $addressContainer->setCurrentAddress($currentAddress);
 
 $contactDetails = new \ID3Global\Identity\ContactDetails();
 $contactDetails
-    ->setLandPhone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
-    ->setMobilePhone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
-    ->setWorkPhone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
+    ->setLandTelephone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
+    ->setMobileTelephone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
+    ->setWorkTelephone(new \ID3Global\Identity\ContactDetails\PhoneNumber(1234567890))
     ->setEmail('dworkin@thepattern.net');
 
 $internationalPassport = new \ID3Global\Identity\Documents\InternationalPassport();

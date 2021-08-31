@@ -7,22 +7,30 @@ class PhoneNumber
     /**
      * @var string
      */
-    private string $number;
+    private string $Number;
 
     public function __construct(string $number)
     {
-        $this->number = $number;
+        $this->Number = $number;
     }
 
     /**
-     * @param string $number
+     * @param string $Number
      *
      * @return PhoneNumber
      */
-    public function setNumber(string $number): PhoneNumber
+    public function setNumber(string $Number): PhoneNumber
     {
-        $this->number = $number;
+        $this->Number = $Number;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNumber(): ?string
+    {
+        return $this->Number;
     }
 }

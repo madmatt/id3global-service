@@ -75,6 +75,14 @@ class Identity
     }
 
     /**
+     * @return ContactDetails|null
+     */
+    public function getContactDetails(): ?ContactDetails
+    {
+        return $this->contactDetails;
+    }
+
+    /**
      * @param Address\AddressContainer $addresses
      *
      * @return Identity

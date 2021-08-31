@@ -62,6 +62,11 @@ class ContactDetails
         return $this;
     }
 
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
     /**
      * @param string|null $email
      *

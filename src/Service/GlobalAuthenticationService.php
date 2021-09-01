@@ -12,29 +12,6 @@ use stdClass;
 class GlobalAuthenticationService extends ID3BaseService
 {
     /**
-     * @var Identity
-     */
-    private Identity $identity;
-
-    /**
-     * @var string The Profile ID to be used when verifying a @link \ID3Global\Identity\Identity object
-     */
-    private string $profileID;
-
-    /**
-     * @var int The Profile Version to be used when verifying a @link \ID3Global\Identity\Identity object. The version
-     *          0 represents the 'most recent version of the profile', which is generally what is required.
-     */
-    private int $profileVersion = 0;
-
-    /**
-     * @var string|null A reference stored against this identity request. This is optional, but is recommended to set a
-     *                  customer reference and store it against the returned identity verification so it can be later tracked if
-     *                  necessary for compliance purposes.
-     */
-    private ?string $customerReference = null;
-
-    /**
      * @var GlobalAuthenticationGateway
      */
     private GlobalAuthenticationGateway $gateway;
@@ -55,32 +32,39 @@ class GlobalAuthenticationService extends ID3BaseService
      */
     private array $soapOptions = [];
 
-    public function __construct(
-        Identity $identity,
-        string $profileID,
-        GlobalAuthenticationGateway $gateway
-    )
+    public function __construct(GlobalAuthenticationGateway $gateway, array $soapOptions = [])
     {
-        $this->identity = $identity;
-        $this->profileID = $profileID;
         $this->gateway = $gateway;
+        $this->soapOptions = $soapOptions;
     }
 
     /**
-     * @throws Exception
+     * @param Identity $identity
+     * @param string $profileId The Profile ID to be used when verifying a @link \ID3Global\Identity\Identity object
+     * @param int $profileVersion The Profile Version to be used when verifying a @link \ID3Global\Identity\Identity object. The version
+     *          0 represents the 'most recent version of the profile', which is generally what is required.
+     * @param string|null $customerReference A reference stored against this identity request. This is optional, but is recommended to set a
+     *                  customer reference and store it against the returned identity verification so it can be later tracked if
+     *                  necessary for compliance purposes.
      *
      * @return string One of Identity::IDENTITY_BAND_PASS, Identity::IDENTITY_BAND_REFER, or Identity::IDENTITY_BAND_ALERT
+     * @throws IdentityVerificationFailureException
      */
-    public function verifyIdentity(): string
+    public function verifyIdentity(
+        Identity $identity,
+        string $profileId,
+        int $profileVersion = 0,
+        ?string $customerReference = null
+    ): string
     {
         $gateway = $this->getGateway();
 
         try {
             $response = $gateway->AuthenticateSP(
-                $this->profileID,
-                $this->profileVersion,
-                $this->customerReference,
-                $this->identity
+                $profileId,
+                $profileVersion,
+                $customerReference,
+                $identity
             );
 
             if ($gateway->getClient() instanceof SoapClient) {
@@ -143,30 +127,6 @@ class GlobalAuthenticationService extends ID3BaseService
         return $this->gateway;
     }
 
-    public function setGateway(GlobalAuthenticationGateway $gateway): GlobalAuthenticationService
-    {
-        $this->gateway = $gateway;
-
-        return $this;
-    }
-
-    /**
-     * @param string $reference
-     *
-     * @return GlobalAuthenticationService
-     */
-    public function setCustomerReference(string $reference): GlobalAuthenticationService
-    {
-        $this->customerReference = $reference;
-
-        return $this;
-    }
-
-    public function getCustomerReference(): string
-    {
-        return $this->customerReference;
-    }
-
     /**
      * @return array
      */
@@ -183,42 +143,6 @@ class GlobalAuthenticationService extends ID3BaseService
     public function setSoapOptions(array $soapOptions): GlobalAuthenticationService
     {
         $this->soapOptions = $soapOptions;
-
-        return $this;
-    }
-
-    /**
-     * @param Identity $identity
-     *
-     * @return GlobalAuthenticationService
-     */
-    public function setIdentity(Identity $identity): GlobalAuthenticationService
-    {
-        $this->identity = $identity;
-
-        return $this;
-    }
-
-    /**
-     * @param string $profileID
-     *
-     * @return GlobalAuthenticationService
-     */
-    public function setProfileID(string $profileID): GlobalAuthenticationService
-    {
-        $this->profileID = $profileID;
-
-        return $this;
-    }
-
-    /**
-     * @param int $profileVersion
-     *
-     * @return GlobalAuthenticationService
-     */
-    public function setProfileVersion(int $profileVersion): GlobalAuthenticationService
-    {
-        $this->profileVersion = $profileVersion;
 
         return $this;
     }

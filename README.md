@@ -114,10 +114,9 @@ $identity
     ->setIdentityDocuments($documentContainer);
 
 $gateway = new \ID3Global\Gateway\GlobalAuthenticationGateway('username', 'password');
-$id3Service = new \ID3Global\Service\GlobalAuthenticationService($identity, 'profile-id', $gateway);
+$id3Service = new \ID3Global\Service\GlobalAuthenticationService($gateway);
 $result = $id3Service
-    ->setIdentity($identity)
-    ->verifyIdentity();
+    ->verifyIdentity($identity, 'profile-id');
 
 if($result === \ID3Global\Identity\Identity::IDENTITY_BAND_PASS) {
     // Identity is verified, continue processing

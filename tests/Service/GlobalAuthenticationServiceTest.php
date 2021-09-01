@@ -19,6 +19,16 @@ class GlobalAuthenticationServiceTest extends TestCase
 
     public function setUp(): void
     {
+        $fakeGateway = new GlobalAuthenticationGatewayFake('username', 'password');
+        $this->service = new GlobalAuthenticationService($fakeGateway);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testSuccessfulResponse()
+    {
+        // Arrange
         $personalDetails = new PersonalDetails();
         $personalDetails
             ->setForename('Snow')
@@ -30,19 +40,12 @@ class GlobalAuthenticationServiceTest extends TestCase
         $identity->setPersonalDetails($personalDetails);
 
         $profileId = 'profile-id';
-        $fakeGateway = new GlobalAuthenticationGatewayFake('username', 'password');
-        $this->service = new GlobalAuthenticationService($identity, $profileId, $fakeGateway);
-    }
 
-    /**
-     * @throws Exception
-     */
-    public function testSuccessfulResponse()
-    {
-        $this->service->setCustomerReference('x');
+        // Act
+        $bandText = $this->service->verifyIdentity($identity, $profileId, 0, 'x');
 
-        $this->assertSame(Identity::IDENTITY_BAND_PASS, $this->service->verifyIdentity());
-
+        // Assert
+        $this->assertSame(Identity::IDENTITY_BAND_PASS, $bandText);
         $response = $this->service->getLastVerifyIdentityResponse();
         $this->assertSame(Identity::IDENTITY_BAND_PASS, $response->AuthenticateSPResult->BandText);
         $this->assertSame('Default Profile', $response->AuthenticateSPResult->ProfileName);

@@ -45,9 +45,9 @@ class GlobalAuthenticationServiceTest extends TestCase
         $bandText = $this->service->verifyIdentity($identity, $profileId, 0, 'x');
 
         // Assert
-        $this->assertSame(Identity::IDENTITY_BAND_PASS, $bandText);
+        $this->assertSame(GlobalAuthenticationGatewayFake::IDENTITY_BAND_PASS, $bandText);
         $response = $this->service->getLastVerifyIdentityResponse();
-        $this->assertSame(Identity::IDENTITY_BAND_PASS, $response->AuthenticateSPResult->BandText);
+        $this->assertSame(GlobalAuthenticationGatewayFake::IDENTITY_BAND_PASS, $response->AuthenticateSPResult->BandText);
         $this->assertSame('Default Profile', $response->AuthenticateSPResult->ProfileName);
     }
 }

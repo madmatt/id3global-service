@@ -7,6 +7,24 @@ use ID3Global\Identity\Identity;
 
 class GlobalAuthenticationGatewayFake extends GlobalAuthenticationGateway
 {
+    /**
+     * @var string The const returned by the ID3Global API when this identity passed verification, according to the
+     *             ruleset used.
+     */
+    const IDENTITY_BAND_PASS = 'PASS';
+
+    /**
+     * @var string The const returned by the ID3Global API when this identity needs additional referral, according to
+     *             the ruleset used.
+     */
+    const IDENTITY_BAND_REFER = 'REFER';
+
+    /**
+     * The const returned by the ID3Global API when this identity needs additional referral, according to
+     * the ruleset used.
+     */
+    const IDENTITY_BAND_ALERT = 'ALERT';
+
     public function __construct($username, $password, $soapClientOptions = [], $usePilotSite = false)
     {
         parent::__construct($username, $password, $soapClientOptions, $usePilotSite);

@@ -118,7 +118,7 @@ $id3Service = new \ID3Global\Service\GlobalAuthenticationService($gateway);
 $result = $id3Service
     ->verifyIdentity($identity, 'profile-id');
 
-if($result === \ID3Global\Identity\Identity::IDENTITY_BAND_PASS) {
+if($result === 'PASS') {
     // Identity is verified, continue processing
 }
 ```

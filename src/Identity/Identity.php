@@ -8,24 +8,6 @@ use ID3Global\Identity\Documents\DocumentContainer;
 class Identity
 {
     /**
-     * @var string The const returned by the ID3Global API when this identity passed verification, according to the
-     *             ruleset used.
-     */
-    const IDENTITY_BAND_PASS = 'PASS';
-
-    /**
-     * @var string The const returned by the ID3Global API when this identity needs additional referral, according to
-     *             the ruleset used.
-     */
-    const IDENTITY_BAND_REFER = 'REFER';
-
-    /**
-     * The const returned by the ID3Global API when this identity needs additional referral, according to
-     * the ruleset used.
-     */
-    const IDENTITY_BAND_ALERT = 'ALERT';
-
-    /**
      * @var PersonalDetails|null
      */
     private ?PersonalDetails $personalDetails = null;

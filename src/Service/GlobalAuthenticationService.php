@@ -39,24 +39,24 @@ class GlobalAuthenticationService extends ID3BaseService
     }
 
     /**
-     * @param Identity $identity
-     * @param string $profileId The Profile ID to be used when verifying a @link \ID3Global\Identity\Identity object
-     * @param int $profileVersion The Profile Version to be used when verifying a @link \ID3Global\Identity\Identity object. The version
-     *          0 represents the 'most recent version of the profile', which is generally what is required.
+     * @param Identity    $identity
+     * @param string      $profileId         The Profile ID to be used when verifying a @link \ID3Global\Identity\Identity object
+     * @param int         $profileVersion    The Profile Version to be used when verifying a @link \ID3Global\Identity\Identity object. The version
+     *                                       0 represents the 'most recent version of the profile', which is generally what is required.
      * @param string|null $customerReference A reference stored against this identity request. This is optional, but is recommended to set a
-     *                  customer reference and store it against the returned identity verification so it can be later tracked if
-     *                  necessary for compliance purposes.
+     *                                       customer reference and store it against the returned identity verification so it can be later tracked if
+     *                                       necessary for compliance purposes.
+     *
+     * @throws IdentityVerificationFailureException
      *
      * @return string One of Identity::IDENTITY_BAND_PASS, Identity::IDENTITY_BAND_REFER, or Identity::IDENTITY_BAND_ALERT
-     * @throws IdentityVerificationFailureException
      */
     public function verifyIdentity(
         Identity $identity,
         string $profileId,
         int $profileVersion = 0,
         ?string $customerReference = null
-    ): string
-    {
+    ): string {
         $gateway = $this->getGateway();
 
         try {

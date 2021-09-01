@@ -36,7 +36,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "ID3Global\\Tests\\": "tests/"
         }
     }
 }

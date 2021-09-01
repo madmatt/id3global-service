@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Gateway\Request;
+namespace ID3Global\Tests\Gateway\Request;
 
 use DateTime;
 use ID3Global\Gateway\Request\AuthenticateSPRequest;

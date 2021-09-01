@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Service;
+namespace ID3Global\Tests\Service;
 
 use DateTime;
 use Exception;

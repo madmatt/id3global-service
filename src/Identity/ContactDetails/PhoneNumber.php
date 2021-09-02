@@ -1,18 +1,31 @@
 <?php
+
 namespace ID3Global\Identity\ContactDetails;
 
-class PhoneNumber {
+class PhoneNumber
+{
     /**
-     * @var string
+     * @var ?string
      */
-    private $number;
+    private ?string $Number;
 
     /**
-     * @param string $number
+     * @param ?string $Number
+     *
      * @return PhoneNumber
      */
-    public function setNumber($number) {
-        $this->number = $number;
+    public function setNumber(?string $Number): PhoneNumber
+    {
+        $this->Number = $Number;
+
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNumber(): ?string
+    {
+        return $this->Number;
     }
 }

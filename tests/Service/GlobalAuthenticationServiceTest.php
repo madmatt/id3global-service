@@ -1,77 +1,53 @@
 <?php
-namespace ID3Global\Tests;
 
-use ID3Global\Stubs\Gateway\GlobalAuthenticationGatewayFake;
+namespace ID3Global\Tests\Service;
+
+use DateTime;
+use Exception;
 use ID3Global\Identity\Identity;
 use ID3Global\Identity\PersonalDetails;
-use \ID3Global\Service\GlobalAuthenticationService;
+use ID3Global\Service\GlobalAuthenticationService;
+use ID3Global\Stubs\Gateway\GlobalAuthenticationGatewayFake;
+use PHPUnit\Framework\TestCase;
 
-class GlobalAuthenticationServiceTest extends \PHPUnit_Framework_TestCase
+class GlobalAuthenticationServiceTest extends TestCase
 {
     /**
      * @var GlobalAuthenticationService
      */
-    private $service;
+    private GlobalAuthenticationService $service;
 
-    /**
-     * @var GlobalAuthenticationGatewayFake
-     */
-    private $fakeGateway;
-
-    public function setUp() {
-        $this->service = new GlobalAuthenticationService();
-        $this->fakeGateway = new GlobalAuthenticationGatewayFake('username', 'password');
-
-        $this->service->setGateway($this->fakeGateway);
-    }
-
-    public function testSuccessfulResponse() {
-        $identity = $this->getSuccessfulIdentity();
-
-        $this->service
-            ->setCustomerReference('x')
-            ->setIdentity($identity);
-
-        $this->assertSame(Identity::IDENTITY_BAND_PASS, $this->service->verifyIdentity());
-
-        $response = $this->service->getLastVerifyIdentityResponse();
-        $this->assertSame(Identity::IDENTITY_BAND_PASS, $response->AuthenticateSPResult->BandText);
-        $this->assertSame('Default Profile', $response->AuthenticateSPResult->ProfileName);
+    public function setUp(): void
+    {
+        $fakeGateway = new GlobalAuthenticationGatewayFake('username', 'password');
+        $this->service = new GlobalAuthenticationService($fakeGateway);
     }
 
     /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage An Identity must be provided by setIdentity() before calling verifyIdentity()
+     * @throws Exception
      */
-    public function testIdentityIsRequired() {
-        $this->service->verifyIdentity();
-    }
-
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage An Identity must be provided by setIdentity() before calling verifyIdentity()
-     */
-    public function testIdentityIsProperlyValidated() {
-        $class = new \ReflectionClass('\ID3Global\Service\GlobalAuthenticationService');
-        $property = $class->getProperty('identity');
-        $property->setAccessible(true);
-        $property->setValue($this->service, new \stdClass());
-
-        $this->service->verifyIdentity();
-    }
-
-    private function getSuccessfulIdentity() {
+    public function testSuccessfulResponse()
+    {
+        // Arrange
         $personalDetails = new PersonalDetails();
         $personalDetails
             ->setForename('Snow')
             ->setMiddleName('White')
             ->setSurname('Huntsman')
             ->setGender('Female')
-            ->setDateOfBirth(1976, 3, 6);
-
+            ->setDateOfBirth(DateTime::createFromFormat('Y-m-d', '1976-03-06'));
         $identity = new Identity();
         $identity->setPersonalDetails($personalDetails);
 
-        return $identity;
+        $profileId = 'profile-id';
+
+        // Act
+        $bandText = $this->service->verifyIdentity($identity, $profileId, 0, 'x');
+
+        // Assert
+        $this->assertSame(GlobalAuthenticationGatewayFake::IDENTITY_BAND_PASS, $bandText);
+        $response = $this->service->getLastVerifyIdentityResponse();
+        $this->assertSame(GlobalAuthenticationGatewayFake::IDENTITY_BAND_PASS, $response->AuthenticateSPResult->BandText);
+        $this->assertSame('Default Profile', $response->AuthenticateSPResult->ProfileName);
     }
 }

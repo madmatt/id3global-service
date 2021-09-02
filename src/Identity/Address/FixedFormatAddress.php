@@ -1,282 +1,308 @@
 <?php
+
 namespace ID3Global\Identity\Address;
 
-use \ID3Global\Identity\ID3IdentityObject;
+use ID3Global\Identity\ID3IdentityObject;
 
-class FixedFormatAddress extends ID3IdentityObject implements Address {
+class FixedFormatAddress extends ID3IdentityObject implements Address
+{
     /**
-     * @var string
+     * @var string|null
      */
-    private $Country;
-
-    /**
-     * @var string
-     */
-    private $Street;
+    private ?string $Country = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $SubStreet;
+    private ?string $Street = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $City;
+    private ?string $SubStreet = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $SubCity;
+    private ?string $City = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $StateDistrict;
+    private ?string $SubCity = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $Region;
+    private ?string $StateDistrict = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $Principality;
+    private ?string $Region = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $ZipPostcode;
+    private ?string $Principality = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $Building;
+    private ?string $ZipPostcode = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $SubBuilding;
+    private ?string $Building = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $Premise;
+    private ?string $SubBuilding = null;
 
     /**
-     * @return string
+     * @var string|null
      */
-    public function getCountry()
+    private ?string $Premise = null;
+
+    /**
+     * @return string|null
+     */
+    public function getCountry(): ?string
     {
         return $this->Country;
     }
 
     /**
-     * @param string $country
+     * @param string|null $country
+     *
      * @return FixedFormatAddress
      */
-    public function setCountry($country)
+    public function setCountry(?string $country): FixedFormatAddress
     {
         $this->Country = $country;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStreet()
+    public function getStreet(): ?string
     {
         return $this->Street;
     }
 
     /**
-     * @param string $street
+     * @param string|null $street
+     *
      * @return FixedFormatAddress
      */
-    public function setStreet($street)
+    public function setStreet(?string $street): FixedFormatAddress
     {
         $this->Street = $street;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSubStreet()
+    public function getSubStreet(): ?string
     {
         return $this->SubStreet;
     }
 
     /**
-     * @param string $subStreet
+     * @param string|null $subStreet
+     *
      * @return FixedFormatAddress
      */
-    public function setSubStreet($subStreet)
+    public function setSubStreet(?string $subStreet): FixedFormatAddress
     {
         $this->SubStreet = $subStreet;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCity()
+    public function getCity(): ?string
     {
         return $this->City;
     }
 
     /**
-     * @param string $city
+     * @param string|null $city
+     *
      * @return FixedFormatAddress
      */
-    public function setCity($city)
+    public function setCity(?string $city): FixedFormatAddress
     {
         $this->City = $city;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSubCity()
+    public function getSubCity(): ?string
     {
         return $this->SubCity;
     }
 
     /**
-     * @param string $subCity
+     * @param string|null $subCity
+     *
      * @return FixedFormatAddress
      */
-    public function setSubCity($subCity)
+    public function setSubCity(?string $subCity): FixedFormatAddress
     {
         $this->SubCity = $subCity;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStateDistrict()
+    public function getStateDistrict(): ?string
     {
         return $this->StateDistrict;
     }
 
     /**
-     * @param string $stateDistrict
+     * @param string|null $stateDistrict
+     *
      * @return FixedFormatAddress
      */
-    public function setStateDistrict($stateDistrict)
+    public function setStateDistrict(?string $stateDistrict): FixedFormatAddress
     {
         $this->StateDistrict = $stateDistrict;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRegion()
+    public function getRegion(): ?string
     {
         return $this->Region;
     }
 
     /**
-     * @param string $region
+     * @param string|null $region
+     *
      * @return FixedFormatAddress
      */
-    public function setRegion($region)
+    public function setRegion(?string $region): FixedFormatAddress
     {
         $this->Region = $region;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPrincipality()
+    public function getPrincipality(): ?string
     {
         return $this->Principality;
     }
 
     /**
-     * @param string $principality
+     * @param string|null $principality
+     *
      * @return FixedFormatAddress
      */
-    public function setPrincipality($principality)
+    public function setPrincipality(?string $principality): FixedFormatAddress
     {
         $this->Principality = $principality;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getZipPostcode()
+    public function getZipPostcode(): ?string
     {
         return $this->ZipPostcode;
     }
 
     /**
-     * @param string $zipPostcode
+     * @param string|null $zipPostcode
+     *
      * @return FixedFormatAddress
      */
-    public function setZipPostcode($zipPostcode)
+    public function setZipPostcode(?string $zipPostcode): FixedFormatAddress
     {
         $this->ZipPostcode = $zipPostcode;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBuilding()
+    public function getBuilding(): ?string
     {
         return $this->Building;
     }
 
     /**
-     * @param string $building
+     * @param string|null $building
+     *
      * @return FixedFormatAddress
      */
-    public function setBuilding($building)
+    public function setBuilding(?string $building): FixedFormatAddress
     {
         $this->Building = $building;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSubBuilding()
+    public function getSubBuilding(): ?string
     {
         return $this->SubBuilding;
     }
 
     /**
-     * @param string $subBuilding
+     * @param string|null $subBuilding
+     *
      * @return FixedFormatAddress
      */
-    public function setSubBuilding($subBuilding)
+    public function setSubBuilding(?string $subBuilding): FixedFormatAddress
     {
         $this->SubBuilding = $subBuilding;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPremise()
+    public function getPremise(): ?string
     {
         return $this->Premise;
     }
 
     /**
-     * @param string $premise
+     * @param string|null $premise
+     *
      * @return FixedFormatAddress
      */
-    public function setPremise($premise)
+    public function setPremise(?string $premise): FixedFormatAddress
     {
         $this->Premise = $premise;
+
         return $this;
     }
 }

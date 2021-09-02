@@ -1,4 +1,5 @@
 <?php
+
 namespace ID3Global\Identity\Documents\NZ;
 
 use ID3Global\Identity\ID3IdentityObject;
@@ -6,71 +7,77 @@ use ID3Global\Identity\ID3IdentityObject;
 class DrivingLicence extends ID3IdentityObject
 {
     /**
-     * @var string The driver licence identifier
+     * @var string|null The driver licence identifier
      */
-    private $Number;
+    private ?string $Number = null;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $Version;
+    private ?int $Version = null;
 
     /**
-     * @var string Vehicle registration/licence plate linked to this drivers licence
+     * @var string|null Vehicle registration/licence plate linked to this drivers licence
      */
-    private $VehicleRegistration;
+    private ?string $VehicleRegistration = null;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getNumber()
+    public function getNumber(): ?string
     {
         return $this->Number;
     }
 
     /**
-     * @param string $Number
+     * @param string|null $Number
+     *
      * @return DrivingLicence
      */
-    public function setNumber($Number)
+    public function setNumber(?string $Number): DrivingLicence
     {
         $this->Number = $Number;
+
         return $this;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getVersion()
+    public function getVersion(): ?int
     {
         return $this->Version;
     }
 
     /**
-     * @param int $Version
+     * @param int|null $Version
+     *
      * @return DrivingLicence
      */
-    public function setVersion($Version)
+    public function setVersion(?int $Version): DrivingLicence
     {
         $this->Version = $Version;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getVehicleRegistration()
+    public function getVehicleRegistration(): ?string
     {
         return $this->VehicleRegistration;
     }
 
     /**
-     * @param string $VehicleRegistration
+     * @param string|null $VehicleRegistration
+     *
      * @return DrivingLicence
      */
-    public function setVehicleRegistration($VehicleRegistration)
+    public function setVehicleRegistration(?string $VehicleRegistration): DrivingLicence
     {
         $this->VehicleRegistration = $VehicleRegistration;
+
         return $this;
     }
 }

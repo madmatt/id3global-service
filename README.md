@@ -62,33 +62,40 @@ The WSDL file gives an overview of the values that can be provided, these will v
  * \ID3Global\Identity\PersonalDetails\BirthInfo
  */
 
+$birthday = DateTime::createFromFormat('Y-m-d', '1922-08-20');
 $personalDetails = new \ID3Global\Identity\PersonalDetails();
 $personalDetails
     ->setTitle('Mr')
     ->setForeName('Dworkin')
     ->setMiddleName('John')
     ->setSurname('Barimen')
-    ->setGender(ID3GlobalService::GENDER_MALE)
-    ->setDateOfBirth(1922, 08, 20);
+    ->setGender('male')
+    ->setDateOfBirth($birthday);
 
 $currentAddress = new \ID3Global\Identity\Address\FreeFormatAddress();
 $currentAddress
-    ->setCountry(ID3GlobalService::COUNTRY_NZ)
-    ->setZipPostcode(90210)
+    ->setCountry('New Zealand')
+    ->setPostCode('90210')
     // You can set up to 8 address lines if required using ->setAddressLine3(), ->setAddressLine8() etc.
     ->setAddressLine1('Dungeon 1')
     ->setAddressLine2('Courts of Amber');
 
-$addressContainer = new \ID3Global\Identity\Addresses();
-$addressContainer
-    ->setCurrentAddress($currentAddress);
+$addressContainer = new \ID3Global\Identity\Address\AddressContainer();
+$addressContainer->setCurrentAddress($currentAddress);
+
+$phone = new \ID3Global\Identity\ContactDetails\PhoneNumber();
+$phone->setNumber(1234567890);
 
 $contactDetails = new \ID3Global\Identity\ContactDetails();
 $contactDetails
-    ->setLandPhone(new \ID3Global\Identity\ContactDetails\LandTelephone(1234567890, false))
-    ->setMobilePhone(new \ID3Global\Identity\ContactDetails\MobileTelephone(1234567890))
-    ->setWorkPhone(new \ID3Global\Identity\ContactDetails\WorkTelephone(1234567890))
+    ->setLandTelephone($phone)
+    ->setMobileTelephone($phone)
+    ->setWorkTelephone($phone)
     ->setEmail('dworkin@thepattern.net');
+
+$internationalPassport = new \ID3Global\Identity\Documents\InternationalPassport();
+$documentContainer = new \ID3Global\Identity\Documents\DocumentContainer();
+$documentContainer->addIdentityDocument(new \ID3Global\Identity\Documents\NZ\DrivingLicence(), 'New Zealand');
 
 /**
  * $result will be one of the following:
@@ -96,21 +103,22 @@ $contactDetails
  * - \ID3Global\Constants\Identity::IDENTITY_BAND_REFER
  * - \ID3Global\Constants\Identity::IDENTITY_BAND_ALERT
  *
- * It is up to the implemenetation how these are handled.
+ * It is up to the implementation how these are handled.
  * An exception is thrown if the web service fails or cannot be contacted.
  */
 $identity = new \ID3Global\Identity\Identity();
 $identity
-    ->setPersonalDetails($$personalDetails)
+    ->setPersonalDetails($personalDetails)
     ->setAddresses($addressContainer)
-    ->setContactDetails($contactDetails);
+    ->setContactDetails($contactDetails)
+    ->setIdentityDocuments($documentContainer);
 
-$id3Service = new \ID3Global\Services\GlobalAuthenticationService();
+$gateway = new \ID3Global\Gateway\GlobalAuthenticationGateway('username', 'password');
+$id3Service = new \ID3Global\Service\GlobalAuthenticationService($gateway);
 $result = $id3Service
-    ->setIdentity($identity)
-    ->verifyIdentity();
+    ->verifyIdentity($identity, 'profile-id');
 
-if($result === \ID3Global\Constants\Identity::IDENTITY_BAND_PASS) {
+if($result === 'PASS') {
     // Identity is verified, continue processing
 }
 ```

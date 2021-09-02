@@ -1,17 +1,38 @@
 <?php
+
 namespace ID3Global\Tests\Gateway\Request;
 
-use ID3Global\Gateway\Request\AuthenticateSPRequest,
-    ID3Global\Identity\Address\FixedFormatAddress,
-    ID3Global\Identity\Address\FreeFormatAddress,
-    ID3Global\Identity\Address\AddressContainer,
-    ID3Global\Identity\Identity,
-    ID3Global\Identity\Documents\DocumentContainer,
-    ID3Global\Identity\Documents\NZ\DrivingLicence;
+use DateTime;
+use ID3Global\Gateway\Request\AuthenticateSPRequest;
+use ID3Global\Identity\Address\AddressContainer;
+use ID3Global\Identity\Address\FixedFormatAddress;
+use ID3Global\Identity\Address\FreeFormatAddress;
+use ID3Global\Identity\ContactDetails;
+use ID3Global\Identity\Documents\DocumentContainer;
+use ID3Global\Identity\Documents\InternationalPassport;
+use ID3Global\Identity\Documents\NZ\DrivingLicence;
+use ID3Global\Identity\Identity;
+use ID3Global\Identity\PersonalDetails;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class AuthenticateSPRequestTest extends \PHPUnit_Framework_TestCase {
-    public function testStandardParams() {
-        $version = new \stdClass();
+class AuthenticateSPRequestTest extends TestCase
+{
+    /**
+     * @var Identity
+     */
+    private Identity $identity;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->identity = new Identity();
+    }
+
+    public function testStandardParams()
+    {
+        $version = new stdClass();
         $version->Version = 1;
         $version->ID = 'abc123-x';
         $r = new AuthenticateSPRequest();
@@ -23,9 +44,86 @@ class AuthenticateSPRequestTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('X', $r->getCustomerReference());
     }
 
-    public function testFixedLengthAddress() {
-        $identity = new Identity();
-        $container = new AddressContainer();
+    public function testPersonalDetails()
+    {
+        $birthday = DateTime::createFromFormat('Y-m-d', '1973-04-05');
+
+        $personalDetails = new PersonalDetails();
+        $personalDetails
+            ->setTitle('Dr.')
+            ->setForename('Gordon')
+            ->setSurname('Freeman')
+            ->setGender('Male')
+            ->setDateOfBirth($birthday)
+            ->setCountryOfBirth('US');
+        $this->identity->setPersonalDetails($personalDetails);
+
+        $r = new AuthenticateSPRequest();
+        $r->addFieldsFromIdentity($this->identity);
+        $test = $r->getInputData()->Personal->PersonalDetails;
+
+        $this->assertSame('Dr.', $test->Title);
+        $this->assertSame('Gordon', $test->Forename);
+        $this->assertSame('Freeman', $test->Surname);
+        $this->assertSame('Male', $test->Gender);
+        $this->assertSame(1973, $test->DOBYear);
+        $this->assertSame(4, $test->DOBMonth);
+        $this->assertSame(5, $test->DOBDay);
+        $this->assertSame('US', $test->CountryOfBirth);
+    }
+
+    public function testContactDetails()
+    {
+        $landTelephone = new ContactDetails\PhoneNumber();
+        $landTelephone->setNumber('1(800) 786-1410');
+
+        $contactDetails = new ContactDetails();
+        $contactDetails
+            ->setEmail('freeman@blackmesa.com')
+            ->setLandTelephone($landTelephone);
+        $this->identity->setContactDetails($contactDetails);
+
+        $r = new AuthenticateSPRequest();
+        $r->addFieldsFromIdentity($this->identity);
+        $test = $r->getInputData()->ContactDetails;
+
+        $this->assertSame('freeman@blackmesa.com', $test->Email);
+        $this->assertSame('1(800) 786-1410', $test->LandTelephone->Number);
+    }
+
+    public function testInternationalPassport()
+    {
+        $issueDate = DateTime::createFromFormat('Y-m-d', '2020-01-02');
+        $expiryDate = DateTime::createFromFormat('Y-m-d', '2030-01-02');
+        $internationalPassport = new InternationalPassport();
+        $internationalPassport
+            ->setNumber('P1234567<0AZE7304058M12345675J8AO2Q<<<<<<<12')
+            ->setShortPassportNumber('P1234567')
+            ->setIssueDate($issueDate)
+            ->setExpiryDate($expiryDate)
+            ->setCountryOfOrigin('Azerbaijan');
+
+        $documentContainer = new DocumentContainer();
+        $documentContainer->setInternationalPassport($internationalPassport);
+
+        $this->identity->setIdentityDocuments($documentContainer);
+
+        $r = new AuthenticateSPRequest();
+        $r->addFieldsFromIdentity($this->identity);
+        $test = $r->getInputData()->IdentityDocuments->InternationalPassport;
+        $this->assertSame('P1234567<0AZE7304058M12345675J8AO2Q<<<<<<<12', $test->Number);
+        $this->assertSame('P1234567', $test->ShortPassportNumber);
+        $this->assertSame(2020, $test->IssueYear);
+        $this->assertSame(1, $test->IssueMonth);
+        $this->assertSame(2, $test->IssueDay);
+        $this->assertSame(2030, $test->ExpiryYear);
+        $this->assertSame(1, $test->ExpiryMonth);
+        $this->assertSame(2, $test->ExpiryDay);
+        $this->assertSame('Azerbaijan', $test->CountryOfOrigin);
+    }
+
+    public function testFixedLengthAddress()
+    {
         $address = new FixedFormatAddress();
         $address
             ->setPrincipality('US')
@@ -41,11 +139,12 @@ class AuthenticateSPRequestTest extends \PHPUnit_Framework_TestCase {
             ->setPremise('Empire State Building')
             ->setZipPostcode('10118');
 
+        $container = new AddressContainer();
         $container->setCurrentAddress($address);
-        $identity->setAddresses($container);
+        $this->identity->setAddresses($container);
 
         $r = new AuthenticateSPRequest();
-        $r->addFieldsFromIdentity($identity);
+        $r->addFieldsFromIdentity($this->identity);
         $test = $r->getInputData()->Addresses->CurrentAddress;
 
         $this->assertSame('US', $test->Principality);
@@ -62,9 +161,8 @@ class AuthenticateSPRequestTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('10118', $test->ZipPostcode);
     }
 
-    public function testFreeFormatAddress() {
-        $identity = new Identity();
-        $container = new AddressContainer();
+    public function testFreeFormatAddress()
+    {
         $address = new FreeFormatAddress();
 
         $address
@@ -79,11 +177,12 @@ class AuthenticateSPRequestTest extends \PHPUnit_Framework_TestCase {
             ->setAddressLine7('6004')
             ->setAddressLine8('NZ');
 
+        $container = new AddressContainer();
         $container->setCurrentAddress($address);
-        $identity->setAddresses($container);
+        $this->identity->setAddresses($container);
 
         $r = new AuthenticateSPRequest();
-        $r->addFieldsFromIdentity($identity);
+        $r->addFieldsFromIdentity($this->identity);
         $test = $r->getInputData()->Addresses->CurrentAddress;
 
         $this->assertSame('New Zealand', $test->Country);
@@ -98,9 +197,8 @@ class AuthenticateSPRequestTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('NZ', $test->AddressLine8);
     }
 
-    public function testNZDrivingLicence() {
-        $identity = new Identity();
-        $container = new DocumentContainer();
+    public function testNZDrivingLicence()
+    {
         $licence = new DrivingLicence();
 
         $licence
@@ -108,12 +206,12 @@ class AuthenticateSPRequestTest extends \PHPUnit_Framework_TestCase {
             ->setVersion(123)
             ->setVehicleRegistration('ABC123');
 
+        $container = new DocumentContainer();
         $container->addIdentityDocument($licence, 'New Zealand');
-
-        $identity->setIdentityDocuments($container);
+        $this->identity->setIdentityDocuments($container);
 
         $r = new AuthenticateSPRequest();
-        $r->addFieldsFromIdentity($identity);
+        $r->addFieldsFromIdentity($this->identity);
         $test = $r->getInputData()->IdentityDocuments;
 
         $this->assertSame('DI123456', $test->NewZealand->DrivingLicence->Number);

@@ -1,66 +1,105 @@
 <?php
+
 namespace ID3Global\Identity;
 
 use ID3Global\Identity\ContactDetails\PhoneNumber;
 
-class ContactDetails {
+class ContactDetails
+{
     /**
-     * @var PhoneNumber
+     * @var PhoneNumber|null
      */
-    private $landPhone;
+    private ?PhoneNumber $LandTelephone = null;
 
     /**
-     * @var PhoneNumber
+     * @var PhoneNumber|null
      */
-    private $mobilePhone;
+    private ?PhoneNumber $MobileTelephone = null;
 
     /**
-     * @var PhoneNumber
+     * @var PhoneNumber|null
      */
-    private $workPhone;
+    private ?PhoneNumber $WorkTelephone = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $email;
+    private ?string $Email = null;
 
     /**
-     * @param PhoneNumber $landPhone
+     * @return PhoneNumber|null
+     */
+    public function getLandTelephone(): ?PhoneNumber
+    {
+        return $this->LandTelephone;
+    }
+
+    /**
+     * @param PhoneNumber|null $LandTelephone
+     *
      * @return ContactDetails
      */
-    public function setLandPhone(PhoneNumber $landPhone)
+    public function setLandTelephone(?PhoneNumber $LandTelephone): ContactDetails
     {
-        $this->landPhone = $landPhone;
+        $this->LandTelephone = $LandTelephone;
+
         return $this;
     }
 
     /**
-     * @param PhoneNumber $mobilePhone
+     * @return PhoneNumber|null
+     */
+    public function getMobileTelephone(): ?PhoneNumber
+    {
+        return $this->MobileTelephone;
+    }
+
+    /**
+     * @param PhoneNumber|null $MobileTelephone
+     *
      * @return ContactDetails
      */
-    public function setMobilePhone(PhoneNumber $mobilePhone)
+    public function setMobileTelephone(?PhoneNumber $MobileTelephone): ContactDetails
     {
-        $this->mobilePhone = $mobilePhone;
+        $this->MobileTelephone = $MobileTelephone;
+
         return $this;
     }
 
     /**
-     * @param PhoneNumber $workPhone
-     * @return ContactDetails
+     * @return PhoneNumber|null
      */
-    public function setWorkPhone(PhoneNumber $workPhone)
+    public function getWorkTelephone(): ?PhoneNumber
     {
-        $this->workPhone = $workPhone;
-        return $this;
+        return $this->WorkTelephone;
     }
 
     /**
-     * @param string $email
+     * @param PhoneNumber|null $WorkTelephone
+     *
      * @return ContactDetails
      */
-    public function setEmail($email)
+    public function setWorkTelephone(?PhoneNumber $WorkTelephone): ContactDetails
     {
-        $this->email = $email;
+        $this->WorkTelephone = $WorkTelephone;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->Email;
+    }
+
+    /**
+     * @param string|null $Email
+     *
+     * @return ContactDetails
+     */
+    public function setEmail(?string $Email): ContactDetails
+    {
+        $this->Email = $Email;
+
         return $this;
     }
 }

@@ -2,103 +2,102 @@
 
 namespace ID3Global\Identity;
 
-class Identity {
+use ID3Global\Identity\Address\AddressContainer;
+use ID3Global\Identity\Documents\DocumentContainer;
+
+class Identity
+{
     /**
-     * @var string The const returned by the ID3Global API when this identity passed verification, according to the
-     * ruleset used.
+     * @var PersonalDetails|null
      */
-    const IDENTITY_BAND_PASS = 'Name, Address & DOB Match';
+    private ?PersonalDetails $personalDetails = null;
 
     /**
-     * @var string The const returned by the ID3Global API when this identity needs additional referral, according to
-     * the ruleset used.
+     * @var ContactDetails|null
      */
-    const IDENTITY_BAND_REFER = 'Refer';
+    private ?ContactDetails $contactDetails = null;
 
     /**
-     * The const returned by the ID3Global API when this identity needs additional referral, according to
-     * the ruleset used.
+     * @var AddressContainer|null
      */
-    const IDENTITY_BAND_ALERT = 'Alert';
-
-    /** 
-     * Minimum score to pass verification
-     */
-    const IDENTITY_SCORE_PASS = 2022;
+    private ?AddressContainer $addresses = null;
 
     /**
-     * @var \ID3Global\Identity\PersonalDetails
+     * @var DocumentContainer|null
      */
-    private $personalDetails;
-
-    /**
-     * @var \ID3Global\Identity\ContactDetails
-     */
-    private $contactDetails;
-
-    /**
-     * @var \ID3Global\Identity\Address\AddressContainer
-     */
-    private $addresses;
-
-    /**
-     * @var \ID3Global\Identity\Documents\DocumentContainer
-     */
-    private $identityDocuments;
+    private ?DocumentContainer $identityDocuments = null;
 
     /**
      * @param PersonalDetails $personalDetails
+     *
      * @return Identity
      */
-    public function setPersonalDetails($personalDetails)
+    public function setPersonalDetails(PersonalDetails $personalDetails): Identity
     {
         $this->personalDetails = $personalDetails;
+
         return $this;
     }
 
-    public function getPersonalDetails() {
+    public function getPersonalDetails(): ?PersonalDetails
+    {
         return $this->personalDetails;
     }
 
     /**
      * @param ContactDetails $contactDetails
+     *
      * @return Identity
      */
-    public function setContactDetails($contactDetails)
+    public function setContactDetails(ContactDetails $contactDetails): Identity
     {
         $this->contactDetails = $contactDetails;
+
         return $this;
+    }
+
+    /**
+     * @return ContactDetails|null
+     */
+    public function getContactDetails(): ?ContactDetails
+    {
+        return $this->contactDetails;
     }
 
     /**
      * @param Address\AddressContainer $addresses
+     *
      * @return Identity
      */
-    public function setAddresses($addresses)
+    public function setAddresses(AddressContainer $addresses): Identity
     {
         $this->addresses = $addresses;
+
         return $this;
     }
 
-    public function getAddresses() {
+    public function getAddresses(): ?AddressContainer
+    {
         return $this->addresses;
     }
 
     /**
-     * @return Documents\DocumentContainer
+     * @return DocumentContainer|null
      */
-    public function getIdentityDocuments()
+    public function getIdentityDocuments(): ?DocumentContainer
     {
         return $this->identityDocuments;
     }
 
     /**
      * @param Documents\DocumentContainer $identityDocuments
+     *
      * @return Identity
      */
-    public function setIdentityDocuments($identityDocuments)
+    public function setIdentityDocuments(DocumentContainer $identityDocuments): Identity
     {
         $this->identityDocuments = $identityDocuments;
+
         return $this;
     }
 }

@@ -8,7 +8,7 @@ The WSDL file gives an overview of the values that can be provided, these will v
 * [Online WSDL viewer](http://www.id3globalsupport.com/Website/content/Web-Service/WSDL%20Page/WSDL%20HTML/ID3%20Global%20WSDL-%20Live.xhtml)
 * [Sample code per country](http://www.id3globalsupport.com/Website/Sample-Code.html)
 
-*Note:* The code below is entirely subject to change. It is primarily focused at the moment around the `AuthenticateSP` method of the ID3Global API, and specifically on NZ, however it should be generic enough to easily support non-NZ systems easily.
+*Note:* The code below is entirely subject to change. It is primarily focused at the moment around the `AuthenticateSP` method of the ID3global API, and specifically on New Zealand (Aotearoa), however it should be generic enough to easily support non-NZ systems easily.
 
 ```php
 /**
@@ -98,14 +98,20 @@ $documentContainer = new \ID3Global\Identity\Documents\DocumentContainer();
 $documentContainer->addIdentityDocument(new \ID3Global\Identity\Documents\NZ\DrivingLicence(), 'New Zealand');
 
 /**
- * $result will be one of the following:
- * - \ID3Global\Constants\Identity::IDENTITY_BAND_PASS
- * - \ID3Global\Constants\Identity::IDENTITY_BAND_REFER
- * - \ID3Global\Constants\Identity::IDENTITY_BAND_ALERT
+ * $result will be a string representing the 'BandText' as returned by the ID3global API. By default, this may be a word
+ * like 'PASS', 'REFER' or 'ALERT' but could also be any string value e.g. 'Name, Address and DOB Match'. The exact
+ * string returned is entirely dependent on how the profile is configured within ID3global, and can vary if you adjust
+ * the profile id and profile version.
  *
- * It is up to the implementation how these are handled.
+ * It is up to your implementation how these are handled. Note that generally there is only a single value that
+ * represents an identity that has passed the necessary verification, and multiple BandTexts that represent a failing
+ * identity. You **must** handle this in your own code, as the ID3Global API does not provide any kind of boolean value
+ * for whether a given identity passed identity verification or not.
+ *
  * An exception is thrown if the web service fails or cannot be contacted.
  */
+$validIdentityBandText = 'PASS'; // See note above about how this may differ for you
+
 $identity = new \ID3Global\Identity\Identity();
 $identity
     ->setPersonalDetails($personalDetails)
@@ -116,9 +122,10 @@ $identity
 $gateway = new \ID3Global\Gateway\GlobalAuthenticationGateway('username', 'password');
 $id3Service = new \ID3Global\Service\GlobalAuthenticationService($gateway);
 $result = $id3Service
-    ->verifyIdentity($identity, 'profile-id');
+    ->setProfileId('Profile ID as provided by ID3global interface')
+    ->verifyIdentity($identity, 'Unique customer reference');
 
-if($result === 'PASS') {
+if($result === $validIdentityBandText) {
     // Identity is verified, continue processing
 }
 ```

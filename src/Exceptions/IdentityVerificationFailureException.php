@@ -12,7 +12,7 @@ class IdentityVerificationFailureException extends Exception
     public function __construct($response)
     {
         $this->response = $response;
-        $message = sprintf('Invalid Response returned by ID3Global API. Serialized response: %s', serialize($response));
+        $message = sprintf('Invalid Response returned by ID3global API. Serialized response: %s', serialize($response));
         parent::__construct($message);
     }
 

@@ -2,7 +2,7 @@
     "name": "madmatt/id3global-service",
     "description": "Allows a PHP-powered website to communicate with the GBG ID3global API to verify identities. This library is not affiliated with GBG PLC in any way.",
     "type": "library",
-    "keywords": [ "id3global", "GBG", "GBG PLC", "ID3Global", "identity verification", "identity" ],
+    "keywords": [ "id3global", "GBG", "GBG PLC", "ID3Global", "ID3global", "identity verification", "identity" ],
     "homepage": "https://github.com/madmatt/id3global-service/",
     "license": "BSD-3-Clause",
 

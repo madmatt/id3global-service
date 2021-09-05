@@ -4,11 +4,11 @@ namespace ID3Global\Tests\Service;
 
 use DateTime;
 use ID3Global\Exceptions\IdentityVerificationFailureException;
-use LogicException;
 use ID3Global\Identity\Identity;
 use ID3Global\Identity\PersonalDetails;
 use ID3Global\Service\GlobalAuthenticationService;
 use ID3Global\Stubs\Gateway\GlobalAuthenticationGatewayFake;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 
 class GlobalAuthenticationServiceTest extends TestCase
@@ -27,7 +27,7 @@ class GlobalAuthenticationServiceTest extends TestCase
     /**
      * @dataProvider authenticateSp
      *
-     * @param string|null $customerReference
+     * @param string|null   $customerReference
      * @param DateTime|null $birthday
      *
      * @throws IdentityVerificationFailureException

@@ -3,12 +3,18 @@ Allows a PHP-powered website to communicate with the [GBG ID3global API](http://
 
 ## Installation
 
+```bash
+composer require madmatt/id3global-service
+```
+
+If you're not already using [Composer](https://getcomposer.org/) for dependency management, please consider doing so. If you'd prefer not to, you can download the latest release from the [Releases section](https://github.com/madmatt/id3global-service/releases).
+
 ## Usage
 The WSDL file gives an overview of the values that can be provided, these will vary by country.
 * [Online WSDL viewer](http://www.id3globalsupport.com/Website/content/Web-Service/WSDL%20Page/WSDL%20HTML/ID3%20Global%20WSDL-%20Live.xhtml)
 * [Sample code per country](http://www.id3globalsupport.com/Website/Sample-Code.html)
 
-*Note:* The code below is entirely subject to change. It is primarily focused at the moment around the `AuthenticateSP` method of the ID3global API, and specifically on New Zealand (Aotearoa), however it should be generic enough to easily support non-NZ systems easily.
+*Note:* The code below is entirely subject to change. It is primarily focused at the moment around the `AuthenticateSP` method of the ID3global API, and specifically on New Zealand (Aotearoa), however it should be generic enough to easily support other countries.
 
 ```php
 /**

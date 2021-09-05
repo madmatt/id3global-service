@@ -3,10 +3,10 @@
 namespace ID3Global\Service;
 
 use Exception;
-use LogicException;
 use ID3Global\Exceptions\IdentityVerificationFailureException;
 use ID3Global\Gateway\GlobalAuthenticationGateway;
 use ID3Global\Identity\Identity;
+use LogicException;
 use SoapClient;
 use stdClass;
 
@@ -18,27 +18,29 @@ class GlobalAuthenticationService extends ID3BaseService
     private GlobalAuthenticationGateway $gateway;
 
     /**
-     * @var string The Profile ID to be used when verifying identities via $this->verifyIdentity().
+     * @var string The Profile ID to be used when verifying identities via->verifyIdentity().
+     *
      * @see self::setProfileId()
      */
     private string $profileId = '';
 
     /**
-     * @var int The version of the Profile ID to be used when verifying identities via $this->verifyIdentity().
-     * The special value of 0 is treated specially by ID3global and represents the 'most recent version of the profile'.
+     * @var int The version of the Profile ID to be used when verifying identities via->verifyIdentity().
+     *          The special value of 0 is treated specially by ID3global and represents the 'most recent version of the profile'.
+     *
      * @see self::setProfileVersion()
      */
     private int $profileVersion = 0;
 
     /**
      * @var Identity The most recent Identity object to be verified by the ID3global API (regardless of the outcome of
-     * the API request).
+     *               the API request).
      */
     private Identity $lastIdentity;
 
     /**
      * @var string|null The most recent customer reference to be verified by the ID3global API (regardless of the
-     * outcome of the API request).
+     *                  outcome of the API request).
      */
     private ?string $lastCustomerReference;
 
@@ -85,12 +87,13 @@ class GlobalAuthenticationService extends ID3BaseService
      *                                       necessary for compliance purposes.
      *
      * @throws IdentityVerificationFailureException Thrown specifically if the SOAP response was 'valid' according to
-     * SOAP but does not conform to the expected response (missing BandText or Score elements of the response).
-     * @throws Exception May throw a generic Exception or SoapFault if any part of the SOAP callstack fails.
+     *                                              SOAP but does not conform to the expected response (missing BandText or Score elements of the response).
+     * @throws Exception                            May throw a generic Exception or SoapFault if any part of the SOAP callstack fails.
      *
      * @return string The raw BandText as provided by the API.
      */
-    public function verifyIdentity(Identity $identity, ?string $customerReference = null): string {
+    public function verifyIdentity(Identity $identity, ?string $customerReference = null): string
+    {
         $this->lastIdentity = $identity;
         $this->lastCustomerReference = $customerReference;
 
@@ -98,6 +101,7 @@ class GlobalAuthenticationService extends ID3BaseService
 
         if (!$this->profileId) {
             $error = 'An ID3global Profile ID must be set by calling setProfileId() before calling verifyIdentity().';
+
             throw new LogicException($error);
         }
 
@@ -158,7 +162,7 @@ class GlobalAuthenticationService extends ID3BaseService
 
     /**
      * @return Identity|null The last Identity object to be verified by the API (regardless of whether it was
-     * successfully accepted by the ID3global API or not). Returns null if ->verifyIdentity() has not yet been called.
+     *                       successfully accepted by the ID3global API or not). Returns null if ->verifyIdentity() has not yet been called.
      */
     public function getLastVerifiedIdentity(): ?Identity
     {
@@ -167,7 +171,7 @@ class GlobalAuthenticationService extends ID3BaseService
 
     /**
      * @return string|null The last customer reference value to be verified by the API (regardless of whether it was
-     * successfully accepted by the ID3global API or not). Returns null if ->verifyIdentity() has not yet been called.
+     *                     successfully accepted by the ID3global API or not). Returns null if ->verifyIdentity() has not yet been called.
      */
     public function getLastCustomerReference(): ?string
     {
@@ -176,8 +180,8 @@ class GlobalAuthenticationService extends ID3BaseService
 
     /**
      * @return stdClass|null Either the full response as returned by ID3global, or null if no call has been made yet. If
-     * the request was made but failed to validate (e.g. the ID3global API returned an invalid SOAP object, this will
-     * still be populated.
+     *                       the request was made but failed to validate (e.g. the ID3global API returned an invalid SOAP object, this will
+     *                       still be populated.
      */
     public function getLastVerifyIdentityResponse(): ?stdClass
     {

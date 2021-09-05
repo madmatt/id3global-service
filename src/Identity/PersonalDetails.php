@@ -123,6 +123,10 @@ class PersonalDetails extends ID3IdentityObject
      */
     public function setDateOfBirth(?DateTime $birthday): PersonalDetails
     {
+        if ($birthday == null) {
+            return $this;
+        }
+
         $this->dateOfBirth = $birthday;
 
         $this->DOBDay = $birthday->format('d') ?? null;

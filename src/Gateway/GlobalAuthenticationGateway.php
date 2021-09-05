@@ -8,7 +8,7 @@ use stdClass;
 
 class GlobalAuthenticationGateway extends ID3GlobalBaseGateway
 {
-    public function AuthenticateSP(string $profileID, string $profileVersion, string $customerReference, Identity $identity)
+    public function AuthenticateSP(string $profileID, int $profileVersion, ?string $customerReference, Identity $identity)
     {
         $request = new AuthenticateSPRequest();
         $request->setCustomerReference($customerReference);

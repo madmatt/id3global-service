@@ -3,7 +3,7 @@
 namespace ID3Global\Tests\Service;
 
 use DateTime;
-use Exception;
+use ID3Global\Exceptions\IdentityVerificationFailureException;
 use LogicException;
 use ID3Global\Identity\Identity;
 use ID3Global\Identity\PersonalDetails;
@@ -25,9 +25,14 @@ class GlobalAuthenticationServiceTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @dataProvider authenticateSp
+     *
+     * @param string|null $customerReference
+     * @param DateTime|null $birthday
+     *
+     * @throws IdentityVerificationFailureException
      */
-    public function testSuccessfulResponse()
+    public function testSuccessfulResponse(?string $customerReference, ?DateTime $birthday)
     {
         // Arrange
         $personalDetails = new PersonalDetails();
@@ -36,7 +41,7 @@ class GlobalAuthenticationServiceTest extends TestCase
             ->setMiddleName('White')
             ->setSurname('Huntsman')
             ->setGender('Female')
-            ->setDateOfBirth(DateTime::createFromFormat('Y-m-d', '1976-03-06'));
+            ->setDateOfBirth($birthday);
 
         $identity = new Identity();
         $identity->setPersonalDetails($personalDetails);
@@ -46,7 +51,7 @@ class GlobalAuthenticationServiceTest extends TestCase
         // Act
         $bandText = $this->service
             ->setProfileId($profileId)
-            ->verifyIdentity($identity, 'customer reference');
+            ->verifyIdentity($identity, $customerReference);
 
         // Assert
         $this->assertSame(GlobalAuthenticationGatewayFake::IDENTITY_BAND_PASS, $bandText);
@@ -63,5 +68,14 @@ class GlobalAuthenticationServiceTest extends TestCase
 
         $this->expectException(LogicException::class);
         $this->service->verifyIdentity($identity);
+    }
+
+    public function authenticateSp(): array
+    {
+        return [
+            ['customer-reference', DateTime::createFromFormat('Y-m-d', '1976-03-06')],
+            [null, DateTime::createFromFormat('Y-m-d', '1976-03-06')],
+            ['customer-reference', null],
+        ];
     }
 }

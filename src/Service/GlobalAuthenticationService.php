@@ -214,6 +214,14 @@ class GlobalAuthenticationService extends ID3BaseService
     }
 
     /**
+     * @param GlobalAuthenticationGateway $gateway
+     */
+    public function setGateway(GlobalAuthenticationGateway $gateway): void
+    {
+        $this->gateway = $gateway;
+    }
+
+    /**
      * @return array
      */
     public function getSoapOptions(): array

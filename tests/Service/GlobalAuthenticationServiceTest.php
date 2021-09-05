@@ -71,10 +71,10 @@ class GlobalAuthenticationServiceTest extends TestCase
      * @dataProvider fakeResponses
      *
      * @param string $profileId
-     * @param int $profileVersion
+     * @param int    $profileVersion
      * @param string $customerReference
      * @param string $bandText
-     * @param int $score
+     * @param int    $score
      *
      * @throws IdentityVerificationFailureException
      */

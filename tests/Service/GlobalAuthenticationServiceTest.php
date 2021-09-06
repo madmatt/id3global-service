@@ -120,7 +120,7 @@ class GlobalAuthenticationServiceTest extends TestCase
     {
         return [
             ['profile-id', 1, 'customer-1', GlobalAuthenticationGatewayFake::IDENTITY_BAND_ALERT, 20000],
-            ['profile-id-2', 0, 'customer-2', GlobalAuthenticationGatewayFake::IDENTITY_BAND_REFER, 500],
+            ['', 0, '', GlobalAuthenticationGatewayFake::IDENTITY_BAND_REFER, 500],
         ];
     }
 }

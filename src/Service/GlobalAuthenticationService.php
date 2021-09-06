@@ -18,11 +18,11 @@ class GlobalAuthenticationService extends ID3BaseService
     private GlobalAuthenticationGateway $gateway;
 
     /**
-     * @var string The Profile ID to be used when verifying identities via->verifyIdentity().
+     * @var ?string The Profile ID to be used when verifying identities via->verifyIdentity().
      *
      * @see self::setProfileId()
      */
-    private string $profileId = '';
+    private ?string $profileId = null;
 
     /**
      * @var int The version of the Profile ID to be used when verifying identities via->verifyIdentity().
@@ -99,7 +99,7 @@ class GlobalAuthenticationService extends ID3BaseService
 
         $gateway = $this->getGateway();
 
-        if (!$this->profileId) {
+        if ($this->profileId === null) {
             $error = 'An ID3global Profile ID must be set by calling setProfileId() before calling verifyIdentity().';
 
             throw new LogicException($error);

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="vendor/autoload.php" convertErrorsToExceptions="true">
-    <coverage processUncoveredFiles="true">
+    <coverage processUncoveredFiles="true" includeUncoveredFiles="true" pathCoverage="true">
         <include>
-            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">src</directory>
         </include>
+
+        <report>
+            <clover outputFile=".artifacts/phpunit-codecoverage.xml"/>
+        </report>
     </coverage>
+
     <testsuites>
         <testsuite name="ID3Global Service tests">
             <directory suffix="Test.php">./tests/</directory>

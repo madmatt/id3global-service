@@ -1,10 +1,9 @@
-name: PHP Composer
+name: Run PHP Parallel Lint, PHP CodeSniffer, and PHPUnit tests
 
 on: [ push, pull_request ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -25,8 +24,20 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    - name: Run PHP Parallel Lint
+      run: vendor/bin/parallel-lint . --exclude vendor
+
+    - name: Run phpcs
+      run: vendor/bin/phpcs -s
 
     - name: Run test suite
-      run: vendor/bin/phpunit
+      run: XDEBUG_MODE=coverage vendor/bin/phpunit
+
+    - name: Upload code coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ./.artifacts
+        fail_ci_if_error: true
+        flags: phpunit
+        verbose: true

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ID3Global\Gateway;
 
 use ID3Global\Gateway\SoapClient\ID3GlobalSoapClient;
@@ -7,7 +9,7 @@ use ID3Global\Gateway\SoapClient\ID3GlobalSoapClient;
 abstract class ID3GlobalBaseGateway
 {
     /**
-     * @var ID3GlobalSoapClient
+     * @var ID3GlobalSoapClient The custom SoapClient sub-class used to ensure the correct wsse:Security headers exist.
      */
     private ID3GlobalSoapClient $client;
 
@@ -15,9 +17,17 @@ abstract class ID3GlobalBaseGateway
 
     private string $liveSiteWsdl = 'https://id3global.com/ID3gWS/ID3global.svc?wsdl';
 
-    public function __construct($username, $password, $soapClientOptions = [], $usePilotSite = false)
+    /**
+     * @param string $username The username for the ID3global API.
+     * @param string $password The password for the ID3global API.
+     * @param array $options See https://www.php.net/manual/en/soapclient.construct.php for options.
+     * @param bool $usePilotSite true to use the ID3Global API pilot (test) environment, false to use production env.
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification
+     * @throws \SoapFault
+     */
+    public function __construct(string $username, string $password, array $options = [], bool $usePilotSite = false)
     {
-        if ((bool) $usePilotSite) {
+        if ($usePilotSite) {
             $wsdl = $this->pilotSiteWsdl;
         } else {
             $wsdl = $this->liveSiteWsdl;
@@ -25,12 +35,13 @@ abstract class ID3GlobalBaseGateway
 
         $defaultOptions = [
             'soap_version' => SOAP_1_1,
-            'exceptions'   => true,
+            'exceptions' => true,
+
             // We always enable trace so that requests and responses can be logged if required by calling applications
             'trace' => true,
         ];
 
-        $soapClientOptions = array_merge($defaultOptions, $soapClientOptions);
+        $soapClientOptions = array_merge($defaultOptions, $options);
 
         $this->setClient(new ID3GlobalSoapClient($wsdl, $username, $password, $soapClientOptions));
     }

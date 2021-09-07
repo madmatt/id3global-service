@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<ruleset name="id3global-service">
+    <description>PHP Code Sniffer ruleset for id3global-service module.</description>
+
+    <file>src/</file>
+    <file>tests/</file>
+
+    <!-- Include all PSR-12 coding standards -->
+    <rule ref="PSR12">
+        <!-- Exclude camelCaps method name rule, because we can't use @phpcsSuppress to suppress it on SOAP classes -->
+        <!-- where we have no choice but to use it because the method names need to match the SOAP endpoint names. -->
+        <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+    </rule>
+
+    <!-- Import all slevomat/coding-standard rules, then customise some of them below -->
+    <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
+        <!-- Exclude forcing fully-qualified namespaces in docblocks and exceptions - we declare as use instead -->
+        <!-- Exclude forcing fully-qualified global functions and consts -->
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions.NonFullyQualifiedException"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions.NonFullyQualified"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants.NonFullyQualified"/>
+
+        <!-- Allow the use of any namespace - can't make the namespace exclusion work for `ID3Global` namespace -->
+        <exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces"/>
+
+        <!-- Allow use of superfluous Exception naming to match internal PHP exception classes -->
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix"/>
+
+        <!-- Allow the use of `use` statements for simpler docblocks - phpcs doesn't notice that `use` statements -->
+        <!-- are actually used in docblocks -->
+        <exclude name="SlevomatCodingStandard.Namespaces.UnusedUses.UnusedUse"/>
+
+        <!-- Allow multi-line docblock even when there's only a single line description -->
+        <exclude name="SlevomatCodingStandard.Commenting.RequireOneLineDocComment.MultiLineDocComment"/>
+        <exclude name="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment.MultiLinePropertyComment"/>
+
+        <!-- Don't require a trailing comma in multi-line function calls -->
+        <exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall.MissingTrailingComma"/>
+
+        <!-- Don't force the usage of hard-to-understand ternary operators for 'simple' conditional blocks -->
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator.TernaryOperatorNotUsed"/>
+
+        <!-- Allow 'useless' parentheses when instantiating new classes -->
+        <exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses"/>
+
+        <!-- Ignore suggestions that make the code more convoluted -->
+        <exclude name="SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed"/>
+
+        <!-- Ignore deprecated sniffs -->
+        <exclude name="SlevomatCodingStandard.Files.FunctionLength.FunctionLength"/>
+        <exclude name="SlevomatCodingStandard.Functions.FunctionLength.FunctionLength"/>
+
+        <!-- Yoda conditionals aren't actually that good, especially when we enforce strict type checking anyway -->
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison.RequiredYodaComparison"/>
+
+        <!-- Don't require separation of integers with underscores e.g. 1974 is fine, we don't need to say 1_974 -->
+        <exclude name="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator.RequiredNumericLiteralSeparator"/>
+
+        <!-- Don't require constructor property promotion as we support both PHP7.4 and PHP 8 but run phpcs on 8 -->
+        <exclude name="SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion.RequiredConstructorPropertyPromotion"/>
+    </rule>
+
+    <!-- Require no blank lines after the opening and closing braces {} defining a class -->
+    <rule ref="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces">
+        <properties>
+            <property name="linesCountAfterOpeningBrace" value="0"/>
+            <property name="linesCountBeforeClosingBrace" value="0"/>
+        </properties>
+    </rule>
+
+    <!-- Match PSR-12 standard (not having any spaces around the strict type declaration -->
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+        <properties>
+            <property name="spacesCountAroundEqualsSign" value="0" />
+        </properties>
+    </rule>
+
+    <!-- Ensure PSR-4 autoloading is consistent by specifying our root namespace and directory structure -->
+    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
+        <properties>
+            <property name="rootNamespaces" type="array">
+                <element key="src" value="ID3Global"/>
+                <element key="tests" value="ID3Global\Tests"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Don't require us to define a 'mixed' return typehint as this isn't supported on PHP 7.4 -->
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+        <properties>
+            <property name="enableMixedTypeHint" value="false"/>
+        </properties>
+    </rule>
+
+    <!-- Don't require use of ::class on objects as this is only supported in PHP8 and we support 7.4 as well -->
+    <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference">
+        <properties>
+            <property name="enableOnObjects" value="false"/>
+        </properties>
+    </rule>
+</ruleset>

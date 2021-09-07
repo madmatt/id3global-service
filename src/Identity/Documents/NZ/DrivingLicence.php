@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ID3Global\Identity\Documents\NZ;
 
 use ID3Global\Identity\ID3IdentityObject;
@@ -7,12 +9,12 @@ use ID3Global\Identity\ID3IdentityObject;
 class DrivingLicence extends ID3IdentityObject
 {
     /**
-     * @var string|null The driver licence identifier
+     * @var string|null The driver licence identifier/number (as indicated on the physical document)
      */
     private ?string $Number = null;
 
     /**
-     * @var int|null
+     * @var int|null The driver license version (as indicated on the physical document)
      */
     private ?int $Version = null;
 
@@ -21,19 +23,11 @@ class DrivingLicence extends ID3IdentityObject
      */
     private ?string $VehicleRegistration = null;
 
-    /**
-     * @return string|null
-     */
     public function getNumber(): ?string
     {
         return $this->Number;
     }
 
-    /**
-     * @param string|null $Number
-     *
-     * @return DrivingLicence
-     */
     public function setNumber(?string $Number): DrivingLicence
     {
         $this->Number = $Number;
@@ -41,19 +35,11 @@ class DrivingLicence extends ID3IdentityObject
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getVersion(): ?int
     {
         return $this->Version;
     }
 
-    /**
-     * @param int|null $Version
-     *
-     * @return DrivingLicence
-     */
     public function setVersion(?int $Version): DrivingLicence
     {
         $this->Version = $Version;
@@ -61,19 +47,11 @@ class DrivingLicence extends ID3IdentityObject
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getVehicleRegistration(): ?string
     {
         return $this->VehicleRegistration;
     }
 
-    /**
-     * @param string|null $VehicleRegistration
-     *
-     * @return DrivingLicence
-     */
     public function setVehicleRegistration(?string $VehicleRegistration): DrivingLicence
     {
         $this->VehicleRegistration = $VehicleRegistration;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ID3Global\Tests\Gateway\Request;
 
 use DateTime;
@@ -19,18 +21,11 @@ use stdClass;
 class AuthenticateSPRequestTest extends TestCase
 {
     /**
-     * @var Identity
+     * @var Identity A blank Identity object to be updated during test cases as required
      */
     private Identity $identity;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->identity = new Identity();
-    }
-
-    public function testStandardParams()
+    public function testStandardParams(): void
     {
         $version = new stdClass();
         $version->Version = 1;
@@ -44,7 +39,7 @@ class AuthenticateSPRequestTest extends TestCase
         $this->assertEquals('X', $r->getCustomerReference());
     }
 
-    public function testPersonalDetails()
+    public function testPersonalDetails(): void
     {
         $birthday = DateTime::createFromFormat('Y-m-d', '1973-04-05');
 
@@ -72,7 +67,7 @@ class AuthenticateSPRequestTest extends TestCase
         $this->assertSame('US', $test->CountryOfBirth);
     }
 
-    public function testContactDetails()
+    public function testContactDetails(): void
     {
         $landTelephone = new ContactDetails\PhoneNumber();
         $landTelephone->setNumber('1(800) 786-1410');
@@ -91,7 +86,7 @@ class AuthenticateSPRequestTest extends TestCase
         $this->assertSame('1(800) 786-1410', $test->LandTelephone->Number);
     }
 
-    public function testInternationalPassport()
+    public function testInternationalPassport(): void
     {
         $issueDate = DateTime::createFromFormat('Y-m-d', '2020-01-02');
         $expiryDate = DateTime::createFromFormat('Y-m-d', '2030-01-02');
@@ -122,7 +117,7 @@ class AuthenticateSPRequestTest extends TestCase
         $this->assertSame('Azerbaijan', $test->CountryOfOrigin);
     }
 
-    public function testFixedLengthAddress()
+    public function testFixedLengthAddress(): void
     {
         $address = new FixedFormatAddress();
         $address
@@ -161,7 +156,7 @@ class AuthenticateSPRequestTest extends TestCase
         $this->assertSame('10118', $test->ZipPostcode);
     }
 
-    public function testFreeFormatAddress()
+    public function testFreeFormatAddress(): void
     {
         $address = new FreeFormatAddress();
 
@@ -197,7 +192,7 @@ class AuthenticateSPRequestTest extends TestCase
         $this->assertSame('NZ', $test->AddressLine8);
     }
 
-    public function testNZDrivingLicence()
+    public function testNZDrivingLicence(): void
     {
         $licence = new DrivingLicence();
 
@@ -217,5 +212,12 @@ class AuthenticateSPRequestTest extends TestCase
         $this->assertSame('DI123456', $test->NewZealand->DrivingLicence->Number);
         $this->assertSame(123, $test->NewZealand->DrivingLicence->Version);
         $this->assertSame('ABC123', $test->NewZealand->DrivingLicence->VehicleRegistration);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->identity = new Identity();
     }
 }

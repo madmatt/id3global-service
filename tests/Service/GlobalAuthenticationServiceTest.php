@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ID3Global\Tests\Service;
 
 use DateTime;
@@ -14,12 +16,12 @@ use PHPUnit\Framework\TestCase;
 class GlobalAuthenticationServiceTest extends TestCase
 {
     /**
-     * @var GlobalAuthenticationGatewayFake
+     * @var GlobalAuthenticationGatewayFake The fake gateway that we can update the band text and score on.
      */
     private GlobalAuthenticationGatewayFake $fakeGateway;
 
     /**
-     * @var GlobalAuthenticationService
+     * @var GlobalAuthenticationService The shared service that we use for each test.
      */
     private GlobalAuthenticationService $service;
 
@@ -30,14 +32,10 @@ class GlobalAuthenticationServiceTest extends TestCase
     }
 
     /**
-     * @dataProvider authenticateSp
-     *
-     * @param string|null   $customerReference
-     * @param DateTime|null $birthday
-     *
+     * @dataProvider authenticateSpDataProvider
      * @throws IdentityVerificationFailureException
      */
-    public function testSuccessfulResponse(?string $customerReference, ?DateTime $birthday)
+    public function testSuccessfulResponse(?string $customerReference, ?DateTime $birthday): void
     {
         // Arrange
         $personalDetails = new PersonalDetails();
@@ -63,22 +61,23 @@ class GlobalAuthenticationServiceTest extends TestCase
 
         $response = $this->service->getLastVerifyIdentityResponse();
         $this->assertSame('stdClass', get_class($response));
-        $this->assertSame(GlobalAuthenticationGatewayFake::IDENTITY_BAND_PASS, $response->AuthenticateSPResult->BandText);
+        $this->assertSame(
+            GlobalAuthenticationGatewayFake::IDENTITY_BAND_PASS,
+            $response->AuthenticateSPResult->BandText
+        );
         $this->assertSame('Default Profile', $response->AuthenticateSPResult->ProfileName);
     }
 
     /**
      * @dataProvider fakeResponses
-     *
-     * @param string $profileId
-     * @param int    $profileVersion
-     * @param string $customerReference
-     * @param string $bandText
-     * @param int    $score
-     *
+     * @param string $pId Profile ID value
+     * @param int $pVer Profile Version value
+     * @param string $custRef Customer reference submitted
+     * @param string $bandText The BandText to return from the fake gateway
+     * @param int $score The score to return from the fake gateway
      * @throws IdentityVerificationFailureException
      */
-    public function testFakeResponses(string $profileId, int $profileVersion, string $customerReference, string $bandText, int $score)
+    public function testFakeResponses(string $pId, int $pVer, string $custRef, string $bandText, int $score): void
     {
         // Arrange
         $this->fakeGateway->setBandText($bandText)->setScore($score);
@@ -87,19 +86,21 @@ class GlobalAuthenticationServiceTest extends TestCase
 
         // Act
         $result = $this->service
-            ->setProfileId($profileId)
-            ->setProfileVersion($profileVersion)
-            ->verifyIdentity($identity, $customerReference);
+            ->setProfileId($pId)
+            ->setProfileVersion($pVer)
+            ->verifyIdentity($identity, $custRef);
+
+        $response = $this->service->getLastVerifyIdentityResponse();
 
         // Assert
         $this->assertSame($bandText, $result);
-        $this->assertSame($score, $this->service->getLastVerifyIdentityResponse()->AuthenticateSPResult->Score);
-        $this->assertSame($profileId, $this->service->getLastVerifyIdentityResponse()->AuthenticateSPResult->ProfileID);
-        $this->assertSame($profileVersion, $this->service->getLastVerifyIdentityResponse()->AuthenticateSPResult->ProfileVersion);
-        $this->assertSame($customerReference, $this->service->getLastVerifyIdentityResponse()->AuthenticateSPResult->CustomerRef);
+        $this->assertSame($score, $response->AuthenticateSPResult->Score);
+        $this->assertSame($pId, $response->AuthenticateSPResult->ProfileID);
+        $this->assertSame($pVer, $response->AuthenticateSPResult->ProfileVersion);
+        $this->assertSame($custRef, $response->AuthenticateSPResult->CustomerRef);
     }
 
-    public function testNotSettingProfileIdThrows()
+    public function testNotSettingProfileIdThrows(): void
     {
         $identity = new Identity();
 
@@ -107,7 +108,10 @@ class GlobalAuthenticationServiceTest extends TestCase
         $this->service->verifyIdentity($identity);
     }
 
-    public function authenticateSp(): array
+    /**
+     * @return array<array<?string, ?DateTime>> Various options of customer reference and birthdays for testing purposes
+     */
+    public function authenticateSpDataProvider(): array
     {
         return [
             ['customer-reference', DateTime::createFromFormat('Y-m-d', '1976-03-06')],
@@ -116,6 +120,10 @@ class GlobalAuthenticationServiceTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<array<string, int, string, string, int>> Options for profile id, profile version, customer
+     * reference, BandText to return and score to return from the fake gateway
+     */
     public function fakeResponses(): array
     {
         return [

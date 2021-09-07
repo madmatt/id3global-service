@@ -14,9 +14,9 @@ use stdClass;
 class AuthenticateSPRequest
 {
     /**
-     * @var string
+     * @var ?string
      */
-    private string $CustomerReference;
+    private ?string $CustomerReference;
 
     /**
      * @var stdClass
@@ -111,19 +111,19 @@ class AuthenticateSPRequest
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getCustomerReference(): string
+    public function getCustomerReference(): ?string
     {
         return $this->CustomerReference;
     }
 
     /**
-     * @param string $CustomerReference
+     * @param ?string $CustomerReference
      *
      * @return AuthenticateSPRequest
      */
-    public function setCustomerReference(string $CustomerReference): AuthenticateSPRequest
+    public function setCustomerReference(?string $CustomerReference): AuthenticateSPRequest
     {
         $this->CustomerReference = $CustomerReference;
 

@@ -114,8 +114,15 @@ class InternationalPassport extends ID3IdentityObject
         return $this;
     }
 
-    public function setExpiryDate(DateTime $expiryDate): InternationalPassport
+    public function setExpiryDate(?DateTime $expiryDate): InternationalPassport
     {
+        // Set all expiry date fields to null if we're not given a valid date
+        if (!$expiryDate) {
+            $this->setExpiryDay(null)->setExpiryMonth(null)->setExpiryYear(null);
+
+            return $this;
+        }
+
         $this->setExpiryDay((int)$expiryDate->format('d'));
         $this->setExpiryMonth((int)$expiryDate->format('m'));
         $this->setExpiryYear((int)$expiryDate->format('Y'));
@@ -159,8 +166,15 @@ class InternationalPassport extends ID3IdentityObject
         return $this;
     }
 
-    public function setIssueDate(DateTime $issueDate): InternationalPassport
+    public function setIssueDate(?DateTime $issueDate): InternationalPassport
     {
+        // Set all issue date fields to null if we're not given a valid date
+        if (!$issueDate) {
+            $this->setIssueDay(null)->setIssueMonth(null)->setIssueYear(null);
+
+            return $this;
+        }
+
         $this->setIssueDay((int)$issueDate->format('d'));
         $this->setIssueMonth((int)$issueDate->format('m'));
         $this->setIssueYear((int)$issueDate->format('Y'));

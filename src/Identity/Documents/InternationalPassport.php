@@ -114,7 +114,7 @@ class InternationalPassport extends ID3IdentityObject
         return $this;
     }
 
-    public function setExpiryDate(?DateTime $expiryDate): InternationalPassport
+    public function setExpiryDate(DateTime $expiryDate): InternationalPassport
     {
         $this->setExpiryDay((int)$expiryDate->format('d'));
         $this->setExpiryMonth((int)$expiryDate->format('m'));
@@ -159,7 +159,7 @@ class InternationalPassport extends ID3IdentityObject
         return $this;
     }
 
-    public function setIssueDate(?DateTime $issueDate): InternationalPassport
+    public function setIssueDate(DateTime $issueDate): InternationalPassport
     {
         $this->setIssueDay((int)$issueDate->format('d'));
         $this->setIssueMonth((int)$issueDate->format('m'));

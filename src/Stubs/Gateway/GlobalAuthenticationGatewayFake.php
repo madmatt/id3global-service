@@ -57,8 +57,12 @@ class GlobalAuthenticationGatewayFake extends GlobalAuthenticationGateway
      * @inheritDoc
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
-    public function AuthenticateSP(string $pId, int $pVer, ?string $customerReference, Identity $identity): stdClass
-    {
+    public function AuthenticateSP(
+        string $profileId,
+        int $profileVersion,
+        ?string $customerReference,
+        Identity $identity
+    ): stdClass {
         $result = 'O:8:"stdClass":1:{s:20:"AuthenticateSPResult";O:8:"stdClass":12:{s:16:"AuthenticationID";s:36:"'
             . 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";s:9:"Timestamp";s:33:"2016-01-01T00:00:00.0000000+01:00";s:11:"'
             . 'CustomerRef";s:%d:"%s";s:9:"ProfileID";s:%d:"%s";s:11:"ProfileName";s:15:"Default Profile";s:14:"'
@@ -70,9 +74,9 @@ class GlobalAuthenticationGatewayFake extends GlobalAuthenticationGateway
             $result,
             $customerReference ? strlen($customerReference) : 0,
             $customerReference,
-            strlen($pId),
-            $pId,
-            $pVer,
+            strlen($profileId),
+            $profileId,
+            $profileVersion,
             $this->score,
             strlen($this->bandText),
             $this->bandText

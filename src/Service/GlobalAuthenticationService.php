@@ -81,7 +81,7 @@ class GlobalAuthenticationService extends ID3BaseService
      * you can pass these in here, or call ->setSoapOptions() after constructing the object.
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification
      */
-    public function __construct(?GlobalAuthenticationGateway $gateway, array $soapOptions = [])
+    public function __construct(?GlobalAuthenticationGateway $gateway = null, array $soapOptions = [])
     {
         $this->gateway = $gateway;
         $this->soapOptions = $soapOptions;

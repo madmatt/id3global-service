@@ -10,14 +10,18 @@ use stdClass;
 
 class GlobalAuthenticationGateway extends ID3GlobalBaseGateway
 {
-    public function AuthenticateSP(string $pId, int $pVer, ?string $customerReference, Identity $identity): stdClass
-    {
+    public function AuthenticateSP(
+        string $profileId,
+        int $profileVersion,
+        ?string $customerReference,
+        Identity $identity
+    ): stdClass {
         $request = new AuthenticateSPRequest();
         $request->setCustomerReference($customerReference);
 
         $profile = new stdClass();
-        $profile->Version = $pVer;
-        $profile->ID = $pId;
+        $profile->ID = $profileId;
+        $profile->Version = $profileVersion;
         $request->setProfileIDVersion($profile);
 
         $request->addFieldsFromIdentity($identity);

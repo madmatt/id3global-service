@@ -70,15 +70,20 @@ class GlobalAuthenticationServiceTest extends TestCase
 
     /**
      * @dataProvider fakeResponses
-     * @param string $pId Profile ID value
-     * @param int $pVer Profile Version value
-     * @param string $custRef Customer reference submitted
+     * @param string $profileId Profile ID value
+     * @param int $profileVersion Profile Version value
+     * @param string $customerReference Customer reference submitted
      * @param string $bandText The BandText to return from the fake gateway
      * @param int $score The score to return from the fake gateway
      * @throws IdentityVerificationFailureException
      */
-    public function testFakeResponses(string $pId, int $pVer, string $custRef, string $bandText, int $score): void
-    {
+    public function testFakeResponses(
+        string $profileId,
+        int $profileVersion,
+        string $customerReference,
+        string $bandText,
+        int $score
+    ): void {
         // Arrange
         $this->fakeGateway->setBandText($bandText)->setScore($score);
 
@@ -86,18 +91,18 @@ class GlobalAuthenticationServiceTest extends TestCase
 
         // Act
         $result = $this->service
-            ->setProfileId($pId)
-            ->setProfileVersion($pVer)
-            ->verifyIdentity($identity, $custRef);
+            ->setProfileId($profileId)
+            ->setProfileVersion($profileVersion)
+            ->verifyIdentity($identity, $customerReference);
 
         $response = $this->service->getLastVerifyIdentityResponse();
 
         // Assert
         $this->assertSame($bandText, $result);
         $this->assertSame($score, $response->AuthenticateSPResult->Score);
-        $this->assertSame($pId, $response->AuthenticateSPResult->ProfileID);
-        $this->assertSame($pVer, $response->AuthenticateSPResult->ProfileVersion);
-        $this->assertSame($custRef, $response->AuthenticateSPResult->CustomerRef);
+        $this->assertSame($profileId, $response->AuthenticateSPResult->ProfileID);
+        $this->assertSame($profileVersion, $response->AuthenticateSPResult->ProfileVersion);
+        $this->assertSame($customerReference, $response->AuthenticateSPResult->CustomerRef);
     }
 
     public function testNotSettingProfileIdThrows(): void

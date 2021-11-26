@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ID3Global\Gateway;
 
 use ID3Global\Gateway\Request\AuthenticateSPRequest;
@@ -8,14 +10,18 @@ use stdClass;
 
 class GlobalAuthenticationGateway extends ID3GlobalBaseGateway
 {
-    public function AuthenticateSP(string $profileID, int $profileVersion, ?string $customerReference, Identity $identity)
-    {
+    public function AuthenticateSP(
+        string $profileId,
+        int $profileVersion,
+        ?string $customerReference,
+        Identity $identity
+    ): stdClass {
         $request = new AuthenticateSPRequest();
         $request->setCustomerReference($customerReference);
 
         $profile = new stdClass();
+        $profile->ID = $profileId;
         $profile->Version = $profileVersion;
-        $profile->ID = $profileID;
         $request->setProfileIDVersion($profile);
 
         $request->addFieldsFromIdentity($identity);

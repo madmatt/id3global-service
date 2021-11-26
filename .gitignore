@@ -1,4 +1,5 @@
+/.artifacts
 /.idea
+/.phpunit.result.cache
+/composer.lock
 /vendor
-.phpunit.result.cache
-*.lock

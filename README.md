@@ -14,124 +14,52 @@ The WSDL file gives an overview of the values that can be provided, these will v
 * [Online WSDL viewer](http://www.id3globalsupport.com/Website/content/Web-Service/WSDL%20Page/WSDL%20HTML/ID3%20Global%20WSDL-%20Live.xhtml)
 * [Sample code per country](http://www.id3globalsupport.com/Website/Sample-Code.html)
 
-*Note:* The code below is entirely subject to change. It is primarily focused at the moment around the `AuthenticateSP` method of the ID3global API, and specifically on New Zealand (Aotearoa), however it should be generic enough to easily support other countries.
+Please see the [Full Code Example](docs/full-code-example.md) that provides a complete overview of usage of this module.
+
+### Accessing the underlying ID3global request and response
+Depending on your use case, you may need to access the underlying request sent to ID3global, or the response returned by the ID3global API. Typical use cases of this are for auditing purposes - to confirm that identity information hasn't changed since the last time an identity verification was performed for example.
+
+In order to facilitate this, the `GlobalAuthenticationService` class has a number of helper methods to give you access to the underlying data. All of the below code assumes that you have already called the `->verifyIdentity()` method and that either you have a valid BandText, or you have caught the `IdentityVerificationFailureException` that may be thrown.
 
 ```php
-/**
- * Namespaces:
- *
- * \ID3Global\Constants\Identity
- * \ID3Global\Gateways\GlobalAuthenticationGateway
- * \ID3Global\Services\GlobalAuthenticationService
- * \ID3Global\Identity\Address\FreeFormatAddress
- * \ID3Global\Identity\Address\FixedFormatAddress
- * \ID3Global\Identity\ContactDetails
- * \ID3Global\Identity\ContactDetails\LandTelephone
- * \ID3Global\Identity\ContactDetails\MobileTelephone
- * \ID3Global\Identity\ContactDetails\WorkTelephone
- * \ID3Global\Identity\Documents\NZ\DrivingLicence
- * \ID3Global\Identity\PersonalDetails
- *
- * \ID3Global\Identity\Addresses<\ID3Global\Identity\Address\FreeFormatAddress, \ID3Global\Identity\Address\FixedFormatAddress>
- *     - CurrentAddress
- *     - PreviousAddress[1-3]
- *     - HistoricAddresses<\ID3Global\Identity\Address\FreeFormatAddress, \ID3Global\Identity\Address\FixedFormatAddress>
- *
- * \ID3Global\Identity\Documents
- *
- * Not core for implementation
- * \ID3Global\Identity\Aliases
- * \ID3Global\Identity\AlternateName
- * \ID3Global\Identity\BankingDetails\BankAccount
- * \ID3Global\Identity\BankingDetails\CreditDebitCard
- * \ID3Global\Identity\Documents\Address\UK\ElectricitySupplier
- * \ID3Global\Identity\Documents\Identity\Global\InternationalPassport
- * \ID3Global\Identity\Documents\Identity\Europe\EuropeanIdentityCard
- * \ID3Global\Identity\Documents\Identity\AU\ShortPassport
- * \ID3Global\Identity\Documents\Identity\AU\Medicare
- * \ID3Global\Identity\Documents\Identity\BR\CPFNumber
- * \ID3Global\Identity\Documents\Identity\CA\SocialInsuranceNumber
- * \ID3Global\Identity\Documents\Identity\CN\ResidentIdentityCard
- * \ID3Global\Identity\Documents\Identity\ES\TaxIDNumber
- * \ID3Global\Identity\Documents\Identity\MX\TaxIdentificationNumber
- * \ID3Global\Identity\Documents\Identity\UK\Passport
- * \ID3Global\Identity\Documents\Identity\UK\DrivingLicence
- * \ID3Global\Identity\Documents\Identity\UK\NationalInsuranceNumber
- * \ID3Global\Identity\Documents\Identity\UK\DrivingLicence
- * \ID3Global\Identity\Documents\Identity\US\DrivingLicence
- * \ID3Global\Identity\Documents\Identity\US\SocialSecurity
- * \ID3Global\Identity\Documents\Identity\US\IdentityCard
- * \ID3Global\Identity\Employment
- * \ID3Global\Identity\GlobalGeneric
- * \ID3Global\Identity\Images
- * \ID3Global\Identity\Location
- * \ID3Global\Identity\PersonalDetails\BirthInfo
- */
+// Assumes $service is an instance of ID3Global\Service\GlobalAuthenticationService
 
-$birthday = DateTime::createFromFormat('Y-m-d', '1922-08-20');
-$personalDetails = new \ID3Global\Identity\PersonalDetails();
-$personalDetails
-    ->setTitle('Mr')
-    ->setForeName('Dworkin')
-    ->setMiddleName('John')
-    ->setSurname('Barimen')
-    ->setGender('male')
-    ->setDateOfBirth($birthday);
+// Return the last SOAP request made to the ID3global API as a string
+$lastRawRequest = $service->getLastRawRequest();
 
-$currentAddress = new \ID3Global\Identity\Address\FreeFormatAddress();
-$currentAddress
-    ->setCountry('New Zealand')
-    ->setPostCode('90210')
-    // You can set up to 8 address lines if required using ->setAddressLine3(), ->setAddressLine8() etc.
-    ->setAddressLine1('Dungeon 1')
-    ->setAddressLine2('Courts of Amber');
+// Returns the SoapClient interpreted response from the API (this will be an object of type \stdClass, or null if the SOAP request failed entirely
+// For example you can access the BandText of a valid response with $lastResponse->AuthenticateSPResult->BandText
+$lastResponse = $service->getLastVerifyIdentityResponse();
 
-$addressContainer = new \ID3Global\Identity\Address\AddressContainer();
-$addressContainer->setCurrentAddress($currentAddress);
+// Access the underlying SoapClient object to perform more detailed debugging
+$gateway = $service->getGateway(); // Returns a ID3Global\Gateway\GlobalAuthenticationGateway object
+$soapClient = $gateway->getSoapClient(); // Returns a ID3Global\Gateway\SoapClient\ID3GlobalSoapClient object
 
-$phone = new \ID3Global\Identity\ContactDetails\PhoneNumber();
-$phone->setNumber(1234567890);
+// You can then do anything you'd normally do on SoapClient, such as:
+$lastRawRequestHeaders = $soapClient->__getLastRequestHeaders(); // Returns an array of the headers sent to the API
+$lastRawResponse = $soapClient->__getLastResponse(); // Returns the last response returned by the API
+```
 
-$contactDetails = new \ID3Global\Identity\ContactDetails();
-$contactDetails
-    ->setLandTelephone($phone)
-    ->setMobileTelephone($phone)
-    ->setWorkTelephone($phone)
-    ->setEmail('dworkin@thepattern.net');
+### Debugging identity verification failures
+In certain circumstances, generally when the ID3Global API produces unexpected results, you may get an `IdentityVerificationFailureException` returned to you. This can happen in a number of scenarios, such as required fields being missing from the request, or data being in an invalid format.
 
-$internationalPassport = new \ID3Global\Identity\Documents\InternationalPassport();
-$documentContainer = new \ID3Global\Identity\Documents\DocumentContainer();
-$documentContainer->addIdentityDocument(new \ID3Global\Identity\Documents\NZ\DrivingLicence(), 'New Zealand');
+You should also wrap your `->verifyIdentity()` calls within a try/catch to prevent users from seeing these exceptions.
 
-/**
- * $result will be a string representing the 'BandText' as returned by the ID3global API. By default, this may be a word
- * like 'PASS', 'REFER' or 'ALERT' but could also be any string value e.g. 'Name, Address and DOB Match'. The exact
- * string returned is entirely dependent on how the profile is configured within ID3global, and can vary if you adjust
- * the profile id and profile version.
- *
- * It is up to your implementation how these are handled. Note that generally there is only a single value that
- * represents an identity that has passed the necessary verification, and multiple BandTexts that represent a failing
- * identity. You **must** handle this in your own code, as the ID3Global API does not provide any kind of boolean value
- * for whether a given identity passed identity verification or not.
- *
- * An exception is thrown if the web service fails or cannot be contacted.
- */
-$validIdentityBandText = 'PASS'; // See note above about how this may differ for you
+By default, this library does not expose information in the exception message that would leak personally identifiable information, however this can be enabled if you are confident that the exception is properly handled (e.g. is being forwarded to a GDPR-compliant logging service). Sometimes this level of detail is necessary to determine why the API request failed.
 
-$identity = new \ID3Global\Identity\Identity();
-$identity
-    ->setPersonalDetails($personalDetails)
-    ->setAddresses($addressContainer)
-    ->setContactDetails($contactDetails)
-    ->setIdentityDocuments($documentContainer);
+You can enable logging of this information via the exception message with the following configuration:
 
-$gateway = new \ID3Global\Gateway\GlobalAuthenticationGateway('username', 'password');
-$id3Service = new \ID3Global\Service\GlobalAuthenticationService($gateway);
-$result = $id3Service
-    ->setProfileId('Profile ID as provided by ID3global interface')
-    ->verifyIdentity($identity, 'Unique customer reference');
+```php
+$service = new ID3Global\Service\GlobalAuthenticationService;
 
-if($result === $validIdentityBandText) {
-    // Identity is verified, continue processing
+// Must be set before calling ->verifyIdentity()
+$service->setVerboseExceptionHandling(true);
+
+// Either way, regardless of whether or not you enable verbose exception handling, IdentityVerificationFailureException will still contain the response
+try {
+    $service->verifyIdentity($identity, 'customer reference');
+} catch (IdentityVerificationFailureException $e) {
+    /** @var stdClass $response */
+    $response = $e->getResponse();
 }
 ```
